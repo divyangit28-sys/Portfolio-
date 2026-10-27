@@ -155,7 +155,7 @@ section.room.beige{background:linear-gradient(180deg,var(--bg) 0%,var(--beige) 2
 .side .blk{padding:20px 0;border-top:1px solid var(--line)}
 .side .blk:first-child{border-top:1px solid var(--ink)}
 .side p{margin:0;font-size:15px}
-.cv-hl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:-8px 0 44px;border-radius:20px;background:linear-gradient(140deg,var(--beige) 15%,#F3EDF5 60%,var(--lav-soft));border:1px solid var(--beige-deep)}
+.cv-hl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:-8px 0 44px;border-radius:20px;background:linear-gradient(140deg,var(--beige) 15%,#F3EDF5 60%,var(--lav-soft));border:1px solid var(--beige-deep)}
 .cv-hl div{display:flex;flex-direction:column;gap:4px;padding:22px 26px;min-width:0}
 .cv-hl div+div{border-left:1px solid var(--beige-deep)}
 .cv-hl b{font-size:clamp(34px,4vw,48px);font-weight:700;letter-spacing:-.045em;line-height:1;color:var(--lav-ink);font-variant-numeric:tabular-nums}
@@ -167,6 +167,7 @@ section.room.beige{background:linear-gradient(180deg,var(--bg) 0%,var(--beige) 2
 .cv-cta .btn:hover .dl-ic{transform:translateY(2px)}
 .cv-cta .btn[aria-busy="true"]{opacity:.7;pointer-events:none}
 .dl-msg{font-size:13px;color:var(--muted)}
+@media (max-width:900px){.cv-hl{grid-template-columns:repeat(2,minmax(0,1fr))}.cv-hl div:nth-child(3){border-left:0}.cv-hl div:nth-child(n+3){border-top:1px solid var(--beige-deep)}}
 @media (max-width:600px){.cv-hl{grid-template-columns:minmax(0,1fr)}.cv-hl div+div{border-left:0;border-top:1px solid var(--beige-deep)}.cv-hl div{padding:16px 20px}}
 .contact{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,auto);gap:28px 48px;align-items:end;padding:clamp(28px,5vw,56px);border-radius:28px;background:linear-gradient(140deg,var(--beige) 15%,#F3EDF5 55%,var(--lav-soft));border:1px solid var(--beige-deep)}
 .contact .mono{color:var(--lav-ink)}
@@ -607,9 +608,9 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
 @keyframes tcWrite{0%{transform:scaleX(0);opacity:.2}35%{transform:scaleX(1);opacity:1}80%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
 .tc-caret{display:inline-block;width:2px;height:.9em;margin-left:4px;vertical-align:-.08em;background:#D3B9E6;animation:tcBlink 1s steps(1) infinite}
 @keyframes tcBlink{50%{opacity:0}}
-</style>
-</head>
+</style></head>
 <body>
+
 <!-- ============ INTRO CURTAIN ============ -->
 <div id="intro" hidden aria-label="Welcome to Divyangi's Design Lab">
   <div class="veil"></div>
@@ -757,7 +758,8 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
         </div>
       </div>
       <div class="cv-hl" aria-label="Headline results">
-        <div><b>65%</b><span>faster order creation</span></div>
+        <div><b>80%</b><span>less documentation time</span></div>
+        <div><b>77%</b><span>booking completion, up from 58%</span></div>
         <div><b>35%</b><span>fewer support tickets</span></div>
         <div><b>41%</b><span>higher order value</span></div>
       </div>
@@ -767,8 +769,8 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
             <li>Designed a B2B tool for freight companies to document, track and manage shipments, replacing manual, fragmented workflows.</li>
             <li>Mapped operations teams' workflows through user research, then turned the findings into user flows, information architecture and task-focused dashboards.</li>
             <li>Designed AI-driven workflows that automate repetitive documentation and tracking, cutting manual effort for operations teams.</li>
-            <li>Built wireframes and high-fidelity prototypes in Figma; A/B testing key flows before rollout is in progress.</li></ul></div></div>
-          <div class="job"><time>2024 — Now</time><div><h3>Associate Product Manager, UX &amp; Product</h3><div class="org">Connect and Heal · Healthtech, Bangalore</div><ul>
+            <li>Built wireframes and high-fidelity prototypes in Figma and shipped the first release in 3 months: documentation time down 80% (30 → 6 min), calls per client down 80% (10 → 2), client retention up 34%, and 4 new clients signed in the first 3 weeks.</li></ul></div></div>
+          <div class="job"><time>2024 — Apr 2026</time><div><h3>Associate Product Manager, UX &amp; Product</h3><div class="org">Connect and Heal · Healthtech, Bangalore</div><ul>
             <li>AI support bot: designed the conversational flows and decision logic; L1 tickets down 35% and first contact resolution up 20% in 3 months.</li>
             <li>Pharmacy, with Tata 1mg: redesigned the catalog around condition-based browsing; drop-off down 30%, order value up 41%, cancellations down 10%.</li>
             <li>Pet care: launched a new user segment after a longitudinal user study; the fastest activation of any service.</li>
@@ -776,9 +778,9 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
             <li>Gmail integration: auto-organised users' health records, cutting record search time 32%.</li>
             <li>Invoicing: unified GST-compliant billing across services, removing manual steps for users, insurers and internal teams.</li></ul></div></div>
           <div class="job"><time>2022 — 2024</time><div><h3>UX Researcher</h3><div class="org">Connect and Heal · Healthtech, Bangalore</div><ul>
-            <li>Prescribed orders: found drop-offs in Amplitude and validated the causes through interviews; drop-off down 20%, order creation time down 65%, adjudication time down 80%, acquisition up 15%.</li>
+            <li>Prescribed orders: found drop-offs in Amplitude, validated the causes through interviews, and redesigned booking so AI reads the prescription and people check it. In the first month, booking completion rose from 58% to 77%, approval time fell from ~20 to 7 min, and orders grew by 5,538 a month (+12.3%), with cancellations steady at 2.6%.</li>
             <li>Diagnostics: iterative A/B tests on low-effort fixes raised order completions 20%.</li>
-            <li>EHR: interviewed doctors on their workflows and shipped an EHR in 2 months (SNOMED CT, ICD-10), cutting time to market 20%.</li>
+            <li>EMR for on-site clinics: interviewed doctors on their workflows and shipped in 2 months (SNOMED CT, ICD-10), cutting time to market 20%. In testing, a prescription took 40 sec on average (target under 60) with zero failed submissions, and handover time fell 67% (3 → 1 min).</li>
             <li>Health records: led persona research; upload time down 70%, activation up 15%.</li>
             <li>Heuristic evaluation: audited core journeys and drove a redesign of key service flows.</li></ul></div></div>
           <div class="job"><time>2019 — 2022</time><div><h3>Internships &amp; early experience</h3><div class="org">F Gear · KH Exports · Inkshed Solutions · Decathlon India</div><ul>
@@ -849,7 +851,7 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
         <div class="portrait"><canvas id="pcell" aria-hidden="true"></canvas><span class="silver">D</span><small>Specimen: curious</small></div>
         <div class="bio">
           <p>I treat every product question as a hypothesis until real people prove it right or wrong.</p>
-          <p>I'm a UX designer and researcher with 4+ years in healthtech and B2B logistics. At Connect and Heal I started as a UX researcher and now work as an associate product manager across UX and product; alongside that, I design for F16s, a platform for freight companies.</p>
+          <p>I'm a UX designer and researcher with 4+ years in healthtech and B2B logistics. At Connect and Heal I started as a UX researcher and went on to work as an associate product manager across UX and product, until April 2026. Now I design for F16s, a platform for freight companies.</p>
           <p>I trained in product design at NIFT, and I still like the part where the data surprises everyone, me included.</p>
           <div class="sheet">
             <div><div class="k">Methods</div><div class="v">Interviews, usability testing, mixed methods, heuristic evaluation, A/B tests, funnel analysis</div></div>
@@ -875,8 +877,8 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
         <li><time>2020.12</time><span class="dot"></span><div><span class="tag">Log 003 · Internships</span><h3>Content, SEO and market research</h3><p>SEO and content strategy at Inkshed Solutions that raised user retention 15%, then trend and market research for client pitches at KH Exports.</p></div></li>
         <li><time>2022.01</time><span class="dot"></span><div><span class="tag">Log 004 · Turning point</span><h3>User research intern at F Gear</h3><p>Behaviour and ergonomics research that refined positioning and pricing and raised the average product price 20%.</p></div></li>
         <li><time>2022</time><span class="dot"></span><div><span class="tag">Log 005 · Healthtech</span><h3>UX Researcher at Connect and Heal</h3><p>Found drop-offs in Amplitude and fixed them with interviews and A/B tests, and shipped an EHR in 2 months.</p></div></li>
-        <li><time>2024</time><span class="dot"></span><div><span class="tag">Log 006 · Product</span><h3>Associate Product Manager, UX &amp; Product</h3><p>An AI support bot, a pharmacy catalog with Tata 1mg, pet care, self-booked appointments, Gmail health records and GST invoicing.</p></div></li>
-        <li class="now"><time>2026.07</time><span class="dot"></span><div><span class="tag">Log 007 · Now</span><h3>Freelance UX designer for F16s</h3><p>Designing a B2B tool for freight companies, with AI workflows that automate documentation and tracking.</p></div></li>
+        <li><time>2024</time><span class="dot"></span><div><span class="tag">Log 006 · Product</span><h3>Associate Product Manager, UX &amp; Product</h3><p>Shipped an AI support bot, a pharmacy catalog with Tata 1mg, pet care, self-booked appointments, Gmail health records and GST invoicing, before moving on in April 2026.</p></div></li>
+        <li class="now"><time>2026.07</time><span class="dot"></span><div><span class="tag">Log 007 · Now</span><h3>Freelance UX designer for F16s</h3><p>Designed a B2B tool for freight companies with AI workflows: documentation now takes 6 min instead of 30, and client retention is up 34%.</p></div></li>
       </ol>
       <div class="ctas after">
         <a class="btn" href="#work">See the work →</a>
@@ -1316,13 +1318,13 @@ const Cells=(function(){
   /* headline figures on the covers, taken from the resume */
   const COVER_STATS={
     emr:{color:'#189B8F',pill:['20%','faster time to market']},
-    rx:{color:'#3157D6',stats:[['Order creation','−65%'],['Adjudication','−80%'],['Drop-off','−20%']]}
+    rx:{color:'#3157D6',stats:[['Completion','77%'],['Approval','7 min'],['Extra orders','+5,538']]}
   };
-  /* the card text; kept here so the sync task's projects.json schema stays unchanged. EMR and Prescribed Services use the figures from the resume */
+  /* the card text; kept here so the sync task's projects.json schema stays unchanged. Figures match the resume section */
   const STORY={
-    emr:'Clinics ran on paper registers. Interviews with doctors shaped an EHR that shipped in 2 months, cutting time to market by 20%.',
+    emr:'Clinics ran on paper registers. Interviews with doctors shaped an EMR that shipped in 2 months, cutting time to market by 20%.',
     f16s:'Freight teams retyped every document. Now AI reads them: documentation takes 6 min instead of 30, and retention is up 34%.',
-    rx:'Drop-offs found in Amplitude, causes confirmed in interviews. Drop-off fell 20%, order creation time 65% and adjudication time 80%; acquisition rose 15%.'
+    rx:'Drop-offs found in Amplitude, causes confirmed in interviews. Now AI reads the prescription: completion rose from 58% to 77%, and approval takes 7 min instead of 20.'
   };
   function card(p,i){
     const m=p.metric||{};
