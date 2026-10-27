@@ -160,7 +160,9 @@ section.room.beige{background:linear-gradient(180deg,var(--bg) 0%,var(--beige) 2
 .cv-hl div+div{border-left:1px solid var(--beige-deep)}
 .cv-hl b{font-size:clamp(34px,4vw,48px);font-weight:700;letter-spacing:-.045em;line-height:1;color:var(--lav-ink);font-variant-numeric:tabular-nums}
 .cv-hl span{font-size:15px;color:var(--muted)}
-.job ul li+li{margin-top:4px}
+.job ul li+li{margin-top:10px}
+.job ul li b{color:var(--ink);font-weight:600}
+.job ul li .im{display:block;margin-top:2px;color:var(--lav-ink);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums}
 .cv-intro{display:flex;flex-direction:column;gap:18px}
 .cv-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .cv-cta .btn .dl-ic{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
@@ -766,28 +768,22 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
       <div class="cv">
         <div>
           <div class="job"><time>Jul 2026 — Now</time><div><h3>UX Designer (Freelance)</h3><div class="org">F16s · B2B logistics</div><ul>
-            <li>Designed a B2B tool for freight companies to document, track and manage shipments, replacing manual, fragmented workflows.</li>
-            <li>Mapped operations teams' workflows through user research, then turned the findings into user flows, information architecture and task-focused dashboards.</li>
-            <li>Designed AI-driven workflows that automate repetitive documentation and tracking, cutting manual effort for operations teams.</li>
-            <li>Built wireframes and high-fidelity prototypes in Figma and shipped the first release in 3 months: documentation time down 80% (30 → 6 min), calls per client down 80% (10 → 2), client retention up 34%, and 4 new clients signed in the first 3 weeks.</li></ul></div></div>
+            <li><b>Documentation:</b> AI now reads freight papers that teams used to retype.<span class="im">Documentation time 30 → 6 min</span></li>
+            <li><b>Tracking:</b> shipment status lives on one board instead of phone calls.<span class="im">Calls per client 10 → 2</span></li>
+            <li><b>Growth:</b> the platform kept clients and won new ones.<span class="im">Retention +34% · 4 new clients in 3 weeks</span></li></ul></div></div>
           <div class="job"><time>2024 — Apr 2026</time><div><h3>Associate Product Manager, UX &amp; Product</h3><div class="org">Connect and Heal · Healthtech, Bangalore</div><ul>
-            <li>AI support bot: designed the conversational flows and decision logic; L1 tickets down 35% and first contact resolution up 20% in 3 months.</li>
-            <li>Pharmacy, with Tata 1mg: redesigned the catalog around condition-based browsing; drop-off down 30%, order value up 41%, cancellations down 10%.</li>
-            <li>Pet care: launched a new user segment after a longitudinal user study; the fastest activation of any service.</li>
-            <li>Self-booked appointments: cut operations effort 24% and opened a new paying user segment.</li>
-            <li>Gmail integration: auto-organised users' health records, cutting record search time 32%.</li>
-            <li>Invoicing: unified GST-compliant billing across services, removing manual steps for users, insurers and internal teams.</li></ul></div></div>
+            <li><b>AI support bot:</b> took repeat queries off the support desk.<span class="im">L1 tickets −35% · first contact resolution +20%</span></li>
+            <li><b>Pharmacy, with Tata 1mg:</b> condition-based browsing made medicines easier to find.<span class="im">Drop-off −30% · order value +41%</span></li>
+            <li><b>Self-booked appointments:</b> patients book without calling operations.<span class="im">Operations effort −24%</span></li>
+            <li><b>Gmail health records:</b> records sort themselves.<span class="im">Search time −32%</span></li></ul></div></div>
           <div class="job"><time>2022 — 2024</time><div><h3>UX Researcher</h3><div class="org">Connect and Heal · Healthtech, Bangalore</div><ul>
-            <li>Prescribed orders: found drop-offs in Amplitude, validated the causes through interviews, and redesigned booking so AI reads the prescription and people check it. In the first month, booking completion rose from 58% to 77%, approval time fell from ~20 to 7 min, and orders grew by 5,538 a month (+12.3%), with cancellations steady at 2.6%.</li>
-            <li>Diagnostics: iterative A/B tests on low-effort fixes raised order completions 20%.</li>
-            <li>EMR for on-site clinics: interviewed doctors on their workflows and shipped in 2 months (SNOMED CT, ICD-10), cutting time to market 20%. In testing, a prescription took 40 sec on average (target under 60) with zero failed submissions, and handover time fell 67% (3 → 1 min).</li>
-            <li>Health records: led persona research; upload time down 70%, activation up 15%.</li>
-            <li>Heuristic evaluation: audited core journeys and drove a redesign of key service flows.</li></ul></div></div>
+            <li><b>Prescribed orders:</b> people quit while waiting for approval, so AI now reads the prescription.<span class="im">Completion 58% → 77% · approval 20 → 7 min · +5,538 orders a month</span></li>
+            <li><b>Clinic EMR:</b> replaced paper registers in on-site clinics, shipped in 2 months.<span class="im">40 sec per prescription · time to market −20%</span></li>
+            <li><b>Health records:</b> persona research simplified record uploads.<span class="im">Upload time −70% · activation +15%</span></li>
+            <li><b>Diagnostics:</b> A/B-tested quick fixes to the order flow.<span class="im">Order completions +20%</span></li></ul></div></div>
           <div class="job"><time>2019 — 2022</time><div><h3>Internships &amp; early experience</h3><div class="org">F Gear · KH Exports · Inkshed Solutions · Decathlon India</div><ul>
-            <li>User Research Intern, F Gear (Jan–Apr 2022): behaviour and ergonomics research that refined positioning and pricing, raising the average product price 20%.</li>
-            <li>Research Intern, KH Exports (Jun–Aug 2021): trend and market research that sharpened client pitches and improved conversion.</li>
-            <li>Content &amp; SEO Intern, Inkshed Solutions (Dec 2020–Jan 2021): SEO and content strategy that raised user retention 15%.</li>
-            <li>Part-Time Associate, Decathlon India (Mar 2019–Mar 2020): communication design, CRM, inventory and customer management.</li></ul></div></div>
+            <li><b>F Gear:</b> ergonomics research that reset positioning and pricing.<span class="im">Average price +20%</span></li>
+            <li><b>Inkshed Solutions:</b> content and SEO strategy.<span class="im">Retention +15%</span></li></ul></div></div>
         </div>
         <div class="side">
           <div class="blk"><h4>Research</h4><p>User interviews · Usability testing · Mixed-methods research · Heuristic evaluation · Personas · Competitive analysis</p></div>
