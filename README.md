@@ -2,7 +2,8 @@
 
 The portfolio website of Divyangi Tiwari, UX researcher and designer.
 
-This repository is the live site. Cloudflare Pages deploys every push to `main`; there is no build step and the site is served from the repository root.
+This repository is the live site, published with GitHub Pages from the root of `main`: https://divyangit28-sys.github.io/Portfolio-/
+Every push to `main` goes live within a minute or two. There is no build step.
 
 ## What's here
 
