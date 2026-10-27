@@ -1,0 +1,122 @@
+{
+  "v": 1,
+  "syncedAt": "2026-10-22T08:40:37+05:30",
+  "projects": [
+    {
+      "id": "emr",
+      "url": "https://claude.ai/artifact/1XNRzu7SxNusNmdQxQsupN",
+      "source": "Scrollable case study page",
+      "name": "On-site clinic EMR",
+      "sector": "Health tech · Clinics",
+      "title": "From paper registers to one simple record",
+      "summary": "Helping on-site clinics swap paper registers for one record that works for doctors, nurses and the employers who care for them.",
+      "role": "Core UX research",
+      "format": "End-to-end responsive website",
+      "metric": {
+        "value": "40 sec",
+        "label": "average time to complete a prescription, target under 60"
+      },
+      "preview": {
+        "style": "emr",
+        "ground": "#F0F0F2",
+        "ink": "#111111",
+        "soft": "#8E8E93",
+        "accent": "#189B8F",
+        "lead": "Swapping paper registers for",
+        "key": "one simple record",
+        "tail": "for doctors, nurses and employers.",
+        "label": "Overview",
+        "facts": [
+          {
+            "k": "Project type",
+            "v": "Responsive website"
+          },
+          {
+            "k": "Industry",
+            "v": "Health tech"
+          },
+          {
+            "k": "My role",
+            "v": "Core UX research"
+          }
+        ]
+      },
+      "cover": "covers/emr.jpg"
+    },
+    {
+      "id": "f16s",
+      "url": "https://claude.ai/artifact/DNzFAxT93Tqzdz2HH4PKYx",
+      "source": "Design canvas: Main.dc.html (1 · Overview)",
+      "name": "F16s",
+      "sector": "Logistics · Freight",
+      "title": "A one-stop platform for freight companies",
+      "summary": "Taking freight teams from cumbersome paperwork to an AI-enabled system: no more retyping documents, chasing shipment status or handing out tasks by word of mouth.",
+      "role": "UX Designer",
+      "format": "Web platform, 3 months",
+      "metric": {
+        "value": "3 months",
+        "label": "first release, from new enquiry to finished documentation"
+      },
+      "preview": {
+        "style": "f16s",
+        "ground": "#F3F4F6",
+        "ink": "#2B3140",
+        "soft": "#6F788B",
+        "accent": "#5F7FBF",
+        "mint": "#8FCFBF",
+        "headline": "A one-stop platform for freight companies",
+        "label": "01 — Overview",
+        "pill": "AWB extraction",
+        "pillState": "Active",
+        "ring": {
+          "value": "3",
+          "unit": "months"
+        }
+      },
+      "cover": "covers/f16s.jpg"
+    },
+    {
+      "id": "rx",
+      "url": "https://claude.ai/artifact/CQ6a44ZLc5tRAbA4kTXzvy",
+      "source": "Case study page: hero section",
+      "name": "Prescribed Services",
+      "sector": "Health tech · AI booking",
+      "title": "Read by AI. Checked by people. Approved in 7 min.",
+      "summary": "A prescription-first redesign of lab booking for corporate patients on the CNH platform.",
+      "role": "UX Researcher and Designer",
+      "format": "Web and app",
+      "metric": {
+        "value": "77%",
+        "label": "booking completion, up from 58%"
+      },
+      "preview": {
+        "style": "rx",
+        "ground": "#E8EDF8",
+        "ink": "#13285C",
+        "soft": "#7A86A3",
+        "accent": "#3157D6",
+        "lines": [
+          "Read by AI.",
+          "Checked by people."
+        ],
+        "key": "Approved in 7 min.",
+        "label": "AI-assisted prescription booking",
+        "stats": [
+          {
+            "k": "Completion",
+            "v": "77%"
+          },
+          {
+            "k": "Approval",
+            "v": "7 min"
+          },
+          {
+            "k": "Extra orders",
+            "v": "+5,538"
+          }
+        ]
+      },
+      "cover": "covers/rx.jpg"
+    }
+  ]
+}
