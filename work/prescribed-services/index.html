@@ -1,0 +1,1047 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Prescribed Services Case Study · Divyangi Tiwari</title><meta name="author" content="Divyangi Tiwari"><link rel="icon" href="../../avatar.png"><style>@media (max-width:480px){.nav .mono{display:none}}</style><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a clinical-blue ground with large frosted panels per chapter; glass cards, glowing AI orbs and glass pedestals carry the "AI meets medicine" idea. Deliberately single light theme. */
+:root{
+  --ground:#E8EDF8;      /* cool clinical blue-grey */
+  --edge:#7B9CEB;        /* periwinkle frame glow */
+  --ink:#13285C;         /* deep navy for headlines */
+  --ink-2:#44527A;       /* body text */
+  --muted:#7A86A3;       /* captions */
+  --cobalt:#3157D6;      /* accent: AI, links, focus */
+  --azure:#9DB7FF;       /* glow */
+  --panel:#F3F6FC;       /* chapter panels */
+  --line:rgba(19,40,92,.10);
+  --mint:#2A9A63;        /* approved (semantic) */
+  --amber:#C2850F;       /* AI unsure (semantic) */
+  --rose:#C9473F;        /* not covered (semantic) */
+  --f-display:"Roboto",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --f-body:"Roboto",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --f-mono:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;color:var(--ink-2);font-family:var(--f-body);font-size:16px;line-height:1.6;
+  background:
+    radial-gradient(900px 520px at 100% -4%, rgba(123,156,235,.55), transparent 62%),
+    radial-gradient(760px 520px at -8% 30%, rgba(157,183,255,.45), transparent 60%),
+    radial-gradient(900px 600px at 105% 70%, rgba(123,156,235,.35), transparent 60%),
+    linear-gradient(180deg,#EEF2FB 0%,var(--ground) 60%,#DFE7F7 100%);
+  -webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:#EEF2FB}
+a{color:var(--cobalt)}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+/* type */
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cobalt);display:flex;align-items:center;gap:10px;margin:0}
+.eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cobalt);box-shadow:0 0 0 4px rgba(49,87,214,.15),0 0 12px 2px rgba(49,87,214,.6)}
+h1,h2,h3{color:var(--ink);margin:0;text-wrap:balance}
+h1{font-family:var(--f-display);font-weight:500;font-size:clamp(40px,4.7vw,60px);line-height:1.02;letter-spacing:-.025em}
+h1 em{font-style:italic;color:var(--cobalt)}
+h2{font-family:var(--f-display);font-weight:500;font-size:clamp(30px,4vw,50px);line-height:1.08;letter-spacing:-.02em}
+h2 em{font-style:italic;color:var(--cobalt)}
+h3{font-family:var(--f-body);font-weight:700;font-size:18px;line-height:1.3;letter-spacing:-.01em}
+p{margin:0;max-width:66ch}
+.lede{font-size:clamp(17px,1.6vw,19px);line-height:1.6;color:var(--ink-2)}
+.small{font-size:14px;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* surfaces */
+.panel{background:linear-gradient(180deg,rgba(247,249,254,.92),rgba(238,243,252,.86));border:1px solid rgba(255,255,255,.95);border-radius:36px;
+  box-shadow:0 40px 90px -50px rgba(35,65,160,.45),inset 0 1px 0 #fff;padding:clamp(26px,4.6vw,64px);display:flex;flex-direction:column;gap:clamp(28px,3.4vw,44px);min-width:0}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.80),rgba(255,255,255,.42));border:1px solid rgba(255,255,255,.95);border-radius:22px;
+  -webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);
+  box-shadow:0 18px 40px -22px rgba(49,87,214,.35),inset 0 1px 0 rgba(255,255,255,1)}
+.head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,4vw,64px);align-items:end}
+.head p{color:var(--ink-2)}
+@media (max-width:860px){.head{grid-template-columns:1fr;align-items:start}}
+main{display:flex;flex-direction:column;gap:28px;padding-block:8px 64px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;padding-block:14px}
+.nav .bar{display:flex;align-items:center;gap:18px;padding:10px 12px 10px 18px;border-radius:999px}
+.mono{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap}
+.mono b{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:400;font-size:17px;color:#fff;
+  background:radial-gradient(circle at 35% 30%,#c9d8ff,#5b80ee 55%,#2244c4)}
+.links{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.links a{font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;padding:8px 12px;border-radius:999px;letter-spacing:.02em}
+.links a:hover{background:rgba(49,87,214,.08)}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:12px 18px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(19,40,92,.6)}
+.pill.ghost{background:rgba(255,255,255,.6);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.pill:hover{transform:translateY(-1px)}
+@media (max-width:860px){.links{display:none}.nav .bar{justify-content:space-between}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(28px,5vw,64px) 28px}
+.hero-copy{display:flex;flex-direction:column;gap:24px;min-width:0}
+.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;padding-top:6px;border-top:1px solid var(--line);max-width:560px}
+.meta div{display:flex;flex-direction:column;gap:2px;padding-top:12px}
+.meta dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.meta dd{margin:0;font-size:14px;font-weight:600;color:var(--ink)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+@media (max-width:960px){.hero{grid-template-columns:1fr}}
+
+/* hero results */
+.hres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:6px;border-radius:24px;max-width:600px}
+.hm{display:flex;flex-direction:column;gap:2px;padding:14px 18px;min-width:0}
+.hm+.hm{border-left:1px solid var(--line)}
+.hm .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hm .v{font-weight:800;font-size:clamp(28px,3.2vw,42px);line-height:1.05;letter-spacing:-.03em;color:var(--ink)}
+.hm.main .v{color:var(--cobalt);text-shadow:0 0 24px rgba(49,87,214,.25)}
+.hm .d{font-size:13px;color:var(--ink-2)}
+.byline{font-size:13px;color:var(--muted);letter-spacing:.01em}
+@media (max-width:480px){.hm{padding:12px 10px}.hm .k{font-size:9px;letter-spacing:.06em;white-space:normal}.hm .d{font-size:11.5px}}
+
+/* hero scene */
+.scene{position:relative;height:560px;min-width:0;overflow:hidden;overflow:clip;overflow-clip-margin:24px}
+.rings{position:absolute;left:70%;top:34%;width:0;height:0}
+.rings i{position:absolute;border-radius:50%;border:1px solid rgba(49,87,214,.18);transform:translate(-50%,-50%)}
+.rings i:nth-child(1){width:300px;height:300px}
+.rings i:nth-child(2){width:430px;height:430px;border-color:rgba(49,87,214,.12)}
+.rings i:nth-child(3){width:560px;height:560px;border:1.5px dashed rgba(49,87,214,.14)}
+.orb{position:absolute;left:70%;top:34%;width:190px;height:190px;border-radius:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 34% 28%,#fff 0,#d6e2ff 14%,#7d9ef5 46%,#3359d9 74%,#1c38a8 100%);
+  box-shadow:0 0 90px 24px rgba(91,128,238,.45),inset -18px -26px 50px rgba(10,28,110,.4),inset 10px 14px 30px rgba(255,255,255,.35);
+  display:grid;place-items:center;text-align:center;color:#fff;animation:breathe 5s ease-in-out infinite}
+.orb span{font-family:var(--f-display);font-size:30px;line-height:1}
+.orb small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;opacity:.85;margin-top:6px}
+@keyframes breathe{50%{box-shadow:0 0 120px 34px rgba(91,128,238,.55),inset -18px -26px 50px rgba(10,28,110,.4),inset 10px 14px 30px rgba(255,255,255,.35)}}
+.paper{position:absolute;left:2%;top:10%;width:228px;height:300px;background:#fff;border-radius:10px;transform:rotate(-7deg);
+  box-shadow:0 30px 60px -24px rgba(19,40,92,.45),0 0 0 1px rgba(19,40,92,.06);padding:18px 18px;overflow:hidden;display:flex;flex-direction:column;gap:8px;color:#2a3350}
+.paper .hd{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:9px;border-bottom:1px solid #e7ebf3}
+.paper .dn{font-weight:700;font-size:11.5px;color:var(--ink)}
+.paper .dr{font-size:9px;color:#8a93a8;line-height:1.4}
+.paper .rx{font-family:var(--f-display);font-style:italic;font-size:28px;color:#b8c2d8;line-height:1}
+.paper .tx{font-size:10.5px;line-height:1.55}
+.hl{border-radius:4px;box-shadow:0 0 0 1.5px rgba(49,87,214,.7);background:rgba(49,87,214,.09);padding:0 3px;margin:0 -3px}
+.hl.warn{box-shadow:0 0 0 1.5px rgba(194,133,15,.8);background:rgba(194,133,15,.1)}
+.paper .ln{height:6px;border-radius:3px;background:#edf0f6}
+.paper .sig{margin-top:auto;align-self:flex-end;font-family:var(--f-display);font-style:italic;font-size:20px;color:#9aa6c2}
+.beam{position:absolute;left:-10%;right:-10%;height:3px;top:0;background:#3a63ff;box-shadow:0 0 14px 5px rgba(58,99,255,.55),0 0 40px 14px rgba(58,99,255,.2);animation:beam 3.2s ease-in-out infinite alternate}
+.tint{position:absolute;left:0;right:0;top:0;height:0;background:linear-gradient(180deg,rgba(58,99,255,.03),rgba(58,99,255,.14));animation:tint 3.2s ease-in-out infinite alternate;pointer-events:none}
+@keyframes beam{to{top:calc(100% - 3px)}}
+@keyframes tint{to{height:100%}}
+.agent{position:absolute;right:0;bottom:2%;width:min(330px,74%);padding:18px;display:flex;flex-direction:column;gap:12px}
+.agent .top{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.agent .top i{width:7px;height:7px;border-radius:50%;background:var(--cobalt);box-shadow:0 0 10px 2px rgba(49,87,214,.7);animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+.agent .sub{font-size:13px;color:var(--ink-2);margin-top:-6px}
+.agent .track{height:4px;border-radius:2px;background:rgba(49,87,214,.12);overflow:hidden}
+.agent .track b{display:block;height:100%;width:72%;border-radius:2px;background:linear-gradient(90deg,#7da0ff,var(--cobalt));box-shadow:0 0 10px rgba(49,87,214,.6)}
+.field{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.95)}
+.field .k{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);width:66px;flex:none}
+.field .v{flex:1;min-width:0;font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tag{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.tag.ok{color:var(--mint);background:rgba(42,154,99,.12)}
+.tag.chk{color:var(--amber);background:rgba(194,133,15,.13)}
+.tag.no{color:var(--rose);background:rgba(201,71,63,.11)}
+.float{position:absolute;padding:10px 14px;font-size:12.5px;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:8px;border-radius:14px;animation:float 6s ease-in-out infinite}
+.float .dot{width:8px;height:8px;border-radius:50%}
+.f1{right:4%;top:4%}
+.f2{left:4%;bottom:14%;animation-delay:-3s}
+@keyframes float{50%{transform:translateY(-8px)}}
+@media (max-width:960px){.scene{height:540px}}
+@media (max-width:520px){
+  .scene{height:600px;overflow-clip-margin:0}
+  .rings{display:none}
+  .orb{top:24%;left:72%}
+  .orb{width:150px;height:150px}.orb span{font-size:24px}
+  .rings i:nth-child(3){width:420px;height:420px}
+  .paper{width:190px;height:258px;left:0;top:4%}
+  .agent{width:100%;bottom:0}
+  .f1{display:none}
+  .f2{display:none}
+}
+
+/* stat strip */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:8px;gap:0}
+.strip>div{padding:18px 22px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.strip>div+div{border-left:1px solid var(--line)}
+.strip .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.strip .v{font-weight:800;font-size:clamp(26px,3vw,38px);line-height:1.05;color:var(--ink);letter-spacing:-.02em}
+.strip .v small{font-size:.5em;font-weight:700;color:var(--muted);letter-spacing:0}
+.strip .d{font-size:13px;color:var(--ink-2)}
+@media (max-width:860px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.strip>div:nth-child(3){border-left:0}.strip>div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* discovery */
+.disc{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,3vw,40px);align-items:stretch}
+.big{padding:28px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.big .n{font-weight:800;font-size:clamp(64px,8vw,104px);line-height:.9;color:var(--ink);letter-spacing:-.04em}
+.big .n em{font-style:normal;color:var(--cobalt)}
+.funnel{padding:26px 26px 22px;display:flex;flex-direction:column;gap:16px}
+.frow{display:grid;grid-template-columns:150px minmax(0,1fr) 112px;gap:14px;align-items:center}
+.frow .l{font-size:14px;font-weight:600;color:var(--ink);line-height:1.3}
+.frow .bar{height:16px;border-radius:999px;background:rgba(19,40,92,.06);position:relative;overflow:visible}
+.frow .bar b{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,#c9d6f6,#a9bdf0)}
+.frow.hot .bar b{background:linear-gradient(90deg,#6f93f3,var(--cobalt));box-shadow:0 0 18px rgba(49,87,214,.55)}
+.frow .r{font-variant-numeric:tabular-nums;font-size:13px;color:var(--ink-2);text-align:right}
+.frow .r b{font-size:16px;color:var(--ink);margin-right:6px}
+.frow.hot .l,.frow.hot .r b{color:var(--cobalt)}
+.chan{display:flex;flex-direction:column;gap:10px;padding-top:6px;border-top:1px solid var(--line)}
+.stack{display:flex;height:12px;border-radius:999px;overflow:hidden;gap:3px}
+.stack i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+@media (max-width:860px){.disc{grid-template-columns:1fr}}
+@media (max-width:560px){.frow{grid-template-columns:1fr auto;row-gap:6px}.frow .bar{grid-column:1/-1;grid-row:2}}
+
+/* quote */
+.quote{font-family:var(--f-display);font-weight:300;font-size:clamp(24px,3vw,36px);line-height:1.25;letter-spacing:-.01em;color:var(--ink);max-width:30ch;text-wrap:balance}
+.quote em{color:var(--cobalt)}
+
+/* people orbit */
+.orbit{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 260px minmax(0,1fr);grid-template-rows:auto auto auto;gap:18px 28px;align-items:center}
+.orbit::before{content:"";position:absolute;left:50%;top:44%;width:620px;height:620px;max-width:96%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(49,87,214,.14);pointer-events:none}
+.core{grid-column:2;grid-row:1/3;justify-self:center;width:240px;height:240px;border-radius:50%;display:grid;place-items:center;text-align:center;color:#fff;
+  background:radial-gradient(circle at 34% 28%,#fff 0,#d6e2ff 13%,#7d9ef5 45%,#3359d9 74%,#1c38a8 100%);
+  box-shadow:0 0 70px 14px rgba(91,128,238,.4),inset -16px -22px 44px rgba(10,28,110,.4)}
+.core>div{width:80%;display:flex;flex-direction:column;align-items:center;text-align:center}
+.core span{display:block;font-family:var(--f-display);font-weight:500;font-size:19px;line-height:1.2;letter-spacing:-.01em}
+.core small{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;margin-top:8px;opacity:.85}
+.who{padding:18px 20px;display:flex;flex-direction:column;gap:8px;min-width:0;position:relative}
+.who .t{display:flex;align-items:center;gap:10px}
+.who .t svg{flex:none;width:34px;height:34px;padding:8px;border-radius:50%;background:rgba(49,87,214,.1);stroke:var(--cobalt);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.who p{font-size:14px;line-height:1.5}
+.who .gain{font-size:13.5px;color:var(--ink);font-weight:600;padding-top:8px;border-top:1px dashed var(--line)}
+.who .gain::before{content:"→ ";color:var(--cobalt)}
+.w1{grid-column:1;grid-row:1}.w2{grid-column:3;grid-row:1}.w3{grid-column:1;grid-row:2}.w4{grid-column:3;grid-row:2}.w5{grid-column:2;grid-row:3}
+@media (max-width:900px){.orbit{grid-template-columns:1fr 1fr}.orbit::before{display:none}.core{grid-column:1/-1;grid-row:auto;width:184px;height:184px}.core span{font-size:14.5px}.core small{font-size:8.5px}.w1,.w2,.w3,.w4,.w5{grid-column:auto;grid-row:auto}}
+@media (max-width:600px){.orbit{grid-template-columns:1fr}}
+
+/* flow compare */
+.lane{display:flex;flex-direction:column;gap:12px}
+.lane .lab{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.lane .lab h3{font-size:16px}
+.steps{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.step{font-size:13.5px;font-weight:600;color:var(--ink);padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid rgba(19,40,92,.08);white-space:nowrap}
+.step.old{color:#5d6886;background:rgba(255,255,255,.5)}
+.step.dead{color:var(--amber);background:repeating-linear-gradient(135deg,rgba(194,133,15,.12) 0 6px,rgba(194,133,15,.04) 6px 12px);border-color:rgba(194,133,15,.35)}
+.step.ai{color:#fff;background:linear-gradient(135deg,#6f93f3,var(--cobalt));border-color:transparent;box-shadow:0 0 16px rgba(49,87,214,.45)}
+.arrow{color:var(--muted);font-size:14px}
+.parallel{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 14px;align-items:center;padding:16px 18px;border-radius:18px;background:rgba(49,87,214,.06);border:1px dashed rgba(49,87,214,.35)}
+.parallel .pl{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cobalt)}
+.parallel .pb{height:10px;border-radius:999px;background:linear-gradient(90deg,rgba(49,87,214,.25),var(--cobalt));box-shadow:0 0 14px rgba(49,87,214,.5)}
+.parallel p{grid-column:1/-1;font-size:14px}
+
+/* phones */
+.phones{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,28px);align-items:start}
+@media (max-width:1100px){.phones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.phones{grid-template-columns:1fr}}
+.shot{display:flex;flex-direction:column;gap:16px;min-width:0}
+.cap{display:flex;flex-direction:column;gap:6px}
+.cap .no{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--cobalt)}
+.cap p{font-size:14px;line-height:1.5}
+.ph{width:100%;max-width:252px;height:520px;margin:0 auto;border-radius:34px;background:#fff;color:#1c2029;font-size:11px;line-height:1.35;
+  box-shadow:0 0 0 7px #10172f,0 0 0 8px #2b3352,0 34px 60px -24px rgba(20,40,110,.55);padding:18px 14px 14px;display:flex;flex-direction:column;gap:9px;overflow:hidden;position:relative}
+.ph .pg{position:relative;height:20px;flex:none}
+.ph .pg .tr{position:absolute;left:0;right:0;top:6px;height:8px;border-radius:5px;background:#fff2d1;box-shadow:inset 0 0 0 1.2px #d18c1f}
+.ph .pg .fl{position:absolute;left:0;top:6px;height:8px;border-radius:5px;background:linear-gradient(90deg,#3d8c59,#6cc485)}
+.ph .pg .kn{position:absolute;top:0;height:20px;padding:0 9px;border-radius:10px;background:#45995f;color:#fff;font-weight:700;font-size:9.5px;display:flex;align-items:center;box-shadow:0 0 10px 2px rgba(80,215,110,.5)}
+.ph h4{margin:2px 0 0;font-size:15px;font-weight:800;color:#1c2029;letter-spacing:-.01em}
+.ph .s{font-size:10px;color:#737a87}
+.ph .c{border:1px solid #e1e4ea;border-radius:11px;padding:8px 9px;display:flex;align-items:center;gap:8px;background:#fff}
+.ph .c .ic{flex:none;width:24px;height:24px;border-radius:50%;background:#f1f3f7;display:grid;place-items:center;font-size:11px}
+.ph .c .col{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.ph .c .t{font-weight:700;font-size:11px}
+.ph .c .a{font-weight:700;color:#2f5fd9;font-size:10px}
+.ph .c.who2{background:#e8eeff;border-color:transparent}
+.ph .c.warn{background:#fff5dc;border:1.5px solid #e8b04a}
+.ph .c.warn .s,.ph .c.warn .a{color:#b97a07}
+.ph .c.ben{background:#e6f6eb;border-color:transparent;color:#22994f;font-weight:700;font-size:10px}
+.ph .c.no{background:#fff5dc;border:1.5px solid #e8b04a;flex-direction:column;align-items:stretch}
+.ph .btn{margin-top:auto;background:#2f5fd9;color:#fff;font-weight:700;font-size:12px;text-align:center;border-radius:11px;padding:11px}
+.ph .btns{display:flex;gap:6px}
+.ph .btns span{flex:1;text-align:center;font-weight:700;font-size:10px;border-radius:8px;padding:7px 4px}
+.ph .doc{position:relative;height:150px;border-radius:9px;background:linear-gradient(160deg,#eef3ff,#dfe8ff);padding:9px;overflow:hidden}
+.ph .doc .pp{position:relative;height:100%;border-radius:6px;background:#fff;padding:9px 10px;display:flex;flex-direction:column;gap:6px;overflow:hidden;box-shadow:0 6px 14px rgba(47,95,217,.15)}
+.ph .doc .pp i{display:block;height:5px;border-radius:3px;background:#e6e9ef}
+.ph .doc .pp .h{font-weight:700;font-size:9.5px}
+.ph .doc .pp .x{font-size:8.5px;color:#4a505c;line-height:1.45}
+.ph .chk{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:11px}
+.ph .chk b{flex:none;width:17px;height:17px;border-radius:50%;background:#e6f6eb;color:#22994f;display:grid;place-items:center;font-size:9px}
+.ph .chk.p{color:#9aa1ad}.ph .chk.p b{background:#f1f3f7;color:#9aa1ad}
+.ph .ban{display:flex;gap:9px;align-items:center;background:#e8eeff;border-radius:11px;padding:8px 9px}
+.ph .donut{flex:none;width:30px;height:30px;border-radius:50%;background:conic-gradient(#2f5fd9 0 62%,#cfdaf7 62% 100%);display:grid;place-items:center}
+.ph .donut::after{content:"";width:21px;height:21px;border-radius:50%;background:#e8eeff}
+.ph .modes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ph .mode{border:1.5px solid #e1e4ea;border-radius:10px;padding:7px;display:flex;flex-direction:column;gap:2px}
+.ph .mode.sel{border-color:#2f5fd9;background:#e8eeff}
+.ph .dates{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.ph .dates span,.ph .slots span{border:1px solid #e1e4ea;border-radius:7px;text-align:center;padding:5px 0;font-weight:700;font-size:9.5px}
+.ph .dates .on{background:#2f5fd9;border-color:#2f5fd9;color:#fff}
+.ph .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.ph .slots .on{background:#e8eeff;border-color:#2f5fd9;color:#2f5fd9}
+.ph .slots .full{background:#f4f6f8;color:#a8adb7;font-weight:500}
+.ph .note{background:#fff5dc;border-radius:9px;padding:7px 9px;font-size:9.5px;color:#7a5a0b;font-weight:600}
+.ph .hero2{display:flex;gap:9px;align-items:center;background:#fff5dc;border-radius:12px;padding:10px}
+.ph .hero2 .h{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:800;color:#b97a07}
+.pt{font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.pt.ok{color:#22994f;background:#e6f6eb}.pt.no{color:#b97a07;background:#fff}
+.ph .reason{background:#fff;border-radius:7px;padding:6px 8px;font-size:9.5px}
+.ph .help{font-size:9.5px;font-weight:700;color:#2f5fd9}
+
+/* ops */
+.ops{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(20px,3vw,40px);align-items:center}
+@media (max-width:960px){.ops{grid-template-columns:1fr}}
+.dash{border-radius:18px;overflow:hidden;background:#f5f7fb;box-shadow:0 30px 70px -30px rgba(19,40,92,.45),0 0 0 1px rgba(19,40,92,.08);display:grid;grid-template-columns:118px minmax(0,1fr);font-size:11px;color:#1c2029;min-width:0}
+.dash .sb{background:#1a2133;color:#fff;padding:16px 12px;display:flex;flex-direction:column;gap:6px}
+.dash .sb b{font-size:13px;margin-bottom:8px}
+.dash .sb span{padding:6px 8px;border-radius:6px;font-size:10.5px;opacity:.8}
+.dash .sb span.on{background:#334059;opacity:1;font-weight:700}
+.dash .mn{padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.dash .tt{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}
+.dash .tt h5{margin:0;font-size:14px;font-weight:800;flex:1;min-width:160px}
+.chip{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.chip.g{color:#22994f;background:#e6f6eb}.chip.b{color:#2f5fd9;background:#e8eeff}.chip.a{color:#b97a07;background:#fff5dc}
+.dash .card{background:#fff;border:1px solid #e1e4ea;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.dash .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dash .row .nm{flex:1;min-width:110px;font-weight:700}
+.dash .row .nm small{display:block;font-weight:500;color:#737a87;font-size:9.5px}
+.tg{font-size:9.5px;font-weight:700;padding:5px 8px;border-radius:6px;border:1px solid}
+.tg.cov{color:#fff;background:#22994f;border-color:#22994f}.tg.cov.o{color:#22994f;background:#fff}
+.tg.nc{color:#c9473f;background:#fff;border-color:#c9473f}.tg.nc.on{color:#fff;background:#c9473f}
+.dash .item.flag{background:#fff5dc;border-color:#e8b04a}
+.dash .rs{background:#fff;border:1px solid #e1e4ea;border-radius:6px;padding:5px 8px;font-size:9.5px;flex:1;min-width:150px}
+.dash .ft{display:flex;align-items:center;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.dash .ft .sub{background:#2f5fd9;color:#fff;font-weight:700;border-radius:7px;padding:7px 12px}
+@media (max-width:560px){.dash{grid-template-columns:1fr}.dash .sb{display:none}}
+.points{display:flex;flex-direction:column;gap:18px}
+.points div{display:flex;flex-direction:column;gap:4px;padding-left:16px;border-left:2px solid rgba(49,87,214,.25)}
+
+/* collaboration */
+.qa{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:960px){.qa{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.qa{grid-template-columns:1fr}}
+.qa article{padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.qa .q{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;line-height:1.5}
+.qa .a{font-family:var(--f-display);font-weight:500;font-size:21px;line-height:1.2;letter-spacing:-.01em;color:var(--ink)}
+.qa .ch{font-size:14px;line-height:1.5;padding-top:10px;border-top:1px dashed var(--line)}
+.qa .ch b{color:var(--cobalt)}
+
+/* edge cases */
+.edges{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.edges{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.edges{grid-template-columns:1fr}}
+.edge{padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.95);display:flex;flex-direction:column;gap:4px}
+.edge .w{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.edge b{color:var(--ink);font-size:15px}
+.edge span{font-size:13.5px;line-height:1.45}
+
+/* results */
+.res{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(20px,3vw,40px);align-items:end}
+@media (max-width:960px){.res{grid-template-columns:1fr}}
+.statcard{background:#fff;border-radius:28px;padding:30px 32px;box-shadow:0 30px 60px -30px rgba(19,40,92,.35);display:flex;flex-direction:column;gap:18px}
+.statcard div{display:flex;flex-direction:column;gap:2px}
+.statcard .v{font-weight:800;font-size:clamp(32px,3.6vw,44px);line-height:1;color:#1b3378;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.statcard .l{font-size:14px;color:var(--ink-2)}
+.stage{position:relative;height:440px;display:flex;align-items:flex-end;justify-content:center;gap:clamp(28px,6vw,72px);padding-top:90px;
+  background-image:linear-gradient(rgba(19,40,92,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(19,40,92,.05) 1px,transparent 1px);background-size:44px 44px;border-radius:24px}
+.ped{position:relative;width:clamp(110px,14vw,150px);display:flex;flex-direction:column;align-items:center}
+.ped .col{width:100%;border-radius:0 0 4px 4px;background:
+   linear-gradient(90deg,rgba(19,40,92,.10),rgba(255,255,255,0) 30%,rgba(255,255,255,0) 70%,rgba(19,40,92,.14)),
+   repeating-linear-gradient(90deg,#fbfcff 0 7px,#e3e8f2 7px 9px);box-shadow:0 20px 30px -18px rgba(19,40,92,.4)}
+.ped .slab{width:116%;height:30px;margin-bottom:-6px;border-radius:8px;position:relative;z-index:1;
+  background:linear-gradient(180deg,rgba(150,178,255,.9),rgba(72,110,232,.85));box-shadow:0 0 0 1px rgba(255,255,255,.7) inset,0 10px 26px -6px rgba(49,87,214,.55),0 0 30px rgba(120,150,255,.35);
+  transform:perspective(300px) rotateX(38deg)}
+.ped .lbl{position:absolute;bottom:calc(100% + 18px);left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap}
+.ped .lbl .v{font-weight:800;font-size:clamp(30px,3.6vw,44px);line-height:1;color:var(--ink);letter-spacing:-.03em}
+.ped.after .lbl .v{color:var(--cobalt)}
+.ped .lbl .k{font-size:12px;color:var(--muted)}
+.ped .lead{position:absolute;bottom:calc(100% + 2px);left:50%;width:1px;height:16px;background:rgba(49,87,214,.5)}
+.ped .lead::after{content:"";position:absolute;bottom:-3px;left:-3px;width:7px;height:7px;border-radius:50%;border:1.5px solid var(--cobalt);background:#fff}
+.ped .base{margin-top:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.stage .axis{position:absolute;left:18px;top:16px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.range{padding:22px 24px;display:flex;flex-direction:column;gap:14px}
+.scale{position:relative;height:104px;margin:0 30px}
+.scale .ln{position:absolute;left:0;right:0;top:48px;height:4px;border-radius:2px;background:rgba(19,40,92,.08)}
+.scale .band{position:absolute;top:44px;height:12px;border-radius:6px;background:rgba(49,87,214,.14)}
+.mk{position:absolute;top:0;height:56px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;font-size:11px;line-height:1.25;color:var(--muted);white-space:nowrap;text-align:center}
+.mk b{font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.mk i{width:2px;height:16px;background:rgba(19,40,92,.3);margin-top:auto}
+.mk.act{top:40px;height:64px;flex-direction:column-reverse;color:var(--cobalt);font-weight:700}
+.mk.act b{color:var(--cobalt);font-size:15px}
+.mk.act i{width:16px;height:16px;border-radius:50%;background:var(--cobalt);box-shadow:0 0 0 4px rgba(49,87,214,.2),0 0 18px 4px rgba(49,87,214,.55);margin:0 0 auto}
+@media (max-width:560px){.mk .w{display:none}.mk:not(.act){height:56px;padding-top:14px}.strip .v small{display:block;margin-top:2px}}
+.ticks{position:relative;height:16px;margin:0 30px;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ticks span{position:absolute;transform:translateX(-50%)}
+.guard{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink)}
+.guard i{flex:none;width:9px;height:9px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(42,154,99,.15)}
+
+/* reflection */
+.learn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.learn{grid-template-columns:1fr}}
+.learn article{padding:22px;display:flex;flex-direction:column;gap:8px}
+.next{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:900px){.next{grid-template-columns:1fr}}
+.next div{display:flex;flex-direction:column;gap:6px;padding:18px 20px;border-radius:18px;border:1px dashed rgba(49,87,214,.35);background:rgba(255,255,255,.4)}
+.next .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt)}
+footer{padding-block:8px 48px}
+footer .glass{padding:22px 26px;display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
+footer .who3{font-family:var(--f-display);font-size:26px;color:var(--ink);line-height:1.1}
+
+/* showcase: wireframe belt + live prototype phone (dark band, after the second reference) */
+.panel.dark{background:radial-gradient(900px 420px at 50% 62%,#3b3e48 0,transparent 70%),linear-gradient(180deg,#222326,#1b1c1f);border:1px solid #2e3035;box-shadow:0 40px 90px -40px rgba(10,20,60,.6);color:#a9adb8;overflow:hidden}
+.panel.dark h2{color:#f3f4f7}.panel.dark h2 em{color:#9db7ff}
+.panel.dark .eyebrow{color:#9db7ff}.panel.dark .eyebrow::before{background:#9db7ff;box-shadow:0 0 0 4px rgba(157,183,255,.15),0 0 12px 2px rgba(157,183,255,.6)}
+.panel.dark .head p{color:#a9adb8}.panel.dark .head a{color:#c9d6ff}
+.stagewrap{position:relative;margin-inline:calc(-1 * clamp(26px,4.6vw,64px))}
+.sc-stage{position:relative;height:610px}
+.belt{position:absolute;inset:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 14%,#000 86%,transparent 100%)}
+.belt .track{position:absolute;left:50%;top:50%;display:flex;gap:26px;margin-top:-215px;will-change:transform}
+.wf{flex:none;width:200px;height:430px;border-radius:32px;background:linear-gradient(180deg,#3d3e42,#353639);border:1px solid #4a4b50;padding:10px 12px 12px;display:flex;flex-direction:column;gap:7px;color:#c4c6cb;font-size:8.5px;line-height:1.3;overflow:hidden;opacity:.82;transition:opacity .5s}
+.wf.mid{opacity:0}
+.wf .sb{display:flex;align-items:center;justify-content:space-between;font-size:10px;font-weight:700;color:#e6e7ea;height:20px;flex:none;padding:0 4px}
+.wf .sb i{width:56px;height:16px;border-radius:10px;background:#1f2023}
+.wf .sb b{display:flex;gap:2px;align-items:flex-end}
+.wf .sb b span{width:3px;background:#d8d9dc;border-radius:1px}
+.wf .pg{position:relative;height:14px;flex:none;margin-top:4px}
+.wf .pg .tr{position:absolute;left:0;right:0;top:5px;height:4px;border-radius:2px;background:#55565b}
+.wf .pg .fl{position:absolute;left:0;top:5px;height:4px;border-radius:2px;background:#9a9ba0}
+.wf .pg .kn{position:absolute;top:0;height:14px;padding:0 7px;border-radius:7px;background:#6a6b70;color:#f1f1f3;font-size:7px;font-weight:700;display:flex;align-items:center}
+.wf h6{margin:2px 0 0;font-size:12px;font-weight:500;color:#eceef1;letter-spacing:-.01em}
+.wf .s{font-size:7.5px;color:#9a9da5}
+.wf .bx{background:#46474b;border-radius:10px;padding:7px 8px;display:flex;align-items:center;gap:7px}
+.wf .bx.v{flex-direction:column;align-items:stretch}
+.wf .bx.dash{background:transparent;border:1.2px dashed #8c8e94}
+.wf .ci{flex:none;width:18px;height:18px;border-radius:50%;background:#5a5b60}
+.wf .ci.k{background:#d6d7da;color:#2b2c2f;display:grid;place-items:center;font-size:8px;font-weight:800}
+.wf .col{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.wf .t{font-weight:600;color:#e6e7ea;font-size:8.5px}
+.wf .ln{height:4px;border-radius:2px;background:#5c5d62}
+.wf .lk{font-weight:700;color:#e6e7ea;text-decoration:underline;font-size:7.5px}
+.wf .btn{margin-top:auto;background:#d9dadd;color:#2a2b2e;border-radius:10px;padding:8px;text-align:center;font-weight:700;font-size:9px}
+.wf .btn.o{background:transparent;color:#e6e7ea;border:1.2px solid #d9dadd}
+.wf .ph-img{height:110px;border-radius:10px;background:#46474b;display:grid;place-items:center;position:relative;overflow:hidden}
+.wf .ph-img svg{width:46px;height:46px;fill:#6a6b70}
+.wf .ph-img::after{content:"";position:absolute;left:0;right:0;top:44%;height:1.5px;background:#bfc2c8;box-shadow:0 0 8px rgba(255,255,255,.4)}
+.wf .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.wf .g5{display:grid;grid-template-columns:repeat(5,1fr);gap:4px}
+.wf .g2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.wf .chipx{border:1px solid #5c5d62;border-radius:7px;text-align:center;padding:5px 0;font-size:7.5px;font-weight:600}
+.wf .chipx.on{background:#d9dadd;color:#2a2b2e;border-color:#d9dadd}
+.wf .chipx.full{border-style:dashed;color:#77797f}
+.wf .tile{border:1px solid #5c5d62;border-radius:9px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:7px;font-weight:600}
+.wf .lab{font-size:6.5px;letter-spacing:.08em;color:#8e9198;font-weight:700}
+.wf .kv{display:flex;justify-content:space-between;font-size:7.5px}
+.wf .hero{background:#46474b;border-radius:12px;padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.wf .ok{border:1px solid #c4c6cb;border-radius:999px;padding:1px 6px;font-size:6.5px;font-weight:700}
+/* main phone */
+.mp{position:absolute;left:50%;top:50%;width:250px;height:530px;margin:-265px 0 0 -125px;border-radius:44px;background:#0d0d0f;padding:8px;z-index:3;
+  box-shadow:0 0 0 1.5px #3c3d42,0 50px 90px -30px rgba(0,0,0,.85),0 0 120px 10px rgba(120,150,255,.18)}
+.mp .scrn{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#fff}
+.mp .stat{position:absolute;left:0;right:0;top:0;height:34px;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 20px 0 24px;font-size:11px;font-weight:700;color:#111;background:#fff}
+.mp .stat i{position:absolute;left:50%;top:8px;width:74px;height:21px;margin-left:-37px;border-radius:12px;background:#0d0d0f}
+.mp .stat b{display:flex;gap:2px;align-items:flex-end}
+.mp .stat b span{width:3px;background:#111;border-radius:1px}
+.mp .ph{position:absolute;inset:0;max-width:none;width:auto;height:auto;margin:0;border-radius:0;box-shadow:none;padding:42px 13px 14px;opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease;pointer-events:none}
+.mp .ph.on{opacity:1;transform:none}
+.mp .ph h4{font-size:14.5px}
+.ph .found{border:1.5px solid #7fcf98;background:#e6f6eb;border-radius:12px;padding:9px;display:flex;flex-direction:column;gap:8px}
+.ph .found .row{display:flex;gap:8px;align-items:center}
+.ph .gbtn{background:#22994f;color:#fff;font-weight:700;font-size:10.5px;text-align:center;border-radius:9px;padding:8px}
+.ph .lbl2{font-size:8.5px;font-weight:700;color:#737a87;letter-spacing:.06em}
+.ph .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ph .tiles span{border-radius:10px;background:#e8eeff;box-shadow:inset 0 0 0 1.3px #2f5fd9;padding:10px 2px;display:flex;flex-direction:column;align-items:center;gap:5px;color:#2f5fd9;font-weight:700;font-size:9px}
+.ph .tiles span i{font-style:normal;width:26px;height:26px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:12px}
+.ph .tip{background:#f4f6f8;border-radius:9px;padding:8px 9px;font-size:9.5px;color:#737a87}
+.ph .hero3{border-radius:14px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.ph .hero3.g{background:#e6f6eb}.ph .hero3.b{background:#e8eeff}
+.ph .hero3 .bd{width:40px;height:40px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:17px;font-weight:800;color:#22994f}
+.ph .hero3 .bg{font-size:14px;font-weight:800}
+.ph .hero3.g .bg{color:#22994f}.ph .hero3.b .bg{color:#2f5fd9}
+.ph .list{border:1px solid #e1e4ea;border-radius:11px;padding:9px 10px;display:flex;flex-direction:column;gap:7px}
+.ph .list .r{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:10.5px}
+.ph .kv{display:flex;justify-content:space-between;font-size:10.5px;font-variant-numeric:tabular-nums}
+.ph .kv span{color:#737a87}.ph .kv b{font-weight:700}
+.ph .kv.g b{color:#22994f}
+.ph .hr{height:1px;background:#e1e4ea}
+.ph .save{background:#e6f6eb;color:#22994f;font-weight:700;font-size:10px;border-radius:9px;padding:8px 9px}
+.ph .rxc{background:#f4f6f8}
+.ph .rxc .dc{flex:none;width:24px;height:30px;border-radius:4px;background:#fff;border:1px solid #e1e4ea;display:flex;flex-direction:column;gap:3px;padding:5px 4px}
+.ph .rxc .dc i{display:block;height:2px;border-radius:1px;background:#e1e4ea}
+.ph .btn.ol{background:#fff;color:#2f5fd9;box-shadow:inset 0 0 0 1.5px #2f5fd9}
+.ph .addr2{display:flex;align-items:center;gap:8px;border:1px solid #e1e4ea;border-radius:10px;padding:8px 9px}
+.ph .part{font-size:9px;font-weight:700;color:#737a87;margin-bottom:-4px}
+/* caption + controls */
+.sc-cap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.sc-now{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sc-now .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9db7ff}
+.sc-now .v{font-size:20px;font-weight:600;color:#f3f4f7;letter-spacing:-.01em}
+.sc-dots{display:flex;gap:6px;align-items:center}
+.sc-dots button{width:8px;height:8px;border-radius:50%;border:0;padding:0;background:#4b4d54;cursor:pointer;transition:all .3s}
+.sc-dots button.on{width:26px;border-radius:5px;background:#9db7ff}
+.sc-ctl{display:flex;gap:8px}
+.sc-ctl button{width:42px;height:42px;border-radius:50%;border:1px solid #42444b;background:#2a2b30;color:#e6e7ea;font-size:16px;cursor:pointer;display:grid;place-items:center}
+.sc-ctl button:hover{background:#34363c}
+@media (max-width:700px){.sc-stage{zoom:.7;height:610px}.sc-now .v{font-size:17px}}
+@media (max-width:420px){.sc-stage{zoom:.62}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.home{flex:none}
+</style>
+
+<div class="nav wrap">
+  <div class="bar glass">
+    <a class="pill ghost home" href="../../#work">← Home</a>
+    <a class="mono" href="#top"><b>D</b>Divyangi Tiwari</a>
+    <nav class="links" aria-label="Sections">
+      <a href="#problem">Problem</a><a href="#people">People</a><a href="#flow">Flow</a><a href="#product">Product</a><a href="#ops">Ops</a><a href="#results">Results</a>
+    </nav>
+    <a class="pill" href="prototype/" target="_blank" rel="noopener">Prototype ↗</a>
+  </div>
+</div>
+
+<header class="wrap hero" id="top">
+  <div class="hero-copy">
+    <p class="eyebrow">Case study · AI-assisted prescription booking</p>
+    <h1>Read by AI.<br>Checked by people.<br><em>Approved in 7 min.</em></h1>
+    <p class="lede">A prescription-first redesign of lab booking for corporate patients on the CNH platform.</p>
+    <div class="hres glass" aria-label="Results in the first month after launch">
+      <div class="hm main"><span class="k">Booking completion</span><span class="v num">77%</span><span class="d">up from 58%</span></div>
+      <div class="hm"><span class="k">Approval time</span><span class="v num">7 min</span><span class="d">down from ~20</span></div>
+      <div class="hm"><span class="k">Extra orders</span><span class="v num">+5,538</span><span class="d">a month · +12.3%</span></div>
+    </div>
+    <p class="byline">UX Researcher and Designer · Web and app · First-month results</p>
+    <div class="ctas">
+      <a class="pill" href="#problem">Read the case study ↓</a>
+      <a class="pill ghost" href="prototype/" target="_blank" rel="noopener">Try the prototype ↗</a>
+    </div>
+  </div>
+
+  <div class="scene" aria-label="Illustration: AI reading a prescription and extracting its details">
+    <div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="orb" aria-hidden="true"><div><span>Rx</span><small>AI READER</small></div></div>
+    <div class="paper" aria-hidden="true">
+      <div class="hd">
+        <div><div class="dn"><span class="hl">Dr. A. Mehta, MBBS</span></div><div class="dr">Reg. MH-12345<br>Andheri Clinic</div></div>
+        <div style="text-align:right"><div class="dr"><span class="hl">10 Oct 2026</span></div><div class="rx">Rx</div></div>
+      </div>
+      <div class="tx"><span class="hl">Patient: Divi Sharma · 32 F</span></div>
+      <div class="tx">1. Complete blood count<br>2. HbA1c<br>3. <span class="hl warn">Lipid profile (fasting)</span></div>
+      <div class="ln" style="width:80%"></div><div class="ln" style="width:60%"></div>
+      <div class="sig">A. Mehta</div>
+      <div class="tint"></div><div class="beam"></div>
+    </div>
+    <div class="agent glass">
+      <div class="top"><i></i>AI agent</div>
+      <div class="sub">Reading prescription · 5–10 s</div>
+      <div class="track"><b></b></div>
+      <div class="field"><span class="k">Patient</span><span class="v">Divi Sharma</span><span class="tag ok">✓ Match</span></div>
+      <div class="field"><span class="k">Doctor</span><span class="v">Reg. MH-12345</span><span class="tag ok">✓ Verified</span></div>
+      <div class="field"><span class="k">Dated</span><span class="v">Within 30 days</span><span class="tag ok">✓ Valid</span></div>
+      <div class="field"><span class="k">Tests</span><span class="v">Lipid profile</span><span class="tag chk">Please confirm</span></div>
+    </div>
+    <div class="float glass f1"><span class="dot" style="background:var(--mint)"></span>Printed Rx · ~90% confidence</div>
+    <div class="float glass f2"><span class="dot" style="background:var(--amber)"></span>Unsure fields go to a human</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- PROBLEM -->
+  <section class="panel" id="problem">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Discovery</p><h2>The form looked like the problem. <em>The wait was.</em></h2></div>
+      <p>I mapped the flow and split a month of drop-off data by step. Most people left after doing all the work, while waiting for approval.</p>
+    </div>
+    <div class="disc">
+      <div class="glass big">
+        <div class="n num">42<em>%</em></div>
+        <p style="color:var(--ink);font-weight:600">of people who started a booking never finished it.</p>
+        <p class="small">About 32,600 people a month. Cancellations were only 2.6%.</p>
+      </div>
+      <div class="glass funnel" role="img" aria-label="Share of all drop-offs by step: opened and left 20%, benefit selection 4%, prescription upload 12%, waiting for approval 64%">
+        <p class="eyebrow" style="color:var(--muted)">Where people left · share of all drop-offs</p>
+        <div class="frow"><span class="l">Opened and left</span><span class="bar"><b style="width:31.25%"></b></span><span class="r"><b>20%</b>~6,500</span></div>
+        <div class="frow"><span class="l">Choosing a benefit</span><span class="bar"><b style="width:6.25%"></b></span><span class="r"><b>4%</b>~1,300</span></div>
+        <div class="frow"><span class="l">Uploading the Rx</span><span class="bar"><b style="width:18.75%"></b></span><span class="r"><b>12%</b>~3,900</span></div>
+        <div class="frow hot"><span class="l">Waiting ~20 min for approval</span><span class="bar"><b style="width:100%"></b></span><span class="r"><b>64%</b>~20,900</span></div>
+        <div class="chan">
+          <p class="small">Bookings by channel. Web is the largest.</p>
+          <div class="stack" aria-hidden="true"><i style="width:41%;background:var(--cobalt)"></i><i style="width:40%;background:#9db7ff"></i><i style="width:19%;background:#cbd8fb"></i></div>
+          <div class="legend"><span><i style="background:var(--cobalt)"></i>Web 41%</span><span><i style="background:#9db7ff"></i>Agent calls 40%</span><span><i style="background:#cbd8fb"></i>App 19%</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="quote">People did all the work, then waited 20 minutes for <em>a manual check.</em> Most never came back.</p>
+  </section>
+
+  <!-- PEOPLE -->
+  <section class="panel" id="people">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">People</p><h2>One flow, <em>five groups</em> who need it to work</h2></div>
+      <p>Keep patients moving without weakening the checks everyone else relies on.</p>
+    </div>
+    <div class="orbit">
+      <div class="core"><div><span>Prescription-first<br>booking</span><small>AI + HUMAN CHECK</small></div></div>
+      <article class="glass who w1">
+        <div class="t"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><h3>Patients</h3></div>
+        <p>Re-entered every test already on their prescription, guessed between overlapping benefits, then waited ~20 min unsure of approval.</p>
+        <p class="gain">Upload once, confirm, book while it's checked</p>
+      </article>
+      <article class="glass who w2">
+        <div class="t"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><h3>Ops agents</h3></div>
+        <p>Adjudicated every prescription and typed each detail in by hand.</p>
+        <p class="gain">AI pre-fills; agents review what's flagged</p>
+      </article>
+      <article class="glass who w3">
+        <div class="t"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><h3>Insurers</h3></div>
+        <p>Pay only for valid claims and worry about reused prescriptions.</p>
+        <p class="gain">Full validity check on every prescription; duplicates flagged</p>
+      </article>
+      <article class="glass who w4">
+        <div class="t"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V5h6v2M4 12h16"/></svg><h3>Employers</h3></div>
+        <p>Want employees to use their benefits. Overlapping ones confused staff.</p>
+        <p class="gain">Best-value benefit applied automatically</p>
+      </article>
+      <article class="glass who w5">
+        <div class="t"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg><h3>The business</h3></div>
+        <p>Losing ~32,600 bookings a month, plus costly manual entry.</p>
+        <p class="gain">More completed orders, lower cost per order</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="panel">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Approach</p><h2>Start with the prescription. <em>Use the wait.</em></h2></div>
+      <p>The old flow made people describe their prescription, then upload it. The new one reads it first and lets them book during approval.</p>
+    </div>
+    <div class="lane">
+      <div class="lab"><h3>Before · form first</h3><span class="small">9 steps, one dead wait</span></div>
+      <div class="steps">
+        <span class="step old">Pick patient</span><span class="arrow">→</span><span class="step old">Pick services</span><span class="arrow">→</span><span class="step old">Pick tests</span><span class="arrow">→</span><span class="step old">Pick benefit</span><span class="arrow">→</span><span class="step old">Upload Rx</span><span class="arrow">→</span><span class="step old">Agent types it in</span><span class="arrow">→</span><span class="step dead">Wait ~20 min</span><span class="arrow">→</span><span class="step old">Come back</span><span class="arrow">→</span><span class="step old">Pay</span>
+      </div>
+    </div>
+    <div class="lane">
+      <div class="lab"><h3>After · prescription first</h3><span class="small">AI reads, people decide</span></div>
+      <div class="steps">
+        <span class="step">Upload Rx</span><span class="arrow">→</span><span class="step ai">AI reads it · 5–10 s</span><span class="arrow">→</span><span class="step">Confirm details</span><span class="arrow">→</span><span class="step">Book a preferred slot</span><span class="arrow">→</span><span class="step">Item-by-item result</span><span class="arrow">→</span><span class="step">Pay</span><span class="arrow">→</span><span class="step">Confirmed</span>
+      </div>
+      <div class="parallel">
+        <span class="pl">In parallel</span><span class="pb" aria-hidden="true"></span>
+        <p>An agent approves each test while the patient picks a slot, so the ~7 minutes do useful work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section class="panel dark" id="flow" aria-label="Wireframes to prototype showcase">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Wireframe to prototype</p><h2>Every screen, from grey box <em>to the real thing</em></h2></div>
+      <p>The full lab-test flow. Each wireframe becomes the finished screen as it reaches the centre. <a href="prototype/" target="_blank" rel="noopener">Open the clickable prototype ↗</a></p>
+    </div>
+    <div class="stagewrap">
+      <div class="sc-stage" id="scStage">
+        <div class="belt" id="belt" aria-hidden="true"><div class="track">
+          <!-- 1 Upload -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:10%"></div><div class="kn" style="left:2%">Upload</div></div>
+            <h6>Upload your prescription</h6><span class="s">We'll read it and fill in everything for you.</span>
+            <div class="bx v" style="border:1.2px solid #8c8e94"><div style="display:flex;gap:7px;align-items:center"><span class="ci"></span><span class="col"><span class="t">Prescription · Dr. A. Mehta · 3 days ago</span><span class="s">Includes lab tests and a recent lab report</span></span></div><div class="btn" style="margin-top:0">Use this prescription</div></div>
+            <span class="lab">OR UPLOAD A NEW ONE</span>
+            <div class="g3"><span class="tile"><span class="ci"></span>Camera</span><span class="tile"><span class="ci"></span>Gallery</span><span class="tile"><span class="ci"></span>My documents</span></div>
+            <div class="bx"><span class="s">Tip: keep the whole page, doctor's signature and registration number visible.</span></div>
+          </div>
+          <!-- 2 Reading -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:24%"></div><div class="kn" style="left:12%">Reading</div></div>
+            <h6>Reading your prescription…</h6>
+            <div class="ph-img"><svg viewBox="0 0 48 48"><circle cx="34" cy="14" r="5"/><path d="M4 40l13-17 9 11 6-7 12 13z"/></svg></div>
+            <span class="s">Prescription image · scan line moves top to bottom</span>
+            <div class="bx v" style="gap:7px">
+              <div style="display:flex;gap:7px;align-items:center"><span class="ci k">✓</span>Image is clear</div>
+              <div style="display:flex;gap:7px;align-items:center"><span class="ci k">✓</span>Patient: Divi Sharma</div>
+              <div style="display:flex;gap:7px;align-items:center"><span class="ci k">✓</span>Doctor registration verified</div>
+              <div style="display:flex;gap:7px;align-items:center"><span class="ci k">✓</span>Dated within 30 days</div>
+              <div style="display:flex;gap:7px;align-items:center;color:#8e9198"><span class="ci">…</span>Matching your benefit</div>
+            </div>
+            <span class="s" style="margin-top:auto;text-align:center">Takes a few seconds</span>
+          </div>
+          <!-- 3 Review -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:37%"></div><div class="kn" style="left:25%">Review</div></div>
+            <h6>Check the details we found</h6><span class="s">Tap any item to edit. A dashed outline means please double-check.</span>
+            <div class="bx"><span class="ci"></span><span class="col"><span class="t">Divi Sharma · Self</span><span class="s">Dr. A. Mehta · Reg. MH-12345 ✓</span></span><span class="lk">Change</span></div>
+            <div class="bx dash"><span class="ci k">!</span><span class="col"><span class="t">Lipid profile</span><span class="s">We weren't fully sure. Please confirm.</span></span><span class="lk">Check</span></div>
+            <div class="bx"><span class="ci"></span><span class="col"><span class="t">Complete blood count</span><span class="s">Blood · fasting not needed</span></span></div>
+            <div class="bx"><span class="ci"></span><span class="col"><span class="t">HbA1c</span><span class="s">Blood · fasting not needed</span></span></div>
+            <div class="bx"><span class="ci"></span><span class="t">Lab package benefit applied · covers all 3 tests</span></div>
+            <span class="lk">+ Add a missing test</span>
+            <div class="btn">Submit details</div>
+          </div>
+          <!-- 4 Mode -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:50%"></div><div class="kn" style="left:40%">Book</div></div>
+            <h6>Select mode of fulfilment</h6>
+            <div class="bx"><span class="ci" style="background:transparent;border:3px solid #9a9ba0;border-right-color:#5a5b60"></span><span class="col"><span class="t">Approval in progress (~5 min)</span><span class="s">Keep going, we'll notify you when it's done.</span></span></div>
+            <div class="g2">
+              <div class="bx v" style="border:1.5px solid #d9dadd;align-items:flex-start;gap:4px"><span class="ci" style="width:12px;height:12px;border:3px solid #d9dadd;background:#2a2b2e"></span><span class="t">Home collection</span><span class="s">A technician visits you · no extra cost</span></div>
+              <div class="bx v" style="align-items:flex-start;gap:4px"><span class="ci" style="width:12px;height:12px;background:transparent;border:1.5px solid #8c8e94"></span><span class="t">Lab visit</span><span class="s">3 labs nearby do all your tests</span></div>
+            </div>
+            <div class="btn">Choose a time</div>
+          </div>
+          <!-- 5 Slot -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:62%"></div><div class="kn" style="left:52%">Book</div></div>
+            <h6>Pick a time</h6>
+            <div class="bx"><span class="ci"></span><span class="col"><span class="t">Collect from · Home</span><span class="s">Flat 302, Palm Residency, Andheri W</span></span><span class="lk">Change</span></div>
+            <div class="g5"><span class="chipx">Sat<br>17</span><span class="chipx on">Sun<br>18</span><span class="chipx">Mon<br>19</span><span class="chipx">Tue<br>20</span><span class="chipx">Wed<br>21</span></div>
+            <span class="lab">MORNING</span>
+            <div class="g3"><span class="chipx">7–8 AM</span><span class="chipx on">8–9 AM</span><span class="chipx">9–10 AM</span></div>
+            <span class="lab">AFTERNOON</span>
+            <div class="g3"><span class="chipx">12–1 PM</span><span class="chipx">2–3 PM</span><span class="chipx full">Full</span></div>
+            <div class="bx"><span class="s">Your preferred slot. Confirmed after approval.</span></div>
+            <div class="btn">Confirm</div>
+          </div>
+          <!-- 6 Approved -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:75%"></div><div class="kn" style="left:55%">Approved</div></div>
+            <div class="hero"><span class="ci k" style="width:26px;height:26px;font-size:11px">✓</span><span class="t" style="font-size:11px">All 3 items approved</span><span class="s">Approved in 4 minutes · checked item by item</span></div>
+            <div class="bx v" style="gap:7px"><span class="lab">ITEM-WISE APPROVAL</span>
+              <div class="kv">Complete blood count<span class="ok">✓ Approved</span></div><div class="kv">HbA1c<span class="ok">✓ Approved</span></div><div class="kv">Lipid profile<span class="ok">✓ Approved</span></div></div>
+            <div class="bx"><span class="ci" style="border-radius:4px;height:22px"></span><span class="col"><span class="t">Your prescription</span><span class="s">Dr. A. Mehta · 10 Oct 2026</span></span><span class="lk">View</span></div>
+            <div class="btn">Continue to payment</div>
+          </div>
+          <!-- 7 Pay -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:87%"></div><div class="kn" style="left:74%">Pay</div></div>
+            <h6>Review &amp; pay</h6>
+            <div class="bx"><span class="ci" style="border-radius:4px;height:22px"></span><span class="col"><span class="t">Your prescription</span><span class="s">Dr. A. Mehta · 10 Oct 2026</span></span><span class="lk">View</span></div>
+            <div class="bx v" style="gap:6px"><span class="lab">BILL BREAKUP</span>
+              <div class="kv"><span>CBC</span><b>₹350</b></div><div class="kv"><span>HbA1c</span><b>₹450</b></div><div class="kv"><span>Lipid profile</span><b>₹600</b></div><div class="kv"><span>Home collection</span><b>₹0</b></div>
+              <div class="ln" style="height:1px"></div><div class="kv"><span>Lab package benefit</span><b>− ₹1,400</b></div><div class="ln" style="height:1px"></div><div class="kv"><b>You pay</b><b>₹0</b></div></div>
+            <div class="bx"><span class="s">Your benefits saved you ₹1,400 on this order</span></div>
+            <div class="btn">Confirm booking</div>
+          </div>
+          <!-- 8 Done -->
+          <div class="wf"><div class="sb">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <div class="pg"><div class="tr"></div><div class="fl" style="width:100%"></div><div class="kn" style="left:78%">Done</div></div>
+            <div class="hero"><span class="ci" style="width:28px;height:28px;background:#d6d7da"></span><span class="t" style="font-size:11px">You're all set!</span><span class="s">Booking ID LB-48213</span></div>
+            <div class="bx v" style="gap:8px">
+              <div style="display:flex;gap:7px"><span class="ci"></span><span class="col"><span class="t">Home sample collection</span><span class="s">Sun 18 Oct · 8–9 AM</span></span></div>
+              <div style="display:flex;gap:7px"><span class="ci"></span><span class="col"><span class="t">Collection address</span><span class="s">Flat 302, Palm Residency, Andheri W</span></span></div>
+              <div style="display:flex;gap:7px"><span class="ci"></span><span class="col"><span class="t">Reports</span><span class="s">In the app within 24 hours</span></span></div></div>
+            <div class="bx"><span class="ci" style="border-radius:4px;height:22px"></span><span class="col"><span class="t">Your prescription</span><span class="s">Dr. A. Mehta · 10 Oct 2026</span></span><span class="lk">View</span></div>
+            <div class="btn o">Go to my orders</div>
+          </div>
+        </div></div>
+
+        <div class="mp" id="mp" role="img" aria-label="Prototype screen shown in the centre phone">
+          <div class="scrn">
+            <div class="stat">9:41<i></i><b><span style="height:4px"></span><span style="height:6px"></span><span style="height:8px"></span></b></div>
+            <!-- C0 Upload -->
+            <div class="ph on">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:14%"></div><div class="kn" style="left:2%">Upload</div></div>
+              <h4>Upload your prescription</h4><div class="s">We'll read it and fill in everything for you.</div>
+              <div class="found"><div class="row"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:#fff;display:grid;place-items:center">📄</span><span style="display:flex;flex-direction:column;gap:1px"><b style="font-size:10.5px">Prescription · Dr. A. Mehta · 3 days ago</b><span class="s">Includes lab tests and a recent lab report</span></span></div><div class="gbtn">Use this prescription</div></div>
+              <div class="lbl2">OR UPLOAD A NEW ONE</div>
+              <div class="tiles"><span><i>📷</i>Camera</span><span><i>🖼️</i>Gallery</span><span><i>🗂️</i>My documents</span></div>
+              <div class="tip">Tip: keep the whole page, doctor's signature and registration number visible.</div>
+            </div>
+            <!-- C1 Reading -->
+            <div class="ph">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:30%"></div><div class="kn" style="left:12%">Reading</div></div>
+              <h4>Reading your prescription…</h4>
+              <div class="doc"><div class="pp"><div class="h">Dr. A. Mehta, MBBS</div><div class="x">Reg. MH-12345 · 10 Oct 2026</div><div class="x">Patient: Divi Sharma<br>1. Complete blood count<br>2. HbA1c · 3. Lipid profile</div><i style="width:70%"></i><div class="tint"></div><div class="beam"></div></div></div>
+              <div class="chk"><b>✓</b>Image is clear</div><div class="chk"><b>✓</b>Patient: Divi Sharma</div><div class="chk"><b>✓</b>Doctor registration verified</div><div class="chk"><b>✓</b>Dated within 30 days</div><div class="chk p"><b>…</b>Matching your benefit</div>
+              <div class="s" style="margin-top:auto;text-align:center">Takes a few seconds</div>
+            </div>
+            <!-- C2 Review -->
+            <div class="ph">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:42%"></div><div class="kn" style="left:28%">Review</div></div>
+              <h4>Check the details we found</h4><div class="s">Amber means please double-check.</div>
+              <div class="c who2"><span class="ic">👤</span><span class="col"><span class="t">Divi Sharma · Self</span><span class="s">Dr. A. Mehta · Reg. MH-12345 ✓</span></span><span class="a">Change</span></div>
+              <div class="c warn"><span class="ic" style="background:#fff">🧪</span><span class="col"><span class="t">Lipid profile</span><span class="s">We weren't fully sure. Please confirm.</span></span><span class="a">Check</span></div>
+              <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">Complete blood count</span><span class="s">Fasting not needed</span></span></div>
+              <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">HbA1c</span><span class="s">Fasting not needed</span></span></div>
+              <div class="c ben">🎁 Lab package benefit applied · covers all 3</div>
+              <div class="btn">Submit details</div>
+            </div>
+            <!-- C3 Mode -->
+            <div class="ph">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:54%"></div><div class="kn" style="left:42%">Book</div></div>
+              <h4>Select mode of fulfilment</h4>
+              <div class="ban"><span class="donut"></span><span><b style="font-size:10.5px">Approval in progress</b><br><span class="s">We'll notify you when it's done.</span></span></div>
+              <div class="modes"><div class="mode sel"><b>Home collection</b><span class="s">A technician visits you · no extra cost</span></div><div class="mode"><b>Lab visit</b><span class="s">3 labs nearby do all your tests</span></div></div>
+              <div class="btn">Choose a time</div>
+            </div>
+            <!-- C4 Slot -->
+            <div class="ph">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:64%"></div><div class="kn" style="left:52%">Book</div></div>
+              <h4>Pick a time</h4>
+              <div class="addr2"><span>📍</span><span style="flex:1;display:flex;flex-direction:column;gap:1px"><b style="font-size:10.5px">Collect from · Home</b><span class="s">Flat 302, Palm Residency, Andheri W</span></span><b style="color:#2f5fd9;font-size:10px">Change</b></div>
+              <div class="dates"><span>Sat<br>17</span><span class="on">Sun<br>18</span><span>Mon<br>19</span><span>Tue<br>20</span><span>Wed<br>21</span></div>
+              <div class="part">🌅 Morning</div>
+              <div class="slots"><span>7–8 AM</span><span class="on">8–9 AM</span><span>9–10 AM</span></div>
+              <div class="part">☀️ Afternoon</div>
+              <div class="slots"><span>12–1 PM</span><span>2–3 PM</span><span class="full">Full</span></div>
+              <div class="note">Your preferred slot. We confirm it once your prescription is approved.</div>
+              <div class="btn">Confirm</div>
+            </div>
+            <!-- C5 Approved -->
+            <div class="ph">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:76%"></div><div class="kn" style="left:56%">Approved</div></div>
+              <div class="hero3 g"><span class="bd">✓</span><span class="bg">All 3 items approved</span><span class="s" style="color:#1c2029">Approved in 4 minutes · checked item by item</span></div>
+              <div class="list"><div class="lbl2">ITEM-WISE APPROVAL</div><div class="r">Complete blood count<span class="pt ok">✓ Approved</span></div><div class="r">HbA1c<span class="pt ok">✓ Approved</span></div><div class="r">Lipid profile<span class="pt ok">✓ Approved</span></div></div>
+              <div class="c rxc"><span class="dc"><i></i><i style="width:70%"></i><i></i></span><span class="col"><span class="t">Your prescription</span><span class="s">Dr. A. Mehta · 10 Oct 2026</span></span><span class="a">View</span></div>
+              <div class="btn">Continue to payment</div>
+            </div>
+            <!-- C6 Pay -->
+            <div class="ph">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:88%"></div><div class="kn" style="left:76%">Pay</div></div>
+              <h4>Review &amp; pay</h4>
+              <div class="c rxc"><span class="dc"><i></i><i style="width:70%"></i><i></i></span><span class="col"><span class="t">Your prescription</span><span class="s">Dr. A. Mehta · 10 Oct 2026</span></span><span class="a">View</span></div>
+              <div class="list"><div class="lbl2">BILL BREAKUP</div><div class="kv"><span>CBC</span><b>₹350</b></div><div class="kv"><span>HbA1c</span><b>₹450</b></div><div class="kv"><span>Lipid profile</span><b>₹600</b></div><div class="kv"><span>Home collection</span><b>₹0</b></div><div class="hr"></div><div class="kv g"><span>Lab package benefit</span><b>− ₹1,400</b></div><div class="hr"></div><div class="kv"><b>You pay</b><b>₹0</b></div></div>
+              <div class="save">🎉 Your benefits saved you ₹1,400 on this order</div>
+              <div class="btn">Confirm booking</div>
+            </div>
+            <!-- C7 Done -->
+            <div class="ph">
+              <div class="pg"><div class="tr"></div><div class="fl" style="width:100%"></div><div class="kn" style="left:79%">Done</div></div>
+              <div class="hero3 b"><span class="bd">🎉</span><span class="bg">You're all set!</span><span class="s" style="color:#1c2029">Booking ID LB-48213</span></div>
+              <div class="list">
+                <div class="r" style="justify-content:flex-start"><span>🏠</span><span style="display:flex;flex-direction:column"><b>Home sample collection</b><span class="s">Sun 18 Oct · 8–9 AM</span></span></div>
+                <div class="r" style="justify-content:flex-start"><span>📍</span><span style="display:flex;flex-direction:column"><b>Collection address</b><span class="s">Flat 302, Palm Residency, Andheri W</span></span></div>
+                <div class="r" style="justify-content:flex-start"><span>📑</span><span style="display:flex;flex-direction:column"><b>Reports</b><span class="s">In the app within 24 hours</span></span></div>
+              </div>
+              <div class="c rxc"><span class="dc"><i></i><i style="width:70%"></i><i></i></span><span class="col"><span class="t">Your prescription</span><span class="s">Dr. A. Mehta · 10 Oct 2026</span></span><span class="a">View</span></div>
+              <div class="btn ol">Go to my orders</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sc-cap">
+      <div class="sc-now" aria-live="polite"><span class="k" id="scK">Screen 1 of 8</span><span class="v" id="scV">Upload your prescription</span></div>
+      <div class="sc-dots" id="scDots"></div>
+      <div class="sc-ctl"><button type="button" id="scPrev" aria-label="Previous screen">←</button><button type="button" id="scPlay" aria-label="Pause">❚❚</button><button type="button" id="scNext" aria-label="Next screen">→</button></div>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+  <section class="panel" id="product">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Product</p><h2>Four moments that <em>changed the outcome</em></h2></div>
+      <p>The screens where the key decisions live.</p>
+    </div>
+    <div class="phones">
+      <div class="shot">
+        <div class="ph" aria-label="Phone screen: AI reading the prescription">
+          <div class="pg"><div class="tr"></div><div class="fl" style="width:30%"></div><div class="kn" style="left:12%">Reading</div></div>
+          <h4>Reading your prescription…</h4>
+          <div class="doc"><div class="pp">
+            <div class="h">Dr. A. Mehta, MBBS</div><div class="x">Reg. MH-12345 · 10 Oct 2026</div>
+            <div class="x">Patient: Divi Sharma<br>1. Complete blood count<br>2. HbA1c · 3. Lipid profile</div><i style="width:70%"></i>
+            <div class="tint"></div><div class="beam"></div></div></div>
+          <div class="chk"><b>✓</b>Image is clear</div>
+          <div class="chk"><b>✓</b>Patient: Divi Sharma</div>
+          <div class="chk"><b>✓</b>Doctor registration verified</div>
+          <div class="chk"><b>✓</b>Dated within 30 days</div>
+          <div class="chk p"><b>…</b>Matching your benefit</div>
+        </div>
+        <div class="cap"><span class="no">01 · UPLOAD AND READ</span><h3>Make the AI's work visible</h3><p>Parsing takes 5–10 seconds, so the scan and checks show live. Visible progress makes waiting easier.</p></div>
+      </div>
+      <div class="shot">
+        <div class="ph" aria-label="Phone screen: reviewing the details the AI found">
+          <div class="pg"><div class="tr"></div><div class="fl" style="width:42%"></div><div class="kn" style="left:30%">Review</div></div>
+          <h4>Check the details we found</h4>
+          <div class="s">Amber means please double-check.</div>
+          <div class="c who2"><span class="ic">👤</span><span class="col"><span class="t">Divi Sharma · Self</span><span class="s">Dr. A. Mehta · Reg. MH-12345 ✓</span></span><span class="a">Change</span></div>
+          <div class="c warn"><span class="ic" style="background:#fff">🧪</span><span class="col"><span class="t">Lipid profile</span><span class="s">We weren't fully sure. Please confirm.</span></span><span class="a">Check</span></div>
+          <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">Complete blood count</span><span class="s">Fasting not needed</span></span></div>
+          <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">HbA1c</span><span class="s">Fasting not needed</span></span></div>
+          <div class="c ben">🎁 Lab package benefit applied · covers all 3</div>
+          <div class="btn">Submit details</div>
+        </div>
+        <div class="cap"><span class="no">02 · REVIEW</span><h3>Show where the AI is unsure</h3><p>Handwritten prescriptions read at 50–70% confidence. Uncertain items turn amber for the patient to confirm.</p></div>
+      </div>
+      <div class="shot">
+        <div class="ph" aria-label="Phone screen: booking a slot while approval runs">
+          <div class="pg"><div class="tr"></div><div class="fl" style="width:58%"></div><div class="kn" style="left:46%">Book</div></div>
+          <h4>Book while you wait</h4>
+          <div class="ban"><span class="donut"></span><span><b style="font-size:10.5px">Approval in progress</b><br><span class="s">We'll notify you when it's done.</span></span></div>
+          <div class="modes"><div class="mode sel"><b>Home collection</b><span class="s">No extra cost</span></div><div class="mode"><b>Lab visit</b><span class="s">3 labs nearby</span></div></div>
+          <div class="dates"><span>Sat<br>17</span><span class="on">Sun<br>18</span><span>Mon<br>19</span><span>Tue<br>20</span><span>Wed<br>21</span></div>
+          <div class="slots"><span>7–8 AM</span><span class="on">8–9 AM</span><span>9–10 AM</span><span>12–1 PM</span><span>2–3 PM</span><span class="full">Full</span></div>
+          <div class="note">Your preferred slot. We confirm it once your prescription is approved.</div>
+          <div class="btn">Confirm</div>
+        </div>
+        <div class="cap"><span class="no">03 · BOOK</span><h3>Turn the wait into progress</h3><p>Slots can't always be held, so picks are preferences. If one's gone, the same lab's other slots come first.</p></div>
+      </div>
+      <div class="shot">
+        <div class="ph" aria-label="Phone screen: item-by-item approval with a reason">
+          <div class="pg"><div class="tr"></div><div class="fl" style="width:74%"></div><div class="kn" style="left:58%">Approval</div></div>
+          <div class="hero2"><span class="h">½</span><span><b style="font-size:13px">2 of 3 tests approved</b><br><span class="s">One needs your decision.</span></span></div>
+          <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">Complete blood count</span></span><span class="pt ok">✓ Approved</span></div>
+          <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">HbA1c</span></span><span class="pt ok">✓ Approved</span></div>
+          <div class="c no">
+            <div style="display:flex;align-items:center;gap:8px"><span class="ic" style="background:#fff">🧪</span><b style="flex:1">Lipid profile</b><span class="pt no">✕ Not approved</span></div>
+            <div class="reason">Reason: Out of your policy coverage. Your company's lab package doesn't include it.</div>
+            <div class="btns"><span style="background:#2f5fd9;color:#fff">Pay ₹600 myself</span><span style="border:1px solid #2f5fd9;color:#2f5fd9;background:#fff">Remove</span></div>
+            <span class="help">💬 Need more clarity? Talk to our team</span>
+          </div>
+          <div class="btn">Continue with approved items</div>
+        </div>
+        <div class="cap"><span class="no">04 · RESULT</span><h3>Approve per test, always with a reason</h3><p>One uncovered test no longer blocks the rest. Every rejection says why and what to do next.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPS -->
+  <section class="panel" id="ops">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Operations</p><h2>A human stays in the loop, <em>with less typing</em></h2></div>
+      <p>I also designed the agents' dashboard. AI does the typing and routine checks. The agent decides on the prescription, then each test.</p>
+    </div>
+    <div class="ops">
+      <div class="dash" aria-label="Ops dashboard: reviewing a case item by item">
+        <div class="sb"><b>Rx Ops</b><span class="on">Queue</span><span>In review</span><span>Completed</span><span>My stats</span></div>
+        <div class="mn">
+          <div class="tt"><h5>RX-20931 · Priya Sharma</h5><span class="chip g">● AI confidence: High</span><span class="chip b">Slot held · Sun 8–9 AM</span></div>
+          <div class="card">
+            <div class="row"><span class="nm">Step 1 · Prescription</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕ Not covered</span></div>
+            <div class="row"><span class="chip g">✓ Within 30 days</span><span class="chip g">✓ Doctor reg. verified</span><span class="chip g">✓ Not a duplicate</span></div>
+          </div>
+          <div class="card">
+            <div class="row"><span class="nm">Step 2 · Mark each item</span><span style="color:#2f5fd9;font-weight:700;font-size:10px">Accept AI suggestions</span></div>
+            <div class="card item" style="padding:8px 10px"><div class="row"><span class="nm">Complete blood count<small>Lab package · ₹350</small></span><span class="chip g">AI: Covered</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕</span></div></div>
+            <div class="card item" style="padding:8px 10px"><div class="row"><span class="nm">HbA1c<small>Lab package · ₹450</small></span><span class="chip g">AI: Covered</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕</span></div></div>
+            <div class="card item flag" style="padding:8px 10px"><div class="row"><span class="nm">Lipid profile<small>Lab package · ₹600</small></span><span class="chip a">AI: Not covered</span><span class="tg cov o">✓</span><span class="tg nc on">✕ Not covered</span></div><div class="row"><span class="rs">Out of policy coverage · not in company lab package ▾</span></div></div>
+          </div>
+          <div class="ft"><span><b>Partially approved</b> · 2 of 3 covered</span><span class="sub">Submit decision</span></div>
+        </div>
+      </div>
+      <div class="points">
+        <div><h3>AI suggests, the agent decides</h3><p class="small">The AI's call comes pre-filled. Every rejection needs a reason the patient sees.</p></div>
+        <div><h3>Attention goes where it's needed</h3><p class="small">Low confidence, expired prescriptions and duplicates are flagged, so clean cases move fast.</p></div>
+        <div><h3>About 4 minutes per prescription</h3><p class="small">With no typing, each case takes about 4 minutes.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLABORATION -->
+  <section class="panel">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Working with tech and ops</p><h2>Their answers <em>reshaped the screens</em></h2></div>
+      <p>I took my open questions to tech and ops before finalising. Each answer changed the design.</p>
+    </div>
+    <div class="qa">
+      <article class="glass"><span class="q">How long does parsing take?</span><span class="a">5–10 seconds</span><p class="ch"><b>Changed:</b> a live scan, so the wait feels like progress.</p></article>
+      <article class="glass"><span class="q">How confident is the AI?</span><span class="a">~90% printed, 50–70% handwritten</span><p class="ch"><b>Changed:</b> uncertain items turn amber for review.</p></article>
+      <article class="glass"><span class="q">What if parsing fails?</span><span class="a">One silent retry, then a manual route</span><p class="ch"><b>Changed:</b> the first failure stays invisible and nothing is lost.</p></article>
+      <article class="glass"><span class="q">Can a slot be held for 30 minutes?</span><span class="a">Not when demand is high</span><p class="ch"><b>Changed:</b> slots became preferences, confirmed after approval.</p></article>
+      <article class="glass"><span class="q">What happens with a duplicate?</span><span class="a">Warn, never block</span><p class="ch"><b>Changed:</b> a warning the patient can move past.</p></article>
+      <article class="glass"><span class="q">How long to build Phase 1?</span><span class="a">At least 1.5 months</span><p class="ch"><b>Changed:</b> the wait fix shipped first.</p></article>
+    </div>
+  </section>
+
+  <!-- EDGE CASES -->
+  <section class="panel">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Edge cases</p><h2>Designed for <em>when things go wrong</em></h2></div>
+      <p>Every failure gets a clear reason and a way forward. Nothing entered is lost.</p>
+    </div>
+    <div class="edges">
+      <div class="edge"><span class="w">Upload</span><b>Photo unclear</b><span>Instant check. Retake or continue.</span></div>
+      <div class="edge"><span class="w">Reading</span><b>Parsing fails</b><span>Silent retry, then a manual route.</span></div>
+      <div class="edge"><span class="w">Review</span><b>Handwritten, low confidence</b><span>Amber items for the patient to confirm.</span></div>
+      <div class="edge"><span class="w">Upload</span><b>Duplicate prescription</b><span>A warning. The patient can continue.</span></div>
+      <div class="edge"><span class="w">Approval</span><b>Prescription not accepted</b><span>Clear reasons. Re-upload, selections kept.</span></div>
+      <div class="edge"><span class="w">Approval</span><b>Test not covered</b><span>Pay for it, remove it, or talk to the team.</span></div>
+      <div class="edge"><span class="w">After approval</span><b>Preferred slot taken</b><span>Same lab first, then similar labs.</span></div>
+      <div class="edge"><span class="w">Pay</span><b>Payment fails</b><span>Retry. The booking is kept.</span></div>
+      <div class="edge"><span class="w">Approval</span><b>Patient leaves mid-wait</b><span>A notification with a one-tap link back.</span></div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="panel" id="results">
+    <div class="head">
+      <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Results · first month after launch</p><h2>We don't promise potential. <em>Here's what moved.</em></h2></div>
+      <p>First month after launch, against the month before. Completion jumped and cancellations held steady.</p>
+    </div>
+    <div class="res">
+      <div class="statcard">
+        <div><span class="v">+19 pts</span><span class="l">booking completion, 58% → 77%</span></div>
+        <div><span class="v">7 min</span><span class="l">average approval, down from ~20</span></div>
+        <div><span class="v">+5,538</span><span class="l">orders a month through the platform (+12.3%)</span></div>
+        <div><span class="v">−17% · −21%</span><span class="l">drop-off at the wait · in the form</span></div>
+        <div><span class="v">4 min</span><span class="l">agent time per prescription</span></div>
+      </div>
+      <div class="stage" role="img" aria-label="Booking completion rate: 58% before, 77% after one month. Column heights are to scale from zero.">
+        <span class="axis">Booking completion · to scale</span>
+        <div class="ped"><span class="lead"></span><div class="lbl"><div class="v num">58%</div><div class="k">Before</div></div><div class="slab"></div><div class="col" style="height:174px"></div><span class="base">Before</span></div>
+        <div class="ped after"><span class="lead"></span><div class="lbl"><div class="v num">77%</div><div class="k">After one month</div></div><div class="slab"></div><div class="col" style="height:231px"></div><span class="base">After</span></div>
+      </div>
+    </div>
+    <div class="glass range" role="img" aria-label="Forecast versus actual order uplift: forecasts were 9% conservative, 16% moderate, 24% optimistic; actual was 12.3%">
+      <h3>Forecast vs actual order uplift</h3>
+      <p class="small">I forecast +9%, +16% and +24%. The real uplift landed between the first two.</p>
+      <div class="scale">
+        <div class="ln"></div>
+        <div class="band" style="left:36%;width:28%"></div>
+        <div class="mk" style="left:36%"><span class="w">Conservative</span><b>9%</b><i></i></div>
+        <div class="mk" style="left:64%"><span class="w">Moderate</span><b>16%</b><i></i></div>
+        <div class="mk" style="left:96%"><span class="w">Optimistic</span><b>24%</b><i></i></div>
+        <div class="mk act" style="left:49.2%">Actual<b>12.3%</b><i></i></div>
+      </div>
+      <div class="ticks" aria-hidden="true"><span style="left:0">0%</span><span style="left:20%">5%</span><span style="left:40%">10%</span><span style="left:60%">15%</span><span style="left:80%">20%</span><span style="left:100%">25%</span></div>
+      <p class="guard"><i></i>Cancellations held at ~2.6%, so speed didn't cost quality.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div class="glass">
+    <div><div class="who3">Divyangi Tiwari</div><p class="small">UX Researcher and Designer · Health benefits</p></div>
+    <div class="ctas">
+      <a class="pill ghost" href="../../#work">← Back to all projects</a>
+      <a class="pill ghost" href="https://www.figma.com/design/RirAwhsLhMOgtrC9PGX52X" target="_blank" rel="noopener">Figma flows ↗</a>
+      <a class="pill" href="prototype/" target="_blank" rel="noopener">Try the prototype ↗</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(()=>{
+  const belt=document.getElementById('belt'); if(!belt) return;
+  const track=belt.querySelector('.track'), stage=document.getElementById('scStage');
+  const N=8, W=200, G=26;
+  const orig=[...track.children];
+  for(let c=0;c<2;c++) orig.forEach(n=>track.appendChild(n.cloneNode(true)));
+  const items=[...track.children];
+  const scr=[...document.querySelectorAll('#mp .ph')];
+  const names=['Upload your prescription','AI reads the prescription','Check the details we found','Select mode of fulfilment','Pick a time','All items approved','Review & pay','Booking confirmed'];
+  const dots=document.getElementById('scDots'), K=document.getElementById('scK'), V=document.getElementById('scV');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let idx=N, timer=null, playing=!reduce, visible=true, hover=false;
+  const mod=i=>((i%N)+N)%N;
+  names.forEach((n,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show '+n);b.addEventListener('click',()=>{go(i-mod(idx));restart();});dots.appendChild(b);});
+  function place(anim){track.style.transition=anim&&!reduce?'transform .95s cubic-bezier(.65,0,.35,1)':'none';track.style.transform='translateX('+(-(idx*(W+G)+W/2))+'px)';}
+  function show(){const k=mod(idx);scr.forEach((s,j)=>s.classList.toggle('on',j===k));items.forEach((el,j)=>el.classList.toggle('mid',j===idx));[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===k));K.textContent='Screen '+(k+1)+' of '+N;V.textContent=names[k];}
+  function norm(){if(idx<N||idx>=2*N){idx=mod(idx)+N;place(false);void track.offsetWidth;show();}}
+  function go(d){norm();if(!d)return;idx+=d;place(true);show();if(reduce)norm();}
+  track.addEventListener('transitionend',e=>{if(e.target===track&&e.propertyName==='transform')norm();});
+  function tick(){if(playing&&visible&&!hover&&!document.hidden)go(1);}
+  function restart(){clearInterval(timer);timer=setInterval(tick,3200);}
+  document.getElementById('scPrev').addEventListener('click',()=>{go(-1);restart();});
+  document.getElementById('scNext').addEventListener('click',()=>{go(1);restart();});
+  const pb=document.getElementById('scPlay');
+  function setPlay(p){playing=p;pb.textContent=p?'❚❚':'▶';pb.setAttribute('aria-label',p?'Pause':'Play');}
+  pb.addEventListener('click',()=>{setPlay(!playing);restart();});
+  stage.addEventListener('mouseenter',()=>hover=true);stage.addEventListener('mouseleave',()=>hover=false);
+  if('IntersectionObserver' in window){new IntersectionObserver(es=>{visible=es[0].isIntersecting;},{threshold:.2}).observe(stage);}
+  setPlay(playing);place(false);show();restart();
+})();
+</script>
+
+
+</body></html>

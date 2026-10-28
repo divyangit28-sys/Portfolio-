@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>F16s design system: Foundations · Divyangi Tiwari</title>
+<meta name="author" content="Divyangi Tiwari">
+<link rel="icon" href="../../avatar.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@300;400;500;600&amp;family=Roboto:wght@400;500;700&amp;family=Inter:wght@400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+.ey{font-family:'Manrope',sans-serif;font-weight:600;font-size:16px;line-height:1;letter-spacing:.18em;text-transform:uppercase;color:#6f788b;}
+.card{background:#ffffff;border:1px solid #e6e8ed;border-radius:28px;padding:40px 44px;}
+.lbl{font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#8a93a6;}
+.note{font-size:15px;line-height:1.5;color:#6f788b;}
+.grp{display:grid;grid-template-columns:180px minmax(0,1fr);gap:24px;padding:22px 0;border-top:1px solid #eceef2;}
+.grp:first-child{border-top:none;padding-top:0;}
+.sw{height:56px;border-radius:14px;}
+.swn{font-size:14px;font-weight:600;margin-top:10px;}
+.swh{font-family:'Roboto',sans-serif;font-size:13px;color:#6f788b;margin-top:2px;}
+.trow{display:grid;grid-template-columns:150px 110px 80px minmax(0,1fr) 300px;gap:20px;align-items:center;padding:14px 0;border-top:1px solid #eceef2;font-size:15px;}
+.trow .m{font-family:'Roboto',sans-serif;color:#5f6778;}
+.tok{font-family:'Roboto',sans-serif;font-size:13px;color:#6f788b;margin-top:10px;}
+.tokn{font-size:15px;font-weight:600;margin-top:12px;}
+.bp{display:grid;grid-template-columns:150px 140px 110px 90px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid #eceef2;font-size:15px;align-items:center;}
+</style>
+<style>.pf-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-top:20px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600}.pf-bar a{color:#4f6fae;text-decoration:none}.pf-bar a:hover{color:#2b3140}.pf-bar a[aria-current]{color:#2b3140}.pf-bar .sp{flex:1}</style><style>body{background:#f3f4f6}.pf-board{width:1400px;margin:0 auto}.pf-bar{max-width:1360px;margin:0 auto;padding:20px 20px 16px}</style><script>(function(){function f(){var b=document.querySelector(".pf-board");if(b)b.style.zoom=Math.min(1,(document.documentElement.clientWidth)/1400)}addEventListener("resize",f);document.addEventListener("DOMContentLoaded",f)})();</script>
+</head>
+<body>
+<nav class="pf-bar" aria-label="Design system"><a href="index.html#system">← F16s case study</a><span class="sp"></span><a href="design-system-foundations.html" aria-current="page">Foundations</a><a href="design-system-components.html">Components</a><a href="design-system-patterns.html">Patterns</a></nav>
+<div class="pf-board">
+
+
+<div style="width:1400px;height:3880px;box-sizing:border-box;padding:72px 120px;display:flex;flex-direction:column;background:#f3f4f6;font-family:'Manrope',sans-serif;color:#2b3140;">
+
+  <!-- top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:28px;border-bottom:1px solid #e3e5ea;">
+    <div style="width:36px;height:36px;border-radius:11px;background:#e4ebf7;display:flex;align-items:center;justify-content:center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#5f7fbf" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2.5 2v1.5L12 21l3.5 1.5V21L13 19v-5.5z"></path></svg>
+    </div>
+    <span style="font-size:18px;color:#6f788b;">F16s — UX Case Study</span>
+  </div>
+
+  <!-- intro -->
+  <div class="ey" style="margin-top:96px;">08 — Design system · Foundations</div>
+  <h2 style="margin:28px 0 0;max-width:1000px;font-family:'Sora',sans-serif;font-weight:400;font-size:72px;line-height:1.06;letter-spacing:-2.6px;">The tokens behind every screen</h2>
+  <p style="margin:28px 0 0;max-width:860px;font-size:24px;line-height:1.55;color:#5f6778;">Colour, type, spacing, layout and shape for the F16s product and website. Every text colour was checked against its background, and failing source colours were corrected.</p>
+
+  <!-- colour -->
+  <div class="ey" style="margin-top:80px;">Colour</div>
+  <div class="card" style="margin-top:24px;">
+    
+      <div class="grp">
+        <div><div style="font-size:18px;font-weight:600;">Primary</div><div class="note" style="margin-top:6px;">Brand and actions</div></div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+          
+            <div><div class="sw" style="background:#355594;"></div><div class="swn">Brand navy</div><div class="swh">#355594</div></div>
+          
+            <div><div class="sw" style="background:#466CB6;"></div><div class="swn">Action</div><div class="swh">#466CB6</div></div>
+          
+            <div><div class="sw" style="background:#355594;"></div><div class="swn">Action hover</div><div class="swh">#355594</div></div>
+          
+            <div><div class="sw" style="background:#F0F7FD;box-shadow:inset 0 0 0 1px #dfe3ea;"></div><div class="swn">Action subtle</div><div class="swh">#F0F7FD</div></div>
+          
+        </div>
+      </div>
+    
+      <div class="grp">
+        <div><div style="font-size:18px;font-weight:600;">Surfaces</div><div class="note" style="margin-top:6px;">Grounds and panels</div></div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+          
+            <div><div class="sw" style="background:#E6F3FE;box-shadow:inset 0 0 0 1px #dfe3ea;"></div><div class="swn">Canvas</div><div class="swh">#E6F3FE</div></div>
+          
+            <div><div class="sw" style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #dfe3ea;"></div><div class="swn">Default</div><div class="swh">#FFFFFF</div></div>
+          
+            <div><div class="sw" style="background:#F2F9FF;box-shadow:inset 0 0 0 1px #dfe3ea;"></div><div class="swn">Sunken</div><div class="swh">#F2F9FF</div></div>
+          
+            <div><div class="sw" style="background:#E9F5FF;box-shadow:inset 0 0 0 1px #dfe3ea;"></div><div class="swn">Selected</div><div class="swh">#E9F5FF</div></div>
+          
+            <div><div class="sw" style="background:#D0E6F8;box-shadow:inset 0 0 0 1px #dfe3ea;"></div><div class="swn">Hero (web)</div><div class="swh">#D0E6F8</div></div>
+          
+        </div>
+      </div>
+    
+      <div class="grp">
+        <div><div style="font-size:18px;font-weight:600;">Text</div><div class="note" style="margin-top:6px;">All 4.5:1 or better</div></div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+          
+            <div><div class="sw" style="background:#4C4C4C;"></div><div class="swn">Primary</div><div class="swh">#4C4C4C</div></div>
+          
+            <div><div class="sw" style="background:#676767;"></div><div class="swn">Secondary</div><div class="swh">#676767</div></div>
+          
+            <div><div class="sw" style="background:#656879;"></div><div class="swn">Tertiary</div><div class="swh">#656879</div></div>
+          
+            <div><div class="sw" style="background:#466CB6;"></div><div class="swn">Data</div><div class="swh">#466CB6</div></div>
+          
+            <div><div class="sw" style="background:#1F1F1F;"></div><div class="swn">On bright</div><div class="swh">#1F1F1F</div></div>
+          
+            <div><div class="sw" style="background:#B0B2BE;"></div><div class="swn">Disabled</div><div class="swh">#B0B2BE</div></div>
+          
+        </div>
+      </div>
+    
+      <div class="grp">
+        <div><div style="font-size:18px;font-weight:600;">Borders</div><div class="note" style="margin-top:6px;">Inputs need 3:1</div></div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+          
+            <div><div class="sw" style="background:#6D8FD6;"></div><div class="swn">Input</div><div class="swh">#6D8FD6</div></div>
+          
+            <div><div class="sw" style="background:#AAC4FE;"></div><div class="swn">Container</div><div class="swh">#AAC4FE</div></div>
+          
+            <div><div class="sw" style="background:#E5EDFF;box-shadow:inset 0 0 0 1px #dfe3ea;"></div><div class="swn">Subtle</div><div class="swh">#E5EDFF</div></div>
+          
+            <div><div class="sw" style="background:#C5C5C5;"></div><div class="swn">Divider</div><div class="swh">#C5C5C5</div></div>
+          
+        </div>
+      </div>
+    
+      <div class="grp">
+        <div><div style="font-size:18px;font-weight:600;">Status</div><div class="note" style="margin-top:6px;">Semantic feedback</div></div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+          
+            <div><div class="sw" style="background:#00844D;"></div><div class="swn">Success</div><div class="swh">#00844D</div></div>
+          
+            <div><div class="sw" style="background:#FFCD07;"></div><div class="swn">Warning</div><div class="swh">#FFCD07</div></div>
+          
+            <div><div class="sw" style="background:#E00C0C;"></div><div class="swn">Error</div><div class="swh">#E00C0C</div></div>
+          
+            <div><div class="sw" style="background:#07A8DD;"></div><div class="swn">Info</div><div class="swh">#07A8DD</div></div>
+          
+        </div>
+      </div>
+    
+      <div class="grp">
+        <div><div style="font-size:18px;font-weight:600;">Workflow stage</div><div class="note" style="margin-top:6px;">One stage, one colour</div></div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+          
+            <div><div class="sw" style="background:#FFCD07;"></div><div class="swn">Intake</div><div class="swh">#FFCD07</div></div>
+          
+            <div><div class="sw" style="background:#FF40AC;"></div><div class="swn">Verification</div><div class="swh">#FF40AC</div></div>
+          
+            <div><div class="sw" style="background:#07A8DD;"></div><div class="swn">In transit</div><div class="swh">#07A8DD</div></div>
+          
+            <div><div class="sw" style="background:#00844D;"></div><div class="swn">Completed</div><div class="swh">#00844D</div></div>
+          
+        </div>
+      </div>
+    
+      <div class="grp">
+        <div><div style="font-size:18px;font-weight:600;">Urgency</div><div class="note" style="margin-top:6px;">Tag on its tint</div></div>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px;">
+          
+            <div><div class="sw" style="background:#B04A4A;"></div><div class="swn">High</div><div class="swh">#B04A4A</div></div>
+          
+            <div><div class="sw" style="background:#F9CCCF;"></div><div class="swn">High tint</div><div class="swh">#F9CCCF</div></div>
+          
+            <div><div class="sw" style="background:#C3BB5D;"></div><div class="swn">Medium</div><div class="swh">#C3BB5D</div></div>
+          
+            <div><div class="sw" style="background:#F9F8CA;"></div><div class="swn">Medium tint</div><div class="swh">#F9F8CA</div></div>
+          
+            <div><div class="sw" style="background:#83C35D;"></div><div class="swn">Low</div><div class="swh">#83C35D</div></div>
+          
+            <div><div class="sw" style="background:#E0FAC2;"></div><div class="swn">Low tint</div><div class="swh">#E0FAC2</div></div>
+          
+        </div>
+      </div>
+    
+  </div>
+
+  <!-- typography -->
+  <div class="ey" style="margin-top:80px;">Typography</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;">
+      <div style="background:#f5f8fc;border-radius:20px;padding:24px 28px;display:flex;align-items:center;gap:24px;">
+        <span style="font-family:'Roboto',sans-serif;font-size:56px;line-height:1;color:#355594;">Aa</span>
+        <div><div style="font-size:18px;font-weight:600;">Roboto</div><div class="note">Product and website. Regular 400, Medium 500, Bold 700.</div></div>
+      </div>
+      <div style="background:#f5f8fc;border-radius:20px;padding:24px 28px;display:flex;align-items:center;gap:24px;">
+        <span style="font-family:'Inter',sans-serif;font-size:56px;line-height:1;color:#656879;">Aa</span>
+        <div><div style="font-size:18px;font-weight:600;">Inter</div><div class="note">Marketing lead paragraphs only. Regular 400.</div></div>
+      </div>
+    </div>
+    <div class="trow lbl" style="margin-top:28px;border-top:none;font-size:12px;"><span>Style</span><span>Size / line</span><span>Weight</span><span>Sample</span><span>Use</span></div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Hero (web)</span>
+        <span class="m">160 / 160</span>
+        <span class="m">400</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:44px;line-height:1;letter-spacing:-1px;color:#ffffff;background:#d0e6f8;padding:6px 14px;border-radius:10px;justify-self:start;">FOCUS AIR</span>
+        <span class="note" style="font-size:14px;">Website hero word, white on the hero blue</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Section (web)</span>
+        <span class="m">30 / 38</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:30px;line-height:38px;font-weight:500;color:#355594;">Our Services</span>
+        <span class="note" style="font-size:14px;">Website section headings, navy</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Lead (web)</span>
+        <span class="m">18 / 28</span>
+        <span class="m">400</span>
+        <span style="font-family:'Inter',sans-serif;font-size:18px;line-height:28px;color:#656879;">Your partner for smarter operations.</span>
+        <span class="note" style="font-size:14px;">Website intro paragraphs, Inter</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Display</span>
+        <span class="m">56 / 64</span>
+        <span class="m">700</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:56px;line-height:64px;font-weight:700;letter-spacing:-.5px;">10,000+</span>
+        <span class="note" style="font-size:14px;">Headline numbers only</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">H1</span>
+        <span class="m">26 / 32</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:26px;line-height:32px;font-weight:500;">Operational Board</span>
+        <span class="note" style="font-size:14px;">Page title, one per page</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">H2</span>
+        <span class="m">20 / 28</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:20px;line-height:28px;font-weight:500;">Unassigned Mails</span>
+        <span class="note" style="font-size:14px;">Section and tray titles</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">H3</span>
+        <span class="m">18 / 24</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:18px;line-height:24px;font-weight:500;">Awaiting Customer</span>
+        <span class="note" style="font-size:14px;">Column and group headings</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Nav</span>
+        <span class="m">18 / 24</span>
+        <span class="m">400</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:18px;line-height:24px;color:#676767;">Dashboard</span>
+        <span class="note" style="font-size:14px;">Sidebar labels, 500 when active</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Body large</span>
+        <span class="m">16 / 24</span>
+        <span class="m">400</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:16px;line-height:24px;">Fastlog Corp</span>
+        <span class="note" style="font-size:14px;">Card first line, input values</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Body</span>
+        <span class="m">14 / 20</span>
+        <span class="m">400</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:14px;line-height:20px;">Cargo is ready at the Bhiwandi warehouse.</span>
+        <span class="note" style="font-size:14px;">Running text in panels and tables</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Body small</span>
+        <span class="m">12 / 16</span>
+        <span class="m">400</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:12px;line-height:16px;letter-spacing:.1px;color:#656879;">Pricing · BLR</span>
+        <span class="note" style="font-size:14px;">Roles, helper text</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Data</span>
+        <span class="m">15 / 20</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:15px;line-height:20px;font-weight:500;letter-spacing:.2px;color:#466cb6;">ENQA-26-8006</span>
+        <span class="note" style="font-size:14px;">Record IDs, tabular figures</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Data small</span>
+        <span class="m">12 / 16</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:12px;line-height:16px;font-weight:500;letter-spacing:.2px;color:#466cb6;">18 June 2026 · Dst: BNA</span>
+        <span class="note" style="font-size:14px;">Dates and values on a record</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Label / Button</span>
+        <span class="m">13–14 / 16–20</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:14px;line-height:20px;font-weight:500;letter-spacing:.2px;">Verification</span>
+        <span class="note" style="font-size:14px;">Badges, form labels, buttons</span>
+      </div>
+    
+      <div class="trow">
+        <span style="font-weight:600;">Caption</span>
+        <span class="m">11 / 14</span>
+        <span class="m">500</span>
+        <span style="font-family:'Roboto',sans-serif;color:#4c4c4c;font-size:11px;line-height:14px;font-weight:500;letter-spacing:.3px;">INTAKE</span>
+        <span class="note" style="font-size:14px;">Urgency tags, counts. The floor.</span>
+      </div>
+    
+    <div class="note" style="margin-top:18px;">Hierarchy: one H1 per page, then H2 for sections and H3 for columns. Nothing in the product goes below 11 px, and running text never goes below 12 px.</div>
+  </div>
+
+  <!-- spacing -->
+  <div class="ey" style="margin-top:80px;">Spacing · 4 px base</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:flex;align-items:flex-end;gap:28px;">
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:4px;height:4px;"></div>
+          <div class="tokn" style="font-size:14px;">4 px</div>
+          <div class="tok" style="margin-top:2px;">space-1</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:8px;height:8px;"></div>
+          <div class="tokn" style="font-size:14px;">8 px</div>
+          <div class="tok" style="margin-top:2px;">space-2</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:12px;height:12px;"></div>
+          <div class="tokn" style="font-size:14px;">12 px</div>
+          <div class="tok" style="margin-top:2px;">space-3</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:16px;height:16px;"></div>
+          <div class="tokn" style="font-size:14px;">16 px</div>
+          <div class="tok" style="margin-top:2px;">space-4</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:24px;height:24px;"></div>
+          <div class="tokn" style="font-size:14px;">24 px</div>
+          <div class="tok" style="margin-top:2px;">space-6</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:32px;height:32px;"></div>
+          <div class="tokn" style="font-size:14px;">32 px</div>
+          <div class="tok" style="margin-top:2px;">space-8</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:40px;height:40px;"></div>
+          <div class="tokn" style="font-size:14px;">40 px</div>
+          <div class="tok" style="margin-top:2px;">space-10</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:48px;height:48px;"></div>
+          <div class="tokn" style="font-size:14px;">48 px</div>
+          <div class="tok" style="margin-top:2px;">space-12</div>
+        </div>
+      
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="background:#c9d8f0;border-radius:4px;width:64px;height:64px;"></div>
+          <div class="tokn" style="font-size:14px;">64 px</div>
+          <div class="tok" style="margin-top:2px;">space-16</div>
+        </div>
+      
+    </div>
+    <div class="note" style="margin-top:24px;">Use 4 to 12 px inside components, 16 to 32 px between components and regions in the product, and 40 to 64 px between sections on the website.</div>
+  </div>
+
+  <!-- layout -->
+  <div class="ey" style="margin-top:80px;">Layout and breakpoints</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:grid;grid-template-columns:460px minmax(0,1fr);gap:48px;align-items:start;">
+      <div>
+        <div style="height:300px;border-radius:20px;background:#e6f3fe;padding:12px;display:flex;gap:12px;">
+          <div style="width:72px;border-radius:12px;background:#f2f9ff;display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:10px;">
+            <div style="width:40px;height:8px;border-radius:4px;background:#9fb4dc;"></div><div style="width:40px;height:8px;border-radius:4px;background:#d3e0f2;"></div><div style="width:40px;height:8px;border-radius:4px;background:#d3e0f2;"></div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+            <div style="height:36px;border-radius:10px;background:#f2f9ff;"></div>
+            <div style="flex:1;border-radius:16px;background:#ffffff;padding:12px;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;">
+              <div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div><div style="background:#fbe3ec;border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px;margin-top:20px;font-size:15px;">
+          <div><b>Sidebar</b> <span style="color:#6f788b;">260 px, fixed</span></div>
+          <div><b>Header</b> <span style="color:#6f788b;">96 px</span></div>
+          <div><b>Work panel</b> <span style="color:#6f788b;">32 px padding, radius 32</span></div>
+          <div><b>Grid</b> <span style="color:#6f788b;">12 columns, 24 px gutter</span></div>
+          <div><b>Website</b> <span style="color:#6f788b;">1200 px max content</span></div>
+          <div><b>Controls</b> <span style="color:#6f788b;">48 px, compact 32 px</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="bp lbl" style="border-top:none;font-size:12px;"><span>Breakpoint</span><span>Width</span><span>Columns</span><span>Margin</span><span>Navigation</span></div>
+        <div class="bp"><span style="font-weight:600;">Desktop</span><span class="r" style="font-family:'Roboto';">1280 px and up</span><span>12</span><span>32 px</span><span>Full sidebar with labels</span></div>
+        <div class="bp"><span style="font-weight:600;">Laptop</span><span style="font-family:'Roboto';">1024–1279</span><span>12</span><span>24 px</span><span>Sidebar collapses to 80 px icons</span></div>
+        <div class="bp"><span style="font-weight:600;">Tablet</span><span style="font-family:'Roboto';">768–1023</span><span>8</span><span>24 px</span><span>Sidebar opens as a drawer; boards scroll sideways</span></div>
+        <div class="bp"><span style="font-weight:600;">Mobile</span><span style="font-family:'Roboto';">Below 768</span><span>4</span><span>16 px</span><span>Top bar with menu; one column, cards stack</span></div>
+        <div class="note" style="margin-top:16px;">The shell sizes come from the prototypes. The breakpoints are proposed for the responsive build.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- other tokens -->
+  <div class="ey" style="margin-top:80px;">Radius, shadow, opacity and icons</div>
+  <div class="card" style="margin-top:24px;">
+    <div class="lbl">Radius</div>
+    <div style="display:flex;gap:32px;margin-top:18px;">
+      <div><div style="width:110px;height:64px;border-radius:6px;background:#e6f3fe;border:1px solid #c9d8f0;"></div><div class="tokn">6 · sm</div><div class="tok" style="margin-top:2px;">Badges, tags</div></div>
+      <div><div style="width:110px;height:64px;border-radius:12px;background:#e6f3fe;border:1px solid #c9d8f0;"></div><div class="tokn">12 · md</div><div class="tok" style="margin-top:2px;">Rows, tooltips</div></div>
+      <div><div style="width:110px;height:64px;border-radius:20px;background:#e6f3fe;border:1px solid #c9d8f0;"></div><div class="tokn">20 · lg</div><div class="tok" style="margin-top:2px;">Cards</div></div>
+      <div><div style="width:110px;height:64px;border-radius:32px;background:#e6f3fe;border:1px solid #c9d8f0;"></div><div class="tokn">32 · xl</div><div class="tok" style="margin-top:2px;">Panels, columns</div></div>
+      <div><div style="width:110px;height:64px;border-radius:999px;background:#e6f3fe;border:1px solid #c9d8f0;"></div><div class="tokn">999 · pill</div><div class="tok" style="margin-top:2px;">Buttons, inputs</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;margin-top:40px;padding-top:32px;border-top:1px solid #eceef2;">
+      <div>
+        <div class="lbl">Shadow</div>
+        <div style="display:flex;gap:24px;margin-top:18px;">
+          <div><div style="width:96px;height:64px;border-radius:16px;background:#ffffff;box-shadow:0 4px 16px rgba(0,0,0,.08);"></div><div class="tokn">Card</div></div>
+          <div><div style="width:64px;height:64px;border-radius:50%;background:#466cb6;box-shadow:0 4px 10px rgba(53,85,148,.35);"></div><div class="tokn">FAB</div></div>
+          <div><div style="width:96px;height:64px;border-radius:999px;background:#ffffff;box-shadow:0 2px 6px rgba(53,85,148,.18);"></div><div class="tokn">Control</div></div>
+          <div><div style="width:96px;height:64px;border-radius:999px;background:#ffffff;box-shadow:0 0 0 2px #ffffff,0 0 0 4px #355594;"></div><div class="tokn">Focus</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Opacity</div>
+        <div style="display:flex;gap:20px;margin-top:18px;">
+          <div><div style="width:72px;height:64px;border-radius:14px;background:#466cb6;"></div><div class="tokn">100</div><div class="tok" style="margin-top:2px;">Default</div></div>
+          <div><div style="width:72px;height:64px;border-radius:14px;background:#466cb6;opacity:.4;"></div><div class="tokn">40</div><div class="tok" style="margin-top:2px;">Disabled</div></div>
+          <div><div style="width:72px;height:64px;border-radius:14px;background:rgba(31,42,68,.4);"></div><div class="tokn">40</div><div class="tok" style="margin-top:2px;">Scrim</div></div>
+          <div><div style="width:72px;height:64px;border-radius:14px;background:rgba(53,85,148,.08);border:1px solid #e3e8ef;"></div><div class="tokn">8 / 12</div><div class="tok" style="margin-top:2px;">Hover / press</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:40px;padding-top:32px;border-top:1px solid #eceef2;">
+      <div class="lbl">Icon sizes and targets</div>
+      <div style="display:flex;align-items:flex-end;gap:40px;margin-top:18px;">
+        <div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#466cb6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z"></path><path d="M3 7l9 6 9-6"></path></svg><div class="tokn">16</div><div class="tok" style="margin-top:2px;">In badges</div></div>
+        <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#466cb6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z"></path><path d="M3 7l9 6 9-6"></path></svg><div class="tokn">24</div><div class="tok" style="margin-top:2px;">Default</div></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#466cb6" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3z"></path><path d="M3 7l9 6 9-6"></path></svg><div class="tokn">32</div><div class="tok" style="margin-top:2px;">In FAB</div></div>
+        <div><div style="width:56px;height:56px;border-radius:50%;background:#466cb6;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M12 6v12M6 12h12"></path></svg></div><div class="tokn">56</div><div class="tok" style="margin-top:2px;">Icon button</div></div>
+        <div><div style="width:44px;height:44px;border-radius:10px;border:2px dashed #9fb4dc;"></div><div class="tokn">44</div><div class="tok" style="margin-top:2px;">Minimum target</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Designing the Wait · Divyangi Tiwari</title><meta name="author" content="Divyangi Tiwari"><link rel="icon" href="../../avatar.png"><style>.pf-home{position:fixed;z-index:6;top:calc(12px + env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));font:600 12px/1 Manrope,"Helvetica Neue",Arial,sans-serif;letter-spacing:.04em;color:#EDEDED;background:rgba(20,20,20,.86);border:1px solid #3A3A3A;padding:9px 13px;border-radius:999px;text-decoration:none}.pf-home:hover,.pf-home:focus-visible{border-color:#D2400F;outline:none}</style><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one slide per screen, scaled to fit, snapping as you scroll; quiet rail nav on the right */
+:root {
+  --ground: #141414;
+  --ink: #EDEDED;
+  --muted: #8C8C8C;
+  --rail: #3A3A3A;
+  --accent: #D2400F;
+  --font: Manrope, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+  scroll-snap-type: y proximity;
+}
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--ground); color: var(--ink); font-family: var(--font);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.slide {
+  min-height: 100vh; min-height: 100svh;
+  display: grid; place-items: center;
+  padding-block: 24px; box-sizing: border-box;
+  scroll-snap-align: center;
+}
+.frame {
+  width: min(100%, 1400px, calc((100svh - 48px) * 1.4));
+  max-width: 100%;
+  aspect-ratio: 1400 / 1000;
+  position: relative; overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.45);
+}
+.stage {
+  position: absolute; top: 0; left: 0;
+  width: 1400px; height: 1000px;
+  transform-origin: 0 0;
+  transform: scale(var(--k, 0.5));
+}
+@media (max-aspect-ratio: 1/1) {
+  .slide { min-height: 0; padding-block: 10px; scroll-snap-align: start; }
+  .frame { width: 100%; }
+}
+.rail {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  right: max(16px, env(safe-area-inset-right, 0px));
+  margin: 0; padding: 0; list-style: none;
+  display: flex; flex-direction: column; gap: 6px; z-index: 5;
+}
+.rail a {
+  display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+  min-height: 24px; text-decoration: none; color: var(--muted);
+  font-size: 12px; font-weight: 600; letter-spacing: .04em;
+}
+.rail .lbl { opacity: 0; transform: translateX(6px); transition: opacity .2s, transform .2s; white-space: nowrap;
+  background: var(--ground); padding: 3px 8px; border-radius: 4px; }
+.rail a:hover .lbl, .rail a:focus-visible .lbl, .rail a[aria-current="true"] .lbl { opacity: 1; transform: none; }
+.rail a[aria-current="true"] { color: var(--ink); }
+.rail .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rail); transition: background .2s, transform .2s; flex: none; }
+.rail a[aria-current="true"] .dot { background: var(--accent); transform: scale(1.35); }
+.rail a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.count {
+  position: fixed; z-index: 5;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  left: max(16px, env(safe-area-inset-left, 0px));
+  font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  background: var(--ground); padding: 6px 10px; border-radius: 999px;
+}
+.count b { color: var(--ink); }
+@media (max-width: 1100px) { .rail .lbl { display: none; } }
+@media (max-width: 700px) { .rail { display: none; } }
+@media (prefers-reduced-motion: reduce) { .rail .lbl, .rail .dot { transition: none; } }
+.s1 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 130px 95px at 8% 14%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 92% 8%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 70% 96%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 22% 90%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 3% 60%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 97% 55%,#2a2a2a,transparent 70%),radial-gradient(ellipse 80px 55px at 50% 4%,#626262,transparent 70%),radial-gradient(ellipse 85px 60px at 40% 97%,#292929,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s2 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 140px 100px at 90% 90%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 5% 6%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 45% 97%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 75% 4%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 1% 60%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 99% 40%,#2a2a2a,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s2 .node{flex:1;min-width:0;background:#F7F7F7;border-radius:16px;padding:18px 18px;display:flex;flex-direction:column;gap:10px}
+.s2 .ic{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.s2 .nt{font-size:16px;font-weight:700;color:#141414;line-height:1.25}
+.s2 .ns{font-size:13px;color:#5A5A5A;line-height:1.4}
+.s2 .arr{flex:none;display:flex;align-items:center}
+.s2 .ck{display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.45}
+.s2 .lab{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D2400F}
+.s2 .st{display:flex;flex-direction:column;gap:12px}
+.s2 .bar{height:8px;border-radius:4px}
+.s2 .sn{font-size:12px;font-weight:700;letter-spacing:.06em;color:#767676}
+.s2 .sx{font-size:17px;font-weight:600;color:#141414;line-height:1.3}
+.s3 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 140px 100px at 88% 12%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 6% 8%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 30% 96%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 78% 92%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 98% 50%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 2% 45%,#2a2a2a,transparent 70%),radial-gradient(ellipse 80px 55px at 55% 3%,#626262,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s4 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 130px 95px at 90% 88%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 8% 92%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 40% 3%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 85% 6%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 99% 45%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 1% 30%,#2a2a2a,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s4 .lab{font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#D2400F}
+.s4 .h3{font-size:20px;font-weight:700;line-height:1.25;color:#141414}
+.s4 .p{margin:0;font-size:16px;line-height:1.55;color:#3A3A3A}
+.s4 .hc{flex:1;min-width:0;border-radius:18px;padding:24px 22px;display:flex;flex-direction:column;gap:10px}
+.s4 .hk{font-size:12px;font-weight:700;letter-spacing:.12em}
+.s4 .ht{font-size:19px;font-weight:700;line-height:1.3}
+.s4 .arr{flex:none;display:flex;align-items:center}
+.s4 .wc{background:#F7F7F7;border-radius:16px;padding:20px 20px;display:flex;flex-direction:column;gap:8px}
+.s4 .wt{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#141414}
+.s4 .wx{font-size:15px;line-height:1.5;color:#3A3A3A}
+.s5 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 130px 95px at 94% 12%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 4% 88%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 50% 97%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 15% 5%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 99% 65%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 1% 40%,#2a2a2a,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s5 .row{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start;padding:18px 0;border-top:1px solid #E6E6E6}
+.s5 .n{width:32px;height:32px;border-radius:50%;background:#D2400F;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.s5 .h{font-size:18px;font-weight:700;color:#141414}
+.s5 .s{font-size:15px;line-height:1.5;color:#4A4A4A;margin-top:4px}
+.s6 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 130px 95px at 10% 92%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 92% 6%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 35% 4%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 80% 95%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 1% 35%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 99% 60%,#2a2a2a,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s6 .lb{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#767676}
+.s6 .tx{font-size:17px;line-height:1.5;color:#1F1F1F;margin-top:6px}
+.s7 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 130px 95px at 92% 90%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 6% 10%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 60% 3%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 25% 96%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 99% 40%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 1% 60%,#2a2a2a,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s7 .it{display:flex;align-items:center;gap:12px;font-size:16px;color:#2A2A2A;padding:11px 0;border-top:1px solid #E6E6E6}
+.s7 .no{width:20px;height:20px;border-radius:50%;border:2px solid #C4C4C4;box-sizing:border-box;flex:none}
+.s7 .yes{width:20px;height:20px;border-radius:50%;background:#D2400F;flex:none;display:flex;align-items:center;justify-content:center}
+.s7 .dots{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
+.s7 .d{aspect-ratio:1;border-radius:50%}
+.s8 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 130px 95px at 8% 8%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 94% 94%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 45% 97%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 88% 4%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 1% 55%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 99% 45%,#2a2a2a,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s8 .cg{position:absolute;inset:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;padding:6px;align-content:start}
+.s8 .c{aspect-ratio:1;border-radius:50%;background:#fff}
+.s9 .tex{background-color:#3d3d3d;background-image:radial-gradient(ellipse 130px 95px at 95% 8%,#606060,transparent 70%),radial-gradient(ellipse 170px 120px at 5% 94%,#242424,transparent 70%),radial-gradient(ellipse 150px 110px at 30% 3%,#5a5a5a,transparent 70%),radial-gradient(ellipse 95px 70px at 70% 96%,#222,transparent 70%),radial-gradient(ellipse 210px 150px at 99% 70%,#525252,transparent 70%),radial-gradient(ellipse 115px 85px at 1% 25%,#2a2a2a,transparent 70%),linear-gradient(135deg,#4a4a4a,#2e2e2e)}
+.s9 .hd{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#141414}
+.s9 .li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;padding:16px 0;border-top:1px solid #E6E6E6}
+.s9 .lk{font-size:13px;font-weight:700;color:#D2400F;padding-top:3px}
+.s9 .lt{font-size:18px;font-weight:700;line-height:1.3;color:#141414}
+.s9 .lb{font-size:15px;line-height:1.5;color:#3A3A3A;margin-top:4px}
+.s9 .im{display:flex;flex-direction:column;gap:3px;padding:12px 0;border-top:1px solid #E6E6E6}
+.s9 .il{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#767676}
+.s9 .ix{font-size:15px;line-height:1.45;color:#1F1F1F}
+.s9 .nx{display:flex;gap:12px;align-items:baseline;padding:11px 0;border-top:1px solid #E2E2E2}
+.s9 .nn{font-size:12px;font-weight:700;color:#D2400F;width:20px;flex:none}
+.s9 .nt{font-size:15px;line-height:1.45;color:#2A2A2A}
+</style>
+
+<a class="pf-home" href="../../#tales">← Portfolio</a>
+<main>
+<section class="slide" id="s1" aria-label="1. Cover"><div class="frame"><div class="stage s1"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; gap: 6px">
+<div style="width: 150px; flex: none; border-radius: 22px; background: #D2400F; overflow: hidden">
+<svg aria-hidden="true" width="150" height="764" viewBox="0 0 150 764"><g fill="none" stroke="#fff" stroke-width="1.6"><circle cx="75" cy="120" r="13"></circle><circle cx="101" cy="120" r="13"></circle><circle cx="49" cy="120" r="13"></circle><circle cx="62" cy="97" r="13"></circle><circle cx="88" cy="97" r="13"></circle><circle cx="62" cy="143" r="13"></circle><circle cx="88" cy="143" r="13"></circle><circle cx="75" cy="74" r="13"></circle><circle cx="75" cy="166" r="13"></circle><circle cx="114" cy="143" r="13"></circle><circle cx="36" cy="143" r="13"></circle><circle cx="114" cy="97" r="13"></circle><circle cx="36" cy="97" r="13"></circle><line x1="75" y1="179" x2="75" y2="616"></line></g><circle cx="75" cy="660" r="44" fill="#fff"></circle><text x="75" y="670" text-anchor="middle" font-family="Manrope, sans-serif" font-size="28" font-weight="700" fill="#D2400F">Rx</text></svg>
+</div>
+<div style="flex: 1; min-width: 0; background: #fff; border-radius: 22px; padding: 72px 64px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D2400F">UX case study · Medicine delivery</div>
+<h1 style="margin: 0; font-size: 68px; line-height: 1.04; font-weight: 700; color: #141414; letter-spacing: -0.03em">Designing<br>the wait</h1>
+<p style="margin: 0; font-size: 21px; line-height: 1.55; color: #3A3A3A; max-width: 470px">How explaining prescription review cut drop-off by 20%, and turned a design-versus-engineering debate into an experiment.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 32px; border-top: 1px solid #E6E6E6; padding-top: 28px">
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #767676">Role</div><div style="font-size: 17px; color: #1A1A1A; font-weight: 500">UX Researcher</div></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #767676">Timeline</div><div style="font-size: 17px; color: #1A1A1A; font-weight: 500">3 Days</div></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #767676">Method</div><div style="font-size: 17px; color: #1A1A1A; font-weight: 500">A/B test, 24 per group</div></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><div style="font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #767676">Team</div><div style="font-size: 17px; color: #1A1A1A; font-weight: 500">Design, Product, Engineering</div></div>
+</div>
+</div>
+<div style="width: 400px; flex: none; display: flex; flex-direction: column; gap: 6px">
+<div style="flex: 1; border-radius: 22px; background: #D2400F; color: #fff; padding: 40px 38px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #FFE0D4">RESULT</div>
+<svg aria-hidden="true" width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l9 9 6-6 11 11"></path><path d="M22 22h8v-8"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: flex-start; font-weight: 600; letter-spacing: -0.05em; line-height: 0.85"><span style="font-size: 150px">20</span><span style="font-size: 72px; margin-top: 10px">%</span></div>
+<div style="font-size: 20px; font-weight: 600; line-height: 1.3">less drop-off during prescription review</div>
+</div>
+</div>
+<div style="flex: none; display: flex; gap: 6px">
+<div style="flex: 1; border-radius: 22px; background: #fff; padding: 24px 24px; display: flex; flex-direction: column; gap: 4px"><div style="font-size: 34px; font-weight: 700; color: #141414; letter-spacing: -0.02em; line-height: 1.1">24 + 24</div><div style="font-size: 14px; color: #5A5A5A">participants, A/B test</div></div>
+<div style="flex: 1; border-radius: 22px; background: #fff; padding: 24px 24px; display: flex; flex-direction: column; gap: 4px"><div style="font-size: 34px; font-weight: 700; color: #141414; letter-spacing: -0.02em; line-height: 1.1">1</div><div style="font-size: 14px; color: #5A5A5A">screen added to the flow</div></div>
+</div>
+<div style="flex: none; border-radius: 22px; background: #1C1C1C; color: #fff; padding: 26px 28px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #BDBDBD">SAME REVIEW, BETTER WAIT</div>
+<div style="font-size: 16px; line-height: 1.45">Review time didn't change. Only how the wait was communicated did.</div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s2" aria-label="2. Context"><div class="frame"><div class="stage s2"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; flex-direction: column; gap: 6px">
+<div style="height: 456px; flex: none; display: flex; gap: 6px">
+<div style="flex: 1; min-width: 0; background: #fff; border-radius: 22px; padding: 44px 44px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<div class="lab">01 · Context</div>
+<h2 style="margin: 0; font-size: 36px; line-height: 1.15; font-weight: 600; color: #141414; letter-spacing: -0.02em">Why every order needs a prescription</h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3A3A3A">We're a B2B2C health benefits platform. Medicines are part of an employee's benefit, so every order needs a prescription (Rx) that passes two checks before it can proceed.</p>
+<div style="margin-top: auto; display: flex; gap: 8px; align-items: stretch">
+<div class="node"><div class="ic" style="background:#1C1C1C"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"><path d="M3 20V6l8-3 8 3v14"></path><path d="M8 20v-5h6v5"></path></svg></div><div><div class="nt">Employers &amp; insurers</div><div class="ns">Fund benefits, set policy</div></div></div>
+<div class="arr"><svg aria-hidden="true" width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#B0B0B0" stroke-width="2" stroke-linecap="round"><path d="M1 6h17M14 2l4 4-4 4"></path></svg></div>
+<div class="node"><div class="ic" style="background:#D2400F"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="16" height="16" rx="4"></rect><path d="M11 7v8M7 11h8"></path></svg></div><div><div class="nt">Our platform</div><div class="ns">Delivers benefits and medicines</div></div></div>
+<div class="arr"><svg aria-hidden="true" width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#B0B0B0" stroke-width="2" stroke-linecap="round"><path d="M1 6h17M14 2l4 4-4 4"></path></svg></div>
+<div class="node"><div class="ic" style="background:#fff;box-shadow:inset 0 0 0 2px #1C1C1C"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 22 22" fill="none" stroke="#1C1C1C" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="7" r="4"></circle><path d="M3 20c1-4 4-6 8-6s7 2 8 6"></path></svg></div><div><div class="nt">Employees</div><div class="ns">Order by uploading an Rx</div></div></div>
+</div>
+</div>
+<div style="width: 440px; flex: none; display: flex; flex-direction: column; gap: 6px">
+<div style="flex: 1; background: #D2400F; border-radius: 22px; padding: 32px 36px; box-sizing: border-box; color: #fff; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 14px"><span style="font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -0.03em">1</span><div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #FFE0D4">INSURER &amp; POLICY CHECK</div></div>
+<div class="ck" style="color:#fff"><span style="flex:none;margin-top:9px;width:6px;height:6px;border-radius:50%;background:#fff"></span>Medicines, prescribed and OTC, are covered by the policy</div>
+<div class="ck" style="color:#fff"><span style="flex:none;margin-top:9px;width:6px;height:6px;border-radius:50%;background:#fff"></span>The Rx meets the policy's requirements</div>
+</div>
+<div style="flex: 1; background: #fff; border-radius: 22px; padding: 32px 36px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 14px"><span style="font-size: 40px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; color: #141414">2</span><div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #767676">REGULATORY CHECK</div></div>
+<div class="ck" style="color:#3A3A3A"><span style="flex:none;margin-top:9px;width:6px;height:6px;border-radius:50%;background:#D2400F"></span>The Rx is valid under government regulations</div>
+<div class="ck" style="color:#3A3A3A"><span style="flex:none;margin-top:9px;width:6px;height:6px;border-radius:50%;background:#D2400F"></span>Prescribed medicines ordered match the Rx</div>
+</div>
+</div>
+</div>
+<div style="flex: 1; background: #fff; border-radius: 22px; padding: 38px 44px; box-sizing: border-box; display: flex; flex-direction: column; gap: 26px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 24px">
+<div class="lab">The ordering journey</div>
+<div style="font-size: 15px; color: #3A3A3A"><b style="color:#141414">The review can't be skipped.</b> Only how the wait feels can change.</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px">
+<div class="st"><div class="bar" style="background:#1C1C1C"></div><div class="sn">STEP 1</div><div class="sx">Start a medicine order</div></div>
+<div class="st"><div class="bar" style="background:#1C1C1C"></div><div class="sn">STEP 2</div><div class="sx">Upload prescription</div></div>
+<div class="st"><div class="bar" style="background:#1C1C1C"></div><div class="sn">STEP 3</div><div class="sx">Upload succeeds</div></div>
+<div class="st" style="background: #FBEAE3; border-radius: 14px; padding: 0 12px 16px; margin: 0 -6px"><div class="bar" style="background:#D2400F"></div><div class="sn" style="color:#B33508">STEP 4 · THE WAIT</div><div class="sx" style="font-weight:700">Checks 1 + 2 run. User can't continue</div></div>
+<div class="st"><div class="bar" style="background:#CFCFCF"></div><div class="sn">STEP 5</div><div class="sx">Review completes</div></div>
+<div class="st"><div class="bar" style="background:#CFCFCF"></div><div class="sn">STEP 6</div><div class="sx">Order proceeds</div></div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s3" aria-label="3. Overview"><div class="frame"><div class="stage s3"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; gap: 6px">
+<div style="width: 150px; flex: none; border-radius: 22px; background: #1C1C1C; position: relative; overflow: hidden">
+<div style="position: absolute; left: -30px; top: 70px; width: 160px; height: 58px; border-radius: 999px; background: linear-gradient(180deg, #fafafa, #c9c9c9); transform: rotate(32deg)"></div>
+<div style="position: absolute; left: 40px; top: 250px; width: 110px; height: 72px; border-radius: 50%; background: linear-gradient(160deg, #ffffff, #bdbdbd); transform: rotate(-24deg)"></div>
+<div style="position: absolute; left: 70px; top: 400px; width: 150px; height: 54px; border-radius: 999px; background: linear-gradient(180deg, #f4f4f4, #c4c4c4); transform: rotate(-58deg)"></div>
+<div style="position: absolute; left: -24px; top: 560px; width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(150deg, #ffffff, #b8b8b8)"></div>
+<div style="position: absolute; left: 50px; top: 690px; width: 140px; height: 52px; border-radius: 999px; background: linear-gradient(180deg, #fafafa, #c9c9c9); transform: rotate(12deg)"></div>
+</div>
+<div style="flex: 1; min-width: 0; background: #fff; border-radius: 22px; padding: 60px 56px; box-sizing: border-box; display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D2400F">02 · At a glance</div>
+<h2 style="margin: 0; font-size: 40px; line-height: 1.15; font-weight: 600; color: #141414; letter-spacing: -0.02em">A small screen, a fair disagreement, and an experiment to settle it</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 36px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #141414">Problem</div><p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3A3A3A">Users dropped off while their prescription was under review, with no explanation of the wait.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #141414">Hypothesis</div><p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3A3A3A">Users who know what is happening, and what comes next, are less likely to abandon.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #141414">Constraint</div><p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3A3A3A">Engineering questioned whether a screen outside the core transaction was worth the build effort.</p></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #D2400F">Result</div><p style="margin: 0; font-size: 18px; line-height: 1.55; color: #3A3A3A">The context screen and timer cut drop-off by 20% in an A/B test, 24 participants per group.</p></div>
+</div>
+</div>
+<div style="width: 340px; flex: none; border-radius: 22px; background: #F7F7F7; padding: 48px 36px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #141414">What I did</div>
+<div style="display: flex; flex-direction: column; gap: 15px">
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">01</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Identified a behavioural problem</span></div>
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">02</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Linked it to uncertainty during a system process</span></div>
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">03</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Formed a testable hypothesis</span></div>
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">04</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Designed a focused solution</span></div>
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">05</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Worked through an engineering constraint</span></div>
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">06</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Proposed an experiment both sides trusted</span></div>
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">07</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Measured the change in behaviour</span></div>
+<div style="display: flex; gap: 14px; align-items: baseline"><span style="font-size: 13px; font-weight: 700; color: #D2400F; width: 20px">08</span><span style="font-size: 16px; line-height: 1.4; color: #2A2A2A">Used the evidence to inform the decision</span></div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s4" aria-label="4. Friction and hypothesis"><div class="frame"><div class="stage s4"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; gap: 6px">
+<div style="width: 360px; flex: none; display: flex; flex-direction: column; gap: 6px">
+<div style="flex: 1; border-radius: 22px; background: #fff; padding: 44px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+<div class="lab">03 · User friction</div>
+<div class="h3">Why it matters more here</div>
+<p class="p">People ordering medicine often need it soon, and have just shared a medical document. Uncertainty costs more trust than in an ordinary checkout.</p>
+<div style="border-top: 1px solid #E6E6E6"></div>
+<div class="h3">Silence after the upload</div>
+<p class="p">At the moment of review, the original flow said nothing. Silence after an upload is ambiguous: it can read as a failed upload, a frozen app or a missed step.</p>
+</div>
+<div style="flex: none; background: #D2400F; border-radius: 22px; padding: 28px 32px; box-sizing: border-box; display: flex; align-items: center; gap: 18px; color: #fff">
+<svg aria-hidden="true" width="30" height="30" viewBox="0 0 34 34" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" style="flex:none"><path d="M17 4v18"></path><path d="M9 15l8 8 8-8"></path><path d="M5 30h24"></path></svg>
+<div style="font-size: 18px; font-weight: 600; line-height: 1.4">A behavioural problem, not a visual one: users dropped off during review.</div>
+</div>
+</div>
+<div style="flex: 1; min-width: 0; border-radius: 22px; background: #fff; padding: 44px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+<div class="lab">04 · UX hypothesis</div>
+<h2 style="margin: 0; font-size: 36px; line-height: 1.15; font-weight: 600; color: #141414; letter-spacing: -0.02em">Uncertainty, not the wait itself, drives abandonment</h2>
+<div style="display: flex; gap: 8px; margin-top: 18px; align-items: stretch">
+<div class="hc" style="background:#F7F7F7"><div class="hk" style="color:#767676">IF</div><div class="ht" style="color:#141414">Users understand what is happening to their Rx</div></div>
+<div class="arr"><svg aria-hidden="true" width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#B0B0B0" stroke-width="2" stroke-linecap="round"><path d="M1 6h17M14 2l4 4-4 4"></path></svg></div>
+<div class="hc" style="background:#F7F7F7"><div class="hk" style="color:#767676">AND</div><div class="ht" style="color:#141414">They know clearly what happens next</div></div>
+<div class="arr"><svg aria-hidden="true" width="20" height="12" viewBox="0 0 20 12" fill="none" stroke="#B0B0B0" stroke-width="2" stroke-linecap="round"><path d="M1 6h17M14 2l4 4-4 4"></path></svg></div>
+<div class="hc" style="background:#D2400F"><div class="hk" style="color:#FFE0D4">THEN</div><div class="ht" style="color:#fff">Fewer will abandon the order during review</div></div>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #767676">Why this hypothesis</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div class="wc"><div class="wt">Designable</div><div class="wx">Review takes time. What users know while it happens is ours to shape.</div></div>
+<div class="wc"><div class="wt">Grounded</div><div class="wx">Visibility of system status: an explained wait feels shorter.</div></div>
+<div class="wc"><div class="wt">Falsifiable</div><div class="wx">It names a behaviour, a cause and a direction, so it can be tested.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s5" aria-label="5. Proposed solution"><div class="frame"><div class="stage s5"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; gap: 6px">
+<div style="flex: 1; min-width: 0; background: #fff; border-radius: 22px; padding: 52px 52px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D2400F">05 · Proposed solution</div>
+<h2 style="margin: 0; font-size: 34px; line-height: 1.15; font-weight: 600; color: #141414; letter-spacing: -0.02em">One screen. Each element answers a question.</h2>
+</div>
+<div style="display: flex; flex-direction: column">
+<div class="row"><div class="n">1</div><div><div class="h">Confirmation the Rx is being processed</div><div class="s">Did my upload work? → Reassurance</div></div></div>
+<div class="row"><div class="n">2</div><div><div class="h">Explanation of the review process</div><div class="s">What is happening, and why wait? → Makes the wait feel intentional</div></div></div>
+<div class="row"><div class="n">3</div><div><div class="h">Timer or estimated waiting state</div><div class="s">How long? Has it stalled? → System status and expectations</div></div></div>
+<div class="row"><div class="n">4</div><div><div class="h">What happens next</div><div class="s">Do I need to act? → A reason to stay</div></div></div>
+</div>
+<div style="margin-top: auto; background: #F7F7F7; border-radius: 16px; padding: 18px 22px; font-size: 15px; line-height: 1.5; color: #3A3A3A"><b style="color: #141414">The timer was not decoration.</b> It existed to reduce uncertainty and prove the process had not stalled.</div>
+</div>
+<div style="width: 470px; flex: none; border-radius: 22px; background: #F7F7F7; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden">
+<div style="position: absolute; right: -120px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: #fff"></div>
+<div style="position: relative; width: 300px; height: 620px; border-radius: 44px; background: #141414; padding: 10px; box-sizing: border-box">
+<div style="width: 100%; height: 100%; border-radius: 35px; background: #fff; overflow: hidden; padding: 46px 22px 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 10px"><span style="width: 24px; height: 24px; border-radius: 50%; background: #1F8A5B; color: #fff; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2"><path d="M2 6l3 3 5-6"></path></svg></span><span style="font-size: 13px; font-weight: 600; color: #1F6B48">Prescription received</span></div>
+<div style="font-size: 22px; font-weight: 700; line-height: 1.2; color: #141414">Our team is reviewing your prescription</div>
+<div style="font-size: 13px; line-height: 1.5; color: #4A4A4A">We check every prescription before medicines are dispensed, to keep you safe.</div>
+<div style="align-self: center; position: relative; width: 150px; height: 150px; margin: 6px 0">
+<svg aria-hidden="true" width="150" height="150" viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="#F0F0F0" stroke-width="10"></circle><circle cx="75" cy="75" r="64" fill="none" stroke="#D2400F" stroke-width="10" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="150" transform="rotate(-90 75 75)"></circle></svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center"><div style="font-size: 28px; font-weight: 700; color: #141414">[mm:ss]</div><div style="font-size: 11px; color: #6A6A6A">estimated</div></div>
+</div>
+<div style="background: #F7F7F7; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: #767676">WHAT HAPPENS NEXT</div>
+<div style="font-size: 13px; line-height: 1.45; color: #2A2A2A">Once approved, you can confirm your order. You don't need to do anything now.</div>
+</div>
+</div>
+</div>
+<div style="position: absolute; left: 22px; top: 150px; width: 30px; height: 30px; border-radius: 50%; background: #D2400F; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">1</div>
+<div style="position: absolute; left: 22px; top: 230px; width: 30px; height: 30px; border-radius: 50%; background: #D2400F; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">2</div>
+<div style="position: absolute; right: 26px; top: 410px; width: 30px; height: 30px; border-radius: 50%; background: #D2400F; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">3</div>
+<div style="position: absolute; left: 22px; top: 610px; width: 30px; height: 30px; border-radius: 50%; background: #D2400F; color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center">4</div>
+<div style="position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-size: 12px; color: #6A6A6A">Illustrative. Replace with your final screen.</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s6" aria-label="6. Constraint and debate"><div class="frame"><div class="stage s6"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; flex-direction: column; gap: 6px">
+<div style="background: #fff; border-radius: 22px; padding: 44px 52px; box-sizing: border-box; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D2400F">06 · Engineering constraint and debate</div>
+<h2 style="margin: 0; font-size: 34px; line-height: 1.15; font-weight: 600; color: #141414; letter-spacing: -0.02em">Two reasonable positions,<br>one shared unknown</h2>
+</div>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #3A3A3A; max-width: 440px">Engineering asked whether a screen outside the core transaction justified the effort. A fair question: my proposal rested on principle, not on evidence from our users.</p>
+</div>
+<div style="flex: 1; display: flex; gap: 6px; min-height: 0">
+<div style="flex: 1; background: #fff; border-radius: 22px; padding: 40px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #D2400F"></span><span style="font-size: 20px; font-weight: 700; color: #141414">UX position</span></div>
+<div><div class="lb">Claim</div><div class="tx">Uncertainty during review causes drop-off.</div></div>
+<div><div class="lb">Concern</div><div class="tx">Users leave without knowing their order is in progress.</div></div>
+<div><div class="lb">Would change my mind</div><div class="tx">Evidence that context makes no difference.</div></div>
+</div>
+<div style="width: 250px; flex: none; background: #D2400F; border-radius: 22px; padding: 36px 30px; box-sizing: border-box; color: #fff; display: flex; flex-direction: column; justify-content: center; gap: 18px">
+<div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: #FFE0D4">THE REFRAME</div>
+<div style="font-size: 15px; line-height: 1.45; color: #FFE7DD; text-decoration: line-through">Should we build this?</div>
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M11 3v15"></path><path d="M5 12l6 6 6-6"></path></svg>
+<div style="font-size: 24px; font-weight: 700; line-height: 1.25">Does this change what users do?</div>
+<div style="font-size: 14px; line-height: 1.5; color: #FFE7DD">Agreed upfront: if the test showed no difference, the proposal would be dropped.</div>
+</div>
+<div style="flex: 1; background: #fff; border-radius: 22px; padding: 40px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #1C1C1C"></span><span style="font-size: 20px; font-weight: 700; color: #141414">Engineering position</span></div>
+<div><div class="lb">Claim</div><div class="tx">The screens are not essential to the transaction.</div></div>
+<div><div class="lb">Concern</div><div class="tx">Effort spent here is effort not spent on the core flow.</div></div>
+<div><div class="lb">Would change their mind</div><div class="tx">Evidence that context changes behaviour.</div></div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s7" aria-label="7. A/B test"><div class="frame"><div class="stage s7"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; flex-direction: column; gap: 6px">
+<div style="background: #fff; border-radius: 22px; padding: 40px 52px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D2400F">07 · The A/B test</div>
+<h2 style="margin: 0; font-size: 34px; line-height: 1.15; font-weight: 600; color: #141414; letter-spacing: -0.02em">Same review. Different communication.</h2>
+</div>
+<div style="display: flex; gap: 36px">
+<div><div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: #767676">PRIMARY METRIC</div><div style="font-size: 17px; font-weight: 600; color: #141414; margin-top: 6px">Drop-off, Rx upload → review</div></div>
+<div><div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: #767676">HELD CONSTANT</div><div style="font-size: 17px; font-weight: 600; color: #141414; margin-top: 6px">The review process itself</div></div>
+</div>
+</div>
+<div style="flex: 1; display: flex; gap: 6px; min-height: 0">
+<div style="flex: 1; background: #fff; border-radius: 22px; padding: 38px 44px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><div style="font-size: 22px; font-weight: 700; color: #141414">Control · Version A</div><div style="font-size: 15px; color: #6A6A6A">Original flow</div></div>
+<div>
+<div class="it"><span class="no"></span>Context-setting screen</div>
+<div class="it"><span class="no"></span>Explanation of adjudication</div>
+<div class="it"><span class="no"></span>Timer / waiting state</div>
+<div class="it"><span class="no"></span>What happens next</div>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
+<div class="dots"><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span><span class="d" style="background:#1C1C1C"></span></div>
+<div style="font-size: 15px; font-weight: 600; color: #141414">24 participants</div>
+</div>
+</div>
+<div style="flex: 1; background: #fff; border-radius: 22px; padding: 38px 44px; display: flex; flex-direction: column; gap: 20px; box-shadow: inset 0 0 0 3px #D2400F">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><div style="font-size: 22px; font-weight: 700; color: #141414">Variant · Version B</div><div style="font-size: 15px; color: #B33508; font-weight: 600">Redesigned flow</div></div>
+<div>
+<div class="it"><span class="yes"><svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2"><path d="M1.5 5l2.5 2.5 4.5-5"></path></svg></span>Context-setting screen</div>
+<div class="it"><span class="yes"><svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2"><path d="M1.5 5l2.5 2.5 4.5-5"></path></svg></span>Explanation of adjudication</div>
+<div class="it"><span class="yes"><svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2"><path d="M1.5 5l2.5 2.5 4.5-5"></path></svg></span>Timer / waiting state</div>
+<div class="it"><span class="yes"><svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2"><path d="M1.5 5l2.5 2.5 4.5-5"></path></svg></span>What happens next</div>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
+<div class="dots"><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span><span class="d" style="background:#D2400F"></span></div>
+<div style="font-size: 15px; font-weight: 600; color: #141414">24 participants</div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s8" aria-label="8. Result"><div class="frame"><div class="stage s8"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; gap: 6px">
+<div style="width: 150px; flex: none; border-radius: 22px; background: #1C1C1C; position: relative; overflow: hidden">
+<div style="position: absolute; left: -40px; top: 40px; width: 170px; height: 60px; border-radius: 999px; background: linear-gradient(180deg, #fafafa, #c4c4c4); transform: rotate(-30deg)"></div>
+<div style="position: absolute; left: 60px; top: 220px; width: 120px; height: 78px; border-radius: 50%; background: linear-gradient(160deg, #ffffff, #bdbdbd); transform: rotate(20deg)"></div>
+<div style="position: absolute; left: -20px; top: 390px; width: 150px; height: 54px; border-radius: 999px; background: linear-gradient(180deg, #f4f4f4, #c4c4c4); transform: rotate(64deg)"></div>
+<div style="position: absolute; left: 66px; top: 560px; width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(150deg, #ffffff, #b8b8b8)"></div>
+<div style="position: absolute; left: -30px; top: 700px; width: 150px; height: 52px; border-radius: 999px; background: linear-gradient(180deg, #fafafa, #c9c9c9); transform: rotate(-8deg)"></div>
+</div>
+<div style="flex: 1; min-width: 0; background: #fff; border-radius: 22px; padding: 64px 56px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #D2400F">08 · Result</div>
+<h2 style="margin: 0; font-size: 38px; line-height: 1.15; font-weight: 600; color: #141414; letter-spacing: -0.02em">Explaining the wait reduced drop-off by 20%</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.6; color: #3A3A3A">The variant with the timer and context-setting screen outperformed the control. Users who knew what was happening, why, and what came next were more likely to stay through review.</p>
+</div>
+<div style="background: #F7F7F7; border-radius: 18px; padding: 26px 28px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #141414">Reading it honestly</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.55; color: #3A3A3A">With 24 participants per group, this is a directional signal, not a statistically conclusive one. It answered the question we asked: is this experience worth further investment?</p>
+</div>
+</div>
+<div style="width: 400px; flex: none; border-radius: 22px; background: #F2F2F2; position: relative; overflow: hidden">
+<div class="cg"><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span><span class="c"></span></div>
+<div style="position: absolute; left: 30px; bottom: 34px; display: flex; flex-direction: column; gap: 2px">
+<div style="font-size: 16px; font-weight: 700; letter-spacing: 0.1em; color: #141414; background: #fff; align-self: flex-start; padding: 6px 12px; border-radius: 999px">LESS DROP-OFF</div>
+<div style="display: flex; align-items: flex-start; color: #D2400F; font-weight: 600; letter-spacing: -0.04em; line-height: 0.9"><span style="font-size: 220px">20</span><span style="font-size: 90px; margin-top: 18px">%</span></div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+<section class="slide" id="s9" aria-label="9. Learning and impact"><div class="frame"><div class="stage s9"><div class="tex" style="width: 1400px; height: 1000px; box-sizing: border-box; padding: 90px 100px; font-family: Manrope, sans-serif; display: flex">
+<div style="flex: 1; background: #F0F0F0; padding: 28px; display: flex; gap: 6px">
+<div style="width: 300px; flex: none; background: #D2400F; border-radius: 22px; padding: 44px 36px; box-sizing: border-box; color: #fff; display: flex; flex-direction: column; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="font-size: 14px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #FFE0D4">09 · Learning &amp; impact</div>
+<h2 style="margin: 0; font-size: 34px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em">A waiting state is part of the product. Pushback is a prompt for evidence.</h2>
+</div>
+<div style="border-top: 1px solid rgba(255,255,255,0.35); padding-top: 22px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 22px; font-weight: 700; line-height: 1.25">Thank you for reading.</div>
+<div style="font-size: 15px; color: #FFE7DD">[your name] · [email or portfolio link]</div>
+</div>
+</div>
+<div style="flex: 1; min-width: 0; background: #fff; border-radius: 22px; padding: 44px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+<div class="hd">What I learned</div>
+<div>
+<div class="li"><div class="lk">01</div><div><div class="lt">Waiting is a designed moment</div><div class="lb">Users didn't object to the review, only to not knowing about it.</div></div></div>
+<div class="li"><div class="lk">02</div><div><div class="lt">Optional for the system ≠ optional for the user</div><div class="lb">A non-essential screen can still decide whether users stay.</div></div></div>
+<div class="li"><div class="lk">03</div><div><div class="lt">Pushback improved the work</div><div class="lb">Engineering's challenge moved the design from principle to proof.</div></div></div>
+<div class="li"><div class="lk">04</div><div><div class="lt">Small tests settle big debates</div><div class="lb">The cheapest test both sides trust beats a full build.</div></div></div>
+<div class="li"><div class="lk">05</div><div><div class="lt">Agree what counts before you test</div><div class="lb">Accepting either outcome made the result usable by everyone.</div></div></div>
+</div>
+</div>
+<div style="width: 330px; flex: none; display: flex; flex-direction: column; gap: 6px">
+<div style="flex: 1; background: #fff; border-radius: 22px; padding: 36px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
+<div class="hd">Impact</div>
+<div>
+<div class="im"><div class="il">Users</div><div class="ix">Fewer abandoned orders after the hard part was done</div></div>
+<div class="im"><div class="il">Product</div><div class="ix">Rx review treated as a designed funnel stage</div></div>
+<div class="im"><div class="il">Team</div><div class="ix">Debate moved from preference to measured benefit</div></div>
+<div class="im"><div class="il" style="color:#D2400F">Decision</div><div class="ix">[What happened next]</div></div>
+</div>
+</div>
+<div style="flex: 1; background: #F7F7F7; border-radius: 22px; padding: 36px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
+<div class="hd">What I'd do next</div>
+<div>
+<div class="nx"><span class="nn">01</span><span class="nt">Rerun with a larger sample</span></div>
+<div class="nx"><span class="nn">02</span><span class="nt">Test each element separately</span></div>
+<div class="nx"><span class="nn">03</span><span class="nt">Check timer estimates against real review times</span></div>
+<div class="nx"><span class="nn">04</span><span class="nt">Track completed orders, not just drop-off</span></div>
+</div>
+</div>
+</div>
+</div>
+</div></div></div></section>
+</main>
+
+<nav aria-label="Slides"><ol class="rail"><li><a href="#s1" data-i="1"><span class="lbl">Cover</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s2" data-i="2"><span class="lbl">Context</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s3" data-i="3"><span class="lbl">Overview</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s4" data-i="4"><span class="lbl">Friction and hypothesis</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s5" data-i="5"><span class="lbl">Proposed solution</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s6" data-i="6"><span class="lbl">Constraint and debate</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s7" data-i="7"><span class="lbl">A/B test</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s8" data-i="8"><span class="lbl">Result</span><span class="dot" aria-hidden="true"></span></a></li><li><a href="#s9" data-i="9"><span class="lbl">Learning and impact</span><span class="dot" aria-hidden="true"></span></a></li></ol></nav>
+<div class="count" aria-live="polite"><b id="cur">01</b> / 09</div>
+
+<script>
+(function () {
+  var frames = Array.prototype.slice.call(document.querySelectorAll('.frame'));
+  function fit() {
+    frames.forEach(function (f) { f.firstElementChild.style.setProperty('--k', f.clientWidth / 1400); });
+  }
+  fit();
+  if ('ResizeObserver' in window) { new ResizeObserver(fit).observe(document.documentElement); }
+  window.addEventListener('resize', fit);
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('.rail a'));
+  var cur = document.getElementById('cur');
+  var idx = 0;
+  function setCurrent(i) {
+    idx = i;
+    links.forEach(function (a, j) { a.setAttribute('aria-current', j === i ? 'true' : 'false'); });
+    cur.textContent = String(i + 1).padStart(2, '0');
+  }
+  setCurrent(0);
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) setCurrent(slides.indexOf(e.target)); });
+    }, { threshold: 0.55 });
+    slides.forEach(function (s) { io.observe(s); });
+  }
+  links.forEach(function (a, i) {
+    a.addEventListener('click', function (ev) { ev.preventDefault(); slides[i].scrollIntoView({ block: 'center' }); });
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.target.closest && ev.target.closest('input, textarea, select')) return;
+    var next = null;
+    if (ev.key === 'ArrowDown' || ev.key === 'PageDown' || (ev.key === ' ' && !ev.shiftKey)) next = idx + 1;
+    if (ev.key === 'ArrowUp' || ev.key === 'PageUp' || (ev.key === ' ' && ev.shiftKey)) next = idx - 1;
+    if (ev.key === 'Home') next = 0;
+    if (ev.key === 'End') next = slides.length - 1;
+    if (next === null) return;
+    next = Math.max(0, Math.min(slides.length - 1, next));
+    ev.preventDefault();
+    slides[next].scrollIntoView({ block: 'center' });
+  });
+})();
+</script>
+
+</body></html>

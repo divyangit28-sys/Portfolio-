@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>F16s design system: Components · Divyangi Tiwari</title>
+<meta name="author" content="Divyangi Tiwari">
+<link rel="icon" href="../../avatar.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@300;400;500;600&amp;family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+.ey{font-family:'Manrope',sans-serif;font-weight:600;font-size:16px;line-height:1;letter-spacing:.18em;text-transform:uppercase;color:#6f788b;}
+.card{background:#ffffff;border:1px solid #e6e8ed;border-radius:28px;padding:40px 44px;}
+.lbl{font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#8a93a6;}
+.note{font-size:15px;line-height:1.5;color:#6f788b;}
+.sub{font-family:'Sora',sans-serif;font-weight:400;font-size:24px;letter-spacing:-.4px;}
+.r{font-family:'Roboto',sans-serif;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;font-family:'Roboto',sans-serif;font-weight:500;font-size:14px;letter-spacing:.2px;border:1.5px solid transparent;white-space:nowrap;}
+.bp{background:#466cb6;color:#ffffff;}
+.bo{background:#ffffff;color:#355594;border-color:#6d8fd6;}
+.bs{background:#f0f7fd;color:#355594;}
+.ring{box-shadow:0 0 0 2px #ffffff,0 0 0 4px #355594;}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.45);border-top-color:#ffffff;}
+.spin-n{width:16px;height:16px;border-radius:50%;border:2px solid #c9d6ea;border-top-color:#355594;}
+.mx{display:grid;grid-template-columns:120px repeat(6,minmax(0,1fr));gap:12px;align-items:center;padding:14px 0;border-top:1px solid #eceef2;}
+.mx .c{display:flex;justify-content:center;}
+.flabel{font-family:'Roboto',sans-serif;font-size:13px;font-weight:500;color:#4c4c4c;margin-bottom:8px;}
+.field{display:flex;align-items:center;gap:10px;height:48px;padding:0 18px;border-radius:999px;border:1.5px solid #6d8fd6;background:#ffffff;font-family:'Roboto',sans-serif;font-size:16px;color:#4c4c4c;}
+.help{font-family:'Roboto',sans-serif;font-size:12px;line-height:16px;color:#656879;margin-top:6px;display:flex;align-items:center;gap:6px;padding-left:18px;}
+.badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:6px;font-family:'Roboto',sans-serif;font-weight:500;font-size:13px;}
+.th{font-family:'Roboto',sans-serif;font-size:12px;font-weight:500;color:#656879;letter-spacing:.2px;}
+.tr{display:grid;grid-template-columns:44px 150px 150px 120px 130px 140px minmax(0,1fr);align-items:center;height:52px;padding:0 16px;font-family:'Roboto',sans-serif;font-size:14px;color:#4c4c4c;border-top:1px solid #edf1f7;}
+.cb{width:18px;height:18px;border-radius:4px;border:1.5px solid #6d8fd6;background:#ffffff;display:inline-flex;align-items:center;justify-content:center;}
+.cb.on{background:#466cb6;border-color:#466cb6;}
+.rd{width:20px;height:20px;border-radius:50%;border:1.5px solid #6d8fd6;background:#ffffff;display:inline-flex;align-items:center;justify-content:center;}
+.alert{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:12px;font-family:'Roboto',sans-serif;font-size:14px;color:#1f1f1f;}
+.srow{display:grid;grid-template-columns:170px minmax(0,1fr) minmax(0,1fr);gap:24px;padding:16px 0;border-top:1px solid #eceef2;font-size:15px;line-height:1.5;}
+.srow .k{font-weight:600;}
+.srow .v{color:#5f6778;}
+</style>
+<style>.pf-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-top:20px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600}.pf-bar a{color:#4f6fae;text-decoration:none}.pf-bar a:hover{color:#2b3140}.pf-bar a[aria-current]{color:#2b3140}.pf-bar .sp{flex:1}</style><style>body{background:#f3f4f6}.pf-board{width:1400px;margin:0 auto}.pf-bar{max-width:1360px;margin:0 auto;padding:20px 20px 16px}</style><script>(function(){function f(){var b=document.querySelector(".pf-board");if(b)b.style.zoom=Math.min(1,(document.documentElement.clientWidth)/1400)}addEventListener("resize",f);document.addEventListener("DOMContentLoaded",f)})();</script>
+</head>
+<body>
+<nav class="pf-bar" aria-label="Design system"><a href="index.html#system">← F16s case study</a><span class="sp"></span><a href="design-system-foundations.html">Foundations</a><a href="design-system-components.html" aria-current="page">Components</a><a href="design-system-patterns.html">Patterns</a></nav>
+<div class="pf-board">
+
+
+<div style="width:1400px;height:4560px;box-sizing:border-box;padding:72px 120px;display:flex;flex-direction:column;background:#f3f4f6;font-family:'Manrope',sans-serif;color:#2b3140;">
+
+  <!-- top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:28px;border-bottom:1px solid #e3e5ea;">
+    <div style="width:36px;height:36px;border-radius:11px;background:#e4ebf7;display:flex;align-items:center;justify-content:center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#5f7fbf" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2.5 2v1.5L12 21l3.5 1.5V21L13 19v-5.5z"></path></svg>
+    </div>
+    <span style="font-size:18px;color:#6f788b;">F16s — UX Case Study</span>
+  </div>
+
+  <div class="ey" style="margin-top:96px;">08 — Design system · Components</div>
+  <h2 style="margin:28px 0 0;max-width:1000px;font-family:'Sora',sans-serif;font-weight:400;font-size:72px;line-height:1.06;letter-spacing:-2.6px;">Components and their states</h2>
+  <p style="margin:28px 0 0;max-width:860px;font-size:24px;line-height:1.55;color:#5f6778;">Reusable parts of the product, each shown in the states people meet while they work.</p>
+
+  <!-- buttons -->
+  <div class="ey" style="margin-top:80px;">Buttons, icon buttons and links</div>
+  <div class="card" style="margin-top:24px;padding-top:28px;">
+    <div class="mx lbl" style="border-top:none;font-size:12px;"><span></span><span class="c">Default</span><span class="c">Hover</span><span class="c">Pressed</span><span class="c">Focus</span><span class="c">Disabled</span><span class="c">Loading</span></div>
+    <div class="mx">
+      <span style="font-weight:600;font-size:15px;">Primary</span>
+      <span class="c"><span class="btn bp">Assign</span></span>
+      <span class="c"><span class="btn bp" style="background:#355594;">Assign</span></span>
+      <span class="c"><span class="btn bp" style="background:#355594;box-shadow:inset 0 2px 5px rgba(0,0,0,.28);">Assign</span></span>
+      <span class="c"><span class="btn bp ring">Assign</span></span>
+      <span class="c"><span class="btn bp" style="opacity:.4;">Assign</span></span>
+      <span class="c"><span class="btn bp"><span class="spin"></span>Saving</span></span>
+    </div>
+    <div class="mx">
+      <span style="font-weight:600;font-size:15px;">Outline</span>
+      <span class="c"><span class="btn bo">Reply</span></span>
+      <span class="c"><span class="btn bo" style="background:#e9f5ff;">Reply</span></span>
+      <span class="c"><span class="btn bo" style="background:#dbeafc;border-color:#355594;">Reply</span></span>
+      <span class="c"><span class="btn bo ring">Reply</span></span>
+      <span class="c"><span class="btn bo" style="color:#b0b2be;border-color:#dfe3ea;">Reply</span></span>
+      <span class="c"><span class="btn bo"><span class="spin-n"></span>Sending</span></span>
+    </div>
+    <div class="mx">
+      <span style="font-weight:600;font-size:15px;">Subtle</span>
+      <span class="c"><span class="btn bs">Learn more</span></span>
+      <span class="c"><span class="btn bs" style="background:#e3eefb;">Learn more</span></span>
+      <span class="c"><span class="btn bs" style="background:#d6e4f7;">Learn more</span></span>
+      <span class="c"><span class="btn bs ring">Learn more</span></span>
+      <span class="c"><span class="btn bs" style="color:#b0b2be;background:#f4f6f9;">Learn more</span></span>
+      <span class="c"><span class="btn bs"><span class="spin-n"></span>Loading</span></span>
+    </div>
+    <div class="mx">
+      <span style="font-weight:600;font-size:15px;">Icon button</span>
+      <span class="c"><span style="width:56px;height:56px;border-radius:50%;background:#466cb6;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(53,85,148,.35);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></span>
+      <span class="c"><span style="width:56px;height:56px;border-radius:50%;background:#355594;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(53,85,148,.35);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></span>
+      <span class="c"><span style="width:56px;height:56px;border-radius:50%;background:#355594;display:inline-flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 5px rgba(0,0,0,.28);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></span>
+      <span class="c"><span class="ring" style="width:56px;height:56px;border-radius:50%;background:#466cb6;display:inline-flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></span>
+      <span class="c"><span style="width:56px;height:56px;border-radius:50%;background:#466cb6;opacity:.4;display:inline-flex;align-items:center;justify-content:center;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></span></span>
+      <span class="c"><span style="width:56px;height:56px;border-radius:50%;background:#466cb6;display:inline-flex;align-items:center;justify-content:center;"><span class="spin" style="width:22px;height:22px;"></span></span></span>
+    </div>
+    <div class="mx">
+      <span style="font-weight:600;font-size:15px;">Link</span>
+      <span class="c r" style="font-size:14px;color:#355594;text-decoration:underline;">View all 15</span>
+      <span class="c r" style="font-size:14px;color:#2a4479;text-decoration:underline;text-decoration-thickness:2px;">View all 15</span>
+      <span class="c r" style="font-size:14px;color:#2a4479;text-decoration:underline;">View all 15</span>
+      <span class="c"><span class="r ring" style="font-size:14px;color:#355594;text-decoration:underline;border-radius:4px;padding:2px 4px;">View all 15</span></span>
+      <span class="c r" style="font-size:14px;color:#b0b2be;">View all 15</span>
+      <span class="c r" style="font-size:13px;color:#656879;">—</span>
+    </div>
+    <div class="note" style="margin-top:16px;">Labels are verbs (Assign, Reply, Upload). There is one primary button per view, and 48 px controls sit on a 44 px or larger hit area.</div>
+  </div>
+
+  <!-- inputs -->
+  <div class="ey" style="margin-top:80px;">Text fields, dropdowns and date pickers</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 24px;">
+      <div><div class="lbl" style="margin-bottom:14px;">Default</div><div class="flabel">Gross weight (kg)</div><div class="field" style="color:#656879;">e.g. 180</div></div>
+      <div><div class="lbl" style="margin-bottom:14px;">Focus</div><div class="flabel">Gross weight (kg)</div><div class="field ring" style="border-color:#355594;">18<span style="width:1.5px;height:20px;background:#355594;margin-left:-8px;"></span></div></div>
+      <div><div class="lbl" style="margin-bottom:14px;">Filled</div><div class="flabel">Gross weight (kg)</div><div class="field">180</div></div>
+      <div><div class="lbl" style="margin-bottom:14px;">Error</div><div class="flabel">Gross weight (kg)</div><div class="field" style="border-color:#e00c0c;">1,80O</div><div class="help" style="color:#c0170f;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c0170f" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5h.01"></path></svg>Enter the weight as a number, like 180</div></div>
+      <div><div class="lbl" style="margin-bottom:14px;">Success</div><div class="flabel">AWB number</div><div class="field" style="border-color:#00844d;">020-59891775<svg style="margin-left:auto;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00844d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div><div class="help" style="color:#00844d;">Matches the airline booking</div></div>
+      <div><div class="lbl" style="margin-bottom:14px;">Disabled</div><div class="flabel" style="color:#b0b2be;">Commodity</div><div class="field" style="background:#f4f6f9;border-color:#dfe3ea;color:#b0b2be;">General cargo</div><div class="help">Set by the extracted document</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px;margin-top:40px;padding-top:32px;border-top:1px solid #eceef2;">
+      <div>
+        <div class="lbl" style="margin-bottom:14px;">Dropdown · open</div>
+        <div class="flabel">Filed as</div>
+        <div class="field ring" style="border-color:#355594;"><span style="width:8px;height:8px;border-radius:50%;background:#58a51c;"></span>Customer Enquiry<svg style="margin-left:auto;transform:rotate(180deg);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4c4c4c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></div>
+        <div class="r" style="margin-top:8px;background:#ffffff;border-radius:16px;box-shadow:0 8px 24px rgba(31,42,68,.14);padding:6px;font-size:14px;color:#4c4c4c;">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:#e9f5ff;color:#355594;font-weight:500;"><span style="width:8px;height:8px;border-radius:50%;background:#58a51c;"></span>Customer Enquiry<svg style="margin-left:auto;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#355594" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;"><span style="width:8px;height:8px;border-radius:50%;background:#e8590c;"></span>Regulatory</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f5f8fc;border-radius:10px;"><span style="width:8px;height:8px;border-radius:50%;background:#c58a00;"></span>Shipment issue</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;"><span style="width:8px;height:8px;border-radius:50%;background:#e00c0c;"></span>Blocker</div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:14px;">Date picker · open</div>
+        <div class="flabel">Cargo ready date</div>
+        <div class="field ring" style="border-color:#355594;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4c4c4c" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"></path></svg>18 Sep 2026</div>
+        <div class="r" style="margin-top:8px;background:#ffffff;border-radius:16px;box-shadow:0 8px 24px rgba(31,42,68,.14);padding:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;font-size:14px;font-weight:500;color:#4c4c4c;"><span style="color:#355594;">‹</span>September 2026<span style="color:#355594;">›</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:12px;text-align:center;font-size:12px;color:#656879;"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+          <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:6px;">
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;"></span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">1</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">2</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">3</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">4</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">5</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">6</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">7</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">8</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">9</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">10</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">11</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">12</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">13</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#b0b2be;">14</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;box-shadow:inset 0 0 0 1.5px #6d8fd6;color:#355594;">15</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">16</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">17</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;background:#466cb6;color:#ffffff;font-weight:500;">18</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">19</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">20</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">21</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">22</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">23</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">24</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">25</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">26</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">27</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">28</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">29</span>
+            
+              <span style="height:32px;display:flex;align-items:center;justify-content:center;border-radius:999px;font-size:13px;color:#4c4c4c;">30</span>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- data display -->
+  <div class="ey" style="margin-top:80px;">Cards, tables, tabs and pagination</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;">
+      <div class="r" style="display:flex;gap:28px;font-size:14px;font-weight:500;border-bottom:1px solid #e5edff;">
+        <span style="padding:0 2px 12px;color:#355594;border-bottom:2.5px solid #355594;">All enquiries <span style="color:#656879;font-weight:400;">132</span></span>
+        <span style="padding:0 2px 12px;color:#676767;">Unassigned <span style="color:#e00c0c;">12</span></span>
+        <span style="padding:0 2px 12px;color:#676767;">Due today</span>
+      </div>
+      <div class="r" style="display:inline-flex;height:40px;padding:4px;border-radius:999px;background:#f2f9ff;border:1px solid #e5edff;font-size:14px;font-weight:500;"><span style="padding:6px 18px;border-radius:999px;background:#ffffff;color:#355594;box-shadow:0 2px 6px rgba(53,85,148,.18);">Table</span><span style="padding:6px 18px;color:#676767;">Kanban</span></div>
+    </div>
+    <div style="margin-top:20px;border:1px solid #e5edff;border-radius:20px;overflow:hidden;">
+      <div class="tr th" style="border-top:none;background:#f7fafe;"><span><span class="cb"></span></span><span>AWB</span><span>Client</span><span>Route</span><span>Stage</span><span>Owner</span><span style="display:flex;align-items:center;gap:4px;color:#355594;">Due <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#355594" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg></span></div>
+      
+        <div class="tr" style="background:#e9f5ff;">
+          <span><span class="cb on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></span>
+          <span style="color:#466cb6;font-weight:500;letter-spacing:.2px;">020-59891775</span>
+          <span>Fastlogcorp</span>
+          <span>BOM → SIN</span>
+          <span><span class="badge" style="background:#ff40ac;color:#1f1f1f;">Verification</span></span>
+          <span>Srinivas M.</span>
+          <span style="color:#e00c0c;font-weight:500;">Today</span>
+        </div>
+      
+        <div class="tr" style="">
+          <span><span class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></span>
+          <span style="color:#466cb6;font-weight:500;letter-spacing:.2px;">157-61887383</span>
+          <span>Meridiancargo</span>
+          <span>BLR → BNA</span>
+          <span><span class="badge" style="background:#ffcd07;color:#1f1f1f;">Intake</span></span>
+          <span>Raju R.</span>
+          <span style="">Tomorrow</span>
+        </div>
+      
+        <div class="tr" style="">
+          <span><span class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></span>
+          <span style="color:#466cb6;font-weight:500;letter-spacing:.2px;">125-37651084</span>
+          <span>AbstractCot</span>
+          <span>DEL → FRA</span>
+          <span><span class="badge" style="background:#07a8dd;color:#1f1f1f;">In transit</span></span>
+          <span>Mehek S.</span>
+          <span style="">In 2 days</span>
+        </div>
+      
+        <div class="tr" style="">
+          <span><span class="cb"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span></span>
+          <span style="color:#466cb6;font-weight:500;letter-spacing:.2px;">235-12130694</span>
+          <span>Fastlogcorp</span>
+          <span>BOM → DXB</span>
+          <span><span class="badge" style="background:#00844d;color:#ffffff;">Completed</span></span>
+          <span>Jura R.</span>
+          <span style="">Done</span>
+        </div>
+      
+    </div>
+    <div class="r" style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;font-size:13px;color:#656879;">
+      <span>1 selected · Showing 1–25 of 132</span>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <span style="width:36px;height:36px;border-radius:50%;border:1.5px solid #dfe3ea;display:inline-flex;align-items:center;justify-content:center;color:#b0b2be;">‹</span>
+        <span style="width:36px;height:36px;border-radius:50%;background:#466cb6;color:#ffffff;display:inline-flex;align-items:center;justify-content:center;font-weight:500;">1</span>
+        <span style="width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#4c4c4c;">2</span>
+        <span style="width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#4c4c4c;">3</span>
+        <span style="padding:0 4px;">…</span>
+        <span style="width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#4c4c4c;">6</span>
+        <span style="width:36px;height:36px;border-radius:50%;border:1.5px solid #6d8fd6;display:inline-flex;align-items:center;justify-content:center;color:#355594;">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- overlays and feedback -->
+  <div class="ey" style="margin-top:80px;">Modals, drawers, tooltips and alerts</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;">
+      <div style="height:300px;border-radius:20px;background:rgba(31,42,68,.4);display:flex;align-items:center;justify-content:center;">
+        <div class="r" style="width:380px;background:#ffffff;border-radius:20px;padding:24px;box-shadow:0 16px 40px rgba(0,0,0,.2);">
+          <div style="font-size:20px;line-height:28px;font-weight:500;color:#4c4c4c;">Delete this enquiry?</div>
+          <div style="font-size:14px;line-height:20px;color:#656879;margin-top:8px;">ENQA-26-8006 and its 3 documents will be removed for everyone. You can't undo this.</div>
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;"><span class="btn bo" style="height:40px;">Keep enquiry</span><span class="btn" style="height:40px;background:#e00c0c;color:#ffffff;">Delete</span></div>
+        </div>
+      </div>
+      <div style="height:300px;border-radius:20px;background:#e6f3fe;position:relative;overflow:hidden;">
+        <div style="position:absolute;left:20px;top:20px;width:150px;display:flex;flex-direction:column;gap:10px;"><div style="height:56px;border-radius:12px;background:#ffffff;opacity:.6;"></div><div style="height:56px;border-radius:12px;background:#ffffff;opacity:.6;"></div><div style="height:56px;border-radius:12px;background:#ffffff;opacity:.6;"></div></div>
+        <div class="r" style="position:absolute;right:0;top:0;bottom:0;width:300px;background:#ffffff;box-shadow:-8px 0 24px rgba(31,42,68,.12);padding:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:15px;font-weight:500;letter-spacing:.2px;color:#466cb6;">ENQA-26-8006</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></div>
+          <div style="font-size:12px;color:#656879;margin-top:4px;">Drawer · details without leaving the board</div>
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px;">
+            <div><div style="font-size:12px;color:#656879;">Route</div><div style="font-size:14px;font-weight:500;color:#4c4c4c;margin-top:2px;">BOM → SIN</div></div>
+            <div><div style="font-size:12px;color:#656879;">Pieces</div><div style="font-size:14px;font-weight:500;color:#4c4c4c;margin-top:2px;">7 cartons</div></div>
+            <div><div style="font-size:12px;color:#656879;">Weight</div><div style="font-size:14px;font-weight:500;color:#4c4c4c;margin-top:2px;">180 kg</div></div>
+            <div><div style="font-size:12px;color:#656879;">Owner</div><div style="font-size:14px;font-weight:500;color:#4c4c4c;margin-top:2px;">Unassigned</div></div>
+          </div>
+          <span class="btn bp" style="margin-top:24px;width:100%;height:40px;">Assign</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;margin-top:24px;align-items:start;">
+      <div style="padding-top:8px;">
+        <div class="lbl" style="margin-bottom:14px;">Tooltip</div>
+        <div class="r" style="display:inline-block;position:relative;background:#2b3140;color:#ffffff;font-size:13px;line-height:18px;padding:8px 12px;border-radius:12px;max-width:240px;">Assign someone to make this a new enquiry.<span style="position:absolute;left:24px;bottom:-5px;width:10px;height:10px;background:#2b3140;transform:rotate(45deg);"></span></div>
+        <div style="margin-top:14px;margin-left:14px;width:32px;height:32px;border-radius:50%;border:1.5px solid #6d8fd6;display:flex;align-items:center;justify-content:center;color:#355594;font-family:'Roboto';font-weight:500;">i</div>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:14px;">Alerts</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="alert" style="background:#e3f3ec;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00844d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12.5l3 3 5-6"></path></svg><b style="font-weight:500;">Success</b>3 documents verified for AWB 020-59891775.</div>
+          <div class="alert" style="background:#fff6d1;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a5a00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 17H2.5z"></path><path d="M12 10v4M12 17h.01"></path></svg><b style="font-weight:500;">Warning</b>Document cut-off in 3 hours. 1 file is still missing.<span style="margin-left:auto;color:#355594;text-decoration:underline;">Upload</span></div>
+          <div class="alert" style="background:#fdecec;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c0170f" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5h.01"></path></svg><b style="font-weight:500;">Error</b>Upload failed: the file is over 20 MB.<span style="margin-left:auto;color:#355594;text-decoration:underline;">Try again</span></div>
+          <div class="alert" style="background:#e1f4fb;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0b6f92" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6M12 7.5h.01"></path></svg><b style="font-weight:500;">Info</b>2 new enquiries arrived in the unassigned pool.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- selection -->
+  <div class="ey" style="margin-top:80px;">Badges, chips, checkboxes and radio buttons</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;">
+      <div>
+        <div class="lbl" style="margin-bottom:14px;">Stage badges</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <span class="badge" style="background:#ffcd07;color:#1f1f1f;">Intake</span>
+          <span class="badge" style="background:#ff40ac;color:#1f1f1f;">Verification</span>
+          <span class="badge" style="background:#07a8dd;color:#1f1f1f;">In transit</span>
+          <span class="badge" style="background:#00844d;color:#ffffff;">Completed</span>
+        </div>
+        <div class="lbl" style="margin:24px 0 14px;">Urgency tags</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:4px 4px 4px 12px;border-radius:999px;background:#f9cccf;font-family:'Roboto';font-size:13px;color:#4c4c4c;">Fastlog Corp<span class="badge" style="height:20px;font-size:11px;background:#b04a4a;color:#ffffff;border-radius:999px;">High</span></span>
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:4px 4px 4px 12px;border-radius:999px;background:#f9f8ca;font-family:'Roboto';font-size:13px;color:#4c4c4c;">Northwind<span class="badge" style="height:20px;font-size:11px;background:#c3bb5d;color:#1f1f1f;border-radius:999px;">Medium</span></span>
+          <span style="display:inline-flex;align-items:center;gap:8px;padding:4px 4px 4px 12px;border-radius:999px;background:#e0fac2;font-family:'Roboto';font-size:13px;color:#4c4c4c;">XYZcorp<span class="badge" style="height:20px;font-size:11px;background:#83c35d;color:#1f1f1f;border-radius:999px;">Low</span></span>
+        </div>
+      </div>
+      <div>
+        <div class="lbl" style="margin-bottom:14px;">Filter chips</div>
+        <div class="r" style="display:flex;gap:10px;flex-wrap:wrap;font-size:14px;">
+          <span style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;background:#e9f5ff;color:#355594;border:1.5px solid #355594;font-weight:500;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#355594" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Air</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;border:1.5px solid #6d8fd6;color:#4c4c4c;">Sea</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;border:1.5px solid #6d8fd6;color:#4c4c4c;">Road</span>
+          <span style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 12px 0 14px;border-radius:999px;background:#e9f5ff;color:#355594;font-weight:500;">Client: Fastlog<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#355594" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg></span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:24px;">
+          <div>
+            <div class="lbl" style="margin-bottom:14px;">Checkbox</div>
+            <div class="r" style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#4c4c4c;">
+              <span style="display:flex;align-items:center;gap:10px;"><span class="cb"></span>Unchecked</span>
+              <span style="display:flex;align-items:center;gap:10px;"><span class="cb on"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>Checked</span>
+              <span style="display:flex;align-items:center;gap:10px;"><span class="cb on"><span style="width:8px;height:2px;background:#ffffff;"></span></span>Some selected</span>
+              <span style="display:flex;align-items:center;gap:10px;color:#b0b2be;"><span class="cb" style="border-color:#dfe3ea;background:#f4f6f9;"></span>Disabled</span>
+            </div>
+          </div>
+          <div>
+            <div class="lbl" style="margin-bottom:14px;">Radio</div>
+            <div class="r" style="display:flex;flex-direction:column;gap:10px;font-size:14px;color:#4c4c4c;">
+              <span style="display:flex;align-items:center;gap:10px;"><span class="rd" style="border-color:#466cb6;"><span style="width:10px;height:10px;border-radius:50%;background:#466cb6;"></span></span>Air</span>
+              <span style="display:flex;align-items:center;gap:10px;"><span class="rd"></span>Sea</span>
+              <span style="display:flex;align-items:center;gap:10px;"><span class="rd"></span>Road</span>
+              <span style="display:flex;align-items:center;gap:10px;color:#b0b2be;"><span class="rd" style="border-color:#dfe3ea;background:#f4f6f9;"></span>Rail (soon)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- state rules -->
+  <div class="ey" style="margin-top:80px;">State and behaviour rules</div>
+  <div class="card" style="margin-top:24px;padding-top:28px;">
+    <div class="srow lbl" style="border-top:none;font-size:12px;"><span>State</span><span>How it looks</span><span>How it behaves</span></div>
+    
+      <div class="srow"><span class="k">Default</span><span class="v">Token colours at rest.</span><span class="v">Ready for input. The pointer becomes a hand on anything clickable.</span></div>
+    
+      <div class="srow"><span class="k">Hover</span><span class="v">Fill darkens one step, or an 8% navy overlay on light fills.</span><span class="v">Mouse only. Never the only way to reveal information.</span></div>
+    
+      <div class="srow"><span class="k">Pressed</span><span class="v">12% overlay, or an inset shadow on filled buttons.</span><span class="v">Shown for the length of the press, then the action runs.</span></div>
+    
+      <div class="srow"><span class="k">Focus</span><span class="v">2 px navy ring with a 2 px white gap, on every interactive element.</span><span class="v">Keyboard focus only. The order follows the reading order.</span></div>
+    
+      <div class="srow"><span class="k">Disabled</span><span class="v">40% opacity, or the disabled grey for text and borders.</span><span class="v">No hover or press. A tooltip or helper line says why.</span></div>
+    
+      <div class="srow"><span class="k">Loading</span><span class="v">A spinner replaces the icon and the label changes to the verb in -ing form.</span><span class="v">The control locks to stop double submits. After 1 second, the content area shows a skeleton.</span></div>
+    
+      <div class="srow"><span class="k">Success</span><span class="v">Green check with a short confirmation.</span><span class="v">Inline next to the field, or a toast that clears after 4 seconds.</span></div>
+    
+      <div class="srow"><span class="k">Error</span><span class="v">Red border with an icon and a message that says how to fix it.</span><span class="v">Input is kept. Focus moves to the first error on submit.</span></div>
+    
+      <div class="srow"><span class="k">Selected</span><span class="v">Selected-surface fill, plus a check or a bold weight.</span><span class="v">Announced to screen readers. Multi-select shows a count.</span></div>
+    
+      <div class="srow"><span class="k">Expanded / collapsed</span><span class="v">The chevron turns 180°. Content opens under its header.</span><span class="v">Header is a button with aria-expanded. One group opens at a time on boards.</span></div>
+    
+      <div class="srow"><span class="k">Validation</span><span class="v">Helper text sits under the field and becomes the error message in place.</span><span class="v">Fields check on blur, then on every change once an error has shown. Submit shows a summary at the top.</span></div>
+    
+  </div>
+</div>
+</div>
+</body>
+</html>

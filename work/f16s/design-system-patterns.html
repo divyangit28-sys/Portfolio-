@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>F16s design system: Patterns · Divyangi Tiwari</title>
+<meta name="author" content="Divyangi Tiwari">
+<link rel="icon" href="../../avatar.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@300;400;500;600&amp;family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+.ey{font-family:'Manrope',sans-serif;font-weight:600;font-size:16px;line-height:1;letter-spacing:.18em;text-transform:uppercase;color:#6f788b;}
+.card{background:#ffffff;border:1px solid #e6e8ed;border-radius:28px;padding:40px 44px;}
+.dc{background:#ffffff;border:1px solid #e6e8ed;border-radius:28px;padding:32px 36px;}
+.lbl{font-family:'Manrope',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#8a93a6;}
+.note{font-size:15px;line-height:1.5;color:#6f788b;}
+.sub{font-family:'Sora',sans-serif;font-weight:400;font-size:22px;letter-spacing:-.4px;}
+.r{font-family:'Roboto',sans-serif;}
+.badge{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:6px;font-family:'Roboto',sans-serif;font-weight:500;font-size:13px;}
+.nv{display:flex;align-items:center;gap:12px;padding:11px 16px;font-family:'Roboto',sans-serif;font-size:16px;color:#676767;border-radius:999px;}
+.step{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.45;color:#3d4454;}
+.step .n{width:24px;height:24px;border-radius:50%;flex:none;background:#e9eff9;color:#355594;font-family:'Roboto',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.a11y .t{font-size:19px;font-weight:600;margin-top:16px;}
+.a11y .d{font-size:15px;line-height:1.55;color:#5f6778;margin-top:8px;}
+.ic{width:44px;height:44px;border-radius:14px;background:#e9eff9;display:flex;align-items:center;justify-content:center;}
+.drow{display:grid;grid-template-columns:140px 1fr 1fr 110px;gap:12px;align-items:center;padding:12px 0;border-top:1px solid #edf1f7;font-family:'Roboto',sans-serif;font-size:14px;color:#4c4c4c;}
+</style>
+<style>.pf-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding-top:20px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:600}.pf-bar a{color:#4f6fae;text-decoration:none}.pf-bar a:hover{color:#2b3140}.pf-bar a[aria-current]{color:#2b3140}.pf-bar .sp{flex:1}</style><style>body{background:#f3f4f6}.pf-board{width:1400px;margin:0 auto}.pf-bar{max-width:1360px;margin:0 auto;padding:20px 20px 16px}</style><script>(function(){function f(){var b=document.querySelector(".pf-board");if(b)b.style.zoom=Math.min(1,(document.documentElement.clientWidth)/1400)}addEventListener("resize",f);document.addEventListener("DOMContentLoaded",f)})();</script>
+</head>
+<body>
+<nav class="pf-bar" aria-label="Design system"><a href="index.html#system">← F16s case study</a><span class="sp"></span><a href="design-system-foundations.html">Foundations</a><a href="design-system-components.html">Components</a><a href="design-system-patterns.html" aria-current="page">Patterns</a></nav>
+<div class="pf-board">
+
+
+<div style="width:1400px;height:4800px;box-sizing:border-box;padding:72px 120px;display:flex;flex-direction:column;background:#f3f4f6;font-family:'Manrope',sans-serif;color:#2b3140;">
+
+  <!-- top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:28px;border-bottom:1px solid #e3e5ea;">
+    <div style="width:36px;height:36px;border-radius:11px;background:#e4ebf7;display:flex;align-items:center;justify-content:center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#5f7fbf" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2.5 2v1.5L12 21l3.5 1.5V21L13 19v-5.5z"></path></svg>
+    </div>
+    <span style="font-size:18px;color:#6f788b;">F16s — UX Case Study</span>
+  </div>
+
+  <div class="ey" style="margin-top:96px;">08 — Design system · Patterns</div>
+  <h2 style="margin:28px 0 0;max-width:1000px;font-family:'Sora',sans-serif;font-weight:400;font-size:72px;line-height:1.06;letter-spacing:-2.6px;">Built for freight work</h2>
+  <p style="margin:28px 0 0;max-width:860px;font-size:24px;line-height:1.55;color:#5f6778;">How people move around the product, the components only a freight platform needs, and the patterns for the tasks they repeat every day.</p>
+
+  <!-- navigation -->
+  <div class="ey" style="margin-top:80px;">Navigation and information architecture</div>
+  <div class="card" style="margin-top:24px;">
+    <div style="display:grid;grid-template-columns:270px minmax(0,1fr);gap:24px;">
+      <div style="background:#e6f3fe;border-radius:24px;padding:14px;">
+        <div class="r" style="font-size:24px;font-weight:700;color:#355594;padding:10px 16px 18px;">F16s.</div>
+        <div class="nv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="6.5" height="7.5" rx="1"></rect><rect x="13.5" y="4" width="6.5" height="4.5" rx="1"></rect><rect x="4" y="14.5" width="6.5" height="5.5" rx="1"></rect><rect x="13.5" y="11.5" width="6.5" height="8.5" rx="1"></rect></svg>Dashboard</div>
+        <div class="nv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l8 6 8-6"></path><path d="M4 5h16v14H4z"></path></svg>Enquiry</div>
+        <div class="nv" style="background:#ffffff;color:#2b2b2b;font-weight:500;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2b2b2b" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"></path><path d="M4 13h5l1 2h4l1-2h5"></path></svg><span style="flex:1;">Inbox</span><span style="width:24px;height:24px;border-radius:50%;background:#355594;color:#ffffff;font-size:12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">7</span></div>
+        <div class="nv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M8 3h8l4 4v14H8z"></path><path d="M4 7v14h12"></path></svg>Documentation</div>
+        <div class="nv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"></path><path d="M8 9h8M8 12h5"></path></svg>Message log</div>
+        <div class="nv"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"></path></svg>Settings</div>
+        <div class="note" style="padding:16px 16px 4px;font-size:13px;">Primary navigation: six sections, nouns, with a count only where work is waiting.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:#f7fafe;border:1px solid #e5edff;border-radius:24px;padding:20px 24px;">
+          <div class="r" style="display:flex;align-items:center;gap:8px;font-size:13px;color:#656879;">Inbox <span>›</span> All mail <span>›</span> <span style="color:#4c4c4c;font-weight:500;">ENQA-26-8006</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+            <div class="r" style="font-size:26px;line-height:32px;font-weight:500;color:#4c4c4c;">Email details</div>
+            <div style="display:flex;align-items:center;gap:14px;">
+              <span style="position:relative;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#466cb6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0112 0v5l1.5 2h-15z"></path><path d="M10 20a2 2 0 004 0"></path></svg><span style="position:absolute;right:-6px;top:-6px;width:16px;height:16px;border-radius:50%;background:#e00c0c;color:#ffffff;font-family:'Roboto';font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;">7</span></span>
+              <span class="r" style="display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border-radius:999px;background:#ffffff;border:1px solid #e5edff;"><span style="width:32px;height:32px;border-radius:50%;background:#d6e2f5;"></span><span style="font-size:14px;color:#4c4c4c;line-height:1.2;">Raman Aditya<br><span style="font-size:12px;color:#656879;">Pricing · BLR</span></span></span>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;">
+            <span class="r" style="flex:1;min-width:260px;display:flex;align-items:center;gap:10px;height:44px;padding:0 18px;border-radius:999px;border:1.5px solid #6d8fd6;background:#ffffff;color:#656879;font-size:14px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4c4c4c" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.5 4.5"></path></svg>Search AWB, job or enquiry number</span>
+            <span class="r" style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;border:1.5px solid #6d8fd6;background:#ffffff;color:#4c4c4c;font-size:14px;">Weekly ▾</span>
+            <span class="r" style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;background:#e9f5ff;border:1.5px solid #355594;color:#355594;font-size:14px;font-weight:500;">Filters · 2</span>
+            <span class="r" style="display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;border:1.5px solid #6d8fd6;background:#ffffff;color:#4c4c4c;font-size:14px;">Sort: Due date ↑</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;">
+          <div style="border:1px solid #eceef2;border-radius:20px;padding:20px 22px;">
+            <div class="lbl" style="font-size:12px;">Hierarchy</div>
+            <div style="font-size:15px;line-height:1.7;color:#3d4454;margin-top:10px;">
+              <div><b>Dashboard</b> · Operational board, Staff view</div>
+              <div><b>Enquiry</b> · All, Unassigned pool, Quote workspace</div>
+              <div><b>Inbox</b> · All mail, Markers, Sent, Drafts</div>
+              <div><b>Documentation</b> · Files by shipment</div>
+              <div><b>Message log</b> · Threads by shipment</div>
+            </div>
+          </div>
+          <div style="border:1px solid #eceef2;border-radius:20px;padding:20px 22px;">
+            <div class="lbl" style="font-size:12px;">Naming</div>
+            <div style="font-size:15px;line-height:1.55;color:#3d4454;margin-top:10px;display:flex;flex-direction:column;gap:6px;">
+              <div>Sections are nouns, actions are verbs: <b>Inbox</b>, <b>Assign</b>.</div>
+              <div>IDs keep their source format: <span class="r" style="color:#466cb6;font-weight:500;">020-59891775</span>.</div>
+              <div>Dates are relative within a week (Due today), otherwise 18 Sep 2026.</div>
+              <div>The page title matches the last breadcrumb item.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- domain components -->
+  <div class="ey" style="margin-top:80px;">Freight components</div>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px;">
+
+    <!-- milestone timeline -->
+    <div class="dc">
+      <div class="sub">Shipment status and milestones</div>
+      <div style="position:relative;margin-top:28px;">
+        <div style="position:absolute;left:10%;right:10%;top:15px;height:2px;background:linear-gradient(90deg,#466cb6 0%,#466cb6 62%,#dfe5ef 62%);"></div>
+        <div style="position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));">
+          
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+              <span style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#466cb6;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+              <span class="r" style="font-size:13px;font-weight:500;color:#4c4c4c;margin-top:10px;">Booked</span>
+              <span class="r" style="font-size:12px;color:#656879;margin-top:2px;">12 Sep</span>
+            </div>
+          
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+              <span style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#466cb6;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+              <span class="r" style="font-size:13px;font-weight:500;color:#4c4c4c;margin-top:10px;">Picked up</span>
+              <span class="r" style="font-size:12px;color:#656879;margin-top:2px;">14 Sep</span>
+            </div>
+          
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+              <span style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#466cb6;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+              <span class="r" style="font-size:13px;font-weight:500;color:#4c4c4c;margin-top:10px;">Departed BOM</span>
+              <span class="r" style="font-size:12px;color:#656879;margin-top:2px;">15 Sep 14:20</span>
+            </div>
+          
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+              <span style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#07a8dd;box-shadow:0 0 0 5px rgba(7,168,221,.2);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 2"></path></svg></span>
+              <span class="r" style="font-size:13px;font-weight:500;color:#4c4c4c;margin-top:10px;">Arrived SIN</span>
+              <span class="r" style="font-size:12px;color:#656879;margin-top:2px;">Exp. 23:05</span>
+            </div>
+          
+            <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+              <span style="width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#ffffff;border:2px solid #c3cede;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d=""></path></svg></span>
+              <span class="r" style="font-size:13px;font-weight:500;color:#4c4c4c;margin-top:10px;">Delivered</span>
+              <span class="r" style="font-size:12px;color:#656879;margin-top:2px;">Exp. 17 Sep</span>
+            </div>
+          
+        </div>
+      </div>
+      <div class="note" style="margin-top:22px;">Done, current and upcoming steps differ by icon and fill as well as colour.</div>
+    </div>
+
+    <!-- summary card -->
+    <div class="dc">
+      <div class="sub">Shipment summary card</div>
+      <div class="r" style="margin-top:22px;background:#ffffff;border-radius:20px;box-shadow:0 4px 16px rgba(0,0,0,.08);padding:18px 20px;border:1px solid #f0f2f6;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div><div style="font-size:15px;font-weight:500;letter-spacing:.2px;color:#466cb6;">020-59891775</div><div style="font-size:16px;color:#4c4c4c;margin-top:4px;">Fastlog Corp</div></div>
+          <span class="badge" style="background:#ff40ac;color:#1f1f1f;">Verification</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-top:14px;font-size:14px;color:#4c4c4c;"><b style="font-weight:500;">BOM</b><span style="flex:1;height:1.5px;background:repeating-linear-gradient(90deg,#9fb4dc 0 6px,transparent 6px 10px);"></span><svg width="18" height="18" viewBox="0 0 24 24" fill="#466cb6" aria-hidden="true" style="transform:rotate(90deg);"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2.5 2v1.5L12 21l3.5 1.5V21L13 19v-5.5z"></path></svg><span style="flex:1;height:1.5px;background:repeating-linear-gradient(90deg,#9fb4dc 0 6px,transparent 6px 10px);"></span><b style="font-weight:500;">SIN</b></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:12px;color:#656879;">
+          <span>7 cartons · 180 kg · General cargo</span>
+          <span style="display:flex;align-items:center;gap:8px;"><span style="color:#e00c0c;font-weight:500;">Due today</span><span style="width:26px;height:26px;border-radius:50%;background:#d6e2f5;color:#355594;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">SM</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- document upload -->
+    <div class="dc">
+      <div class="sub">Document upload and verification</div>
+      <div class="r" style="margin-top:20px;border:1.5px dashed #6d8fd6;border-radius:16px;padding:16px;display:flex;align-items:center;gap:12px;background:#f7fafe;font-size:14px;color:#4c4c4c;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#466cb6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v4h16v-4"></path></svg><span>Drop files or <span style="color:#355594;text-decoration:underline;">browse</span> · PDF, JPG up to 20 MB</span></div>
+      <div style="margin-top:8px;">
+        
+          <div class="drow" style="grid-template-columns:24px minmax(0,1fr) auto;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#656879" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5"></path></svg>
+            <span><span style="font-weight:500;">Commercial invoice</span><span style="display:block;font-size:12px;color:#656879;">invoice_4471.pdf · fields extracted</span></span>
+            <span class="badge" style="background:#e3f3ec;color:#00844d;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>Verified</span>
+          </div>
+        
+          <div class="drow" style="grid-template-columns:24px minmax(0,1fr) auto;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#656879" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5"></path></svg>
+            <span><span style="font-weight:500;">Packing list</span><span style="display:block;font-size:12px;color:#656879;">Weight 120 kg vs 180 kg on the invoice</span></span>
+            <span class="badge" style="background:#fff4dc;color:#8a5a00;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v6M12 16.5h.01"></path></svg>Mismatch</span>
+          </div>
+        
+          <div class="drow" style="grid-template-columns:24px minmax(0,1fr) auto;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#656879" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"></path><path d="M14 3v5h5"></path></svg>
+            <span><span style="font-weight:500;">Shipper's declaration</span><span style="display:block;font-size:12px;color:#656879;">Required for this cargo</span></span>
+            <span class="badge" style="background:#fdecec;color:#c0170f;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"></path></svg>Missing</span>
+          </div>
+        
+      </div>
+    </div>
+
+    <!-- enquiry priority and assignment -->
+    <div class="dc">
+      <div class="sub">Enquiry priority and assignment</div>
+      <div class="r" style="margin-top:20px;display:flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;border-radius:999px;background:#f9cccf;">
+        <span style="flex:1;font-size:14px;color:#4c4c4c;"><b style="font-weight:500;">Fastlog Corp</b> · 2 pallets BLR → BNA</span>
+        <span class="badge" style="background:#b04a4a;color:#ffffff;border-radius:999px;font-size:11px;height:22px;">High · 2 days waiting</span>
+      </div>
+      <div class="r" style="margin-top:12px;background:#ffffff;border-radius:16px;box-shadow:0 8px 24px rgba(31,42,68,.12);padding:6px;font-size:14px;color:#4c4c4c;">
+        <div style="padding:8px 12px;font-size:12px;color:#656879;">Assign to · sorted by workload</div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;background:#e9f5ff;"><span style="width:26px;height:26px;border-radius:50%;background:#c9d8f0;"></span><span style="flex:1;">Mehek Srivastava</span><span style="font-size:12px;color:#00844d;font-weight:500;">4 tasks</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;"><span style="width:26px;height:26px;border-radius:50%;background:#d6e2f5;"></span><span style="flex:1;">Raju Rastogi</span><span style="font-size:12px;color:#656879;">7 tasks</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 12px;"><span style="width:26px;height:26px;border-radius:50%;background:#e3eaf6;"></span><span style="flex:1;">Srinivas Malhotra</span><span style="font-size:12px;color:#c0170f;font-weight:500;">9 tasks · 2 due today</span></div>
+      </div>
+    </div>
+
+    <!-- workload -->
+    <div class="dc">
+      <div class="sub">Staff workload indicator</div>
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:14px;">
+        
+          <div class="r" style="display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:14px;align-items:center;font-size:14px;color:#4c4c4c;">
+            <span>Mehek Srivastava</span>
+            <span style="position:relative;height:10px;border-radius:999px;background:#eef2f8;"><span style="position:absolute;left:0;top:0;bottom:0;border-radius:999px;width:40%;background:#466cb6;"></span><span style="position:absolute;left:80%;top:-4px;bottom:-4px;width:2px;background:#9aa3b5;"></span></span>
+            <span style="font-size:12px;color:#656879;">4 tasks</span>
+          </div>
+        
+          <div class="r" style="display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:14px;align-items:center;font-size:14px;color:#4c4c4c;">
+            <span>Raju Rastogi</span>
+            <span style="position:relative;height:10px;border-radius:999px;background:#eef2f8;"><span style="position:absolute;left:0;top:0;bottom:0;border-radius:999px;width:70%;background:#466cb6;"></span><span style="position:absolute;left:80%;top:-4px;bottom:-4px;width:2px;background:#9aa3b5;"></span></span>
+            <span style="font-size:12px;color:#656879;">7 tasks</span>
+          </div>
+        
+          <div class="r" style="display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:14px;align-items:center;font-size:14px;color:#4c4c4c;">
+            <span>Jura Rastogi</span>
+            <span style="position:relative;height:10px;border-radius:999px;background:#eef2f8;"><span style="position:absolute;left:0;top:0;bottom:0;border-radius:999px;width:80%;background:#c3bb5d;"></span><span style="position:absolute;left:80%;top:-4px;bottom:-4px;width:2px;background:#9aa3b5;"></span></span>
+            <span style="font-size:12px;color:#656879;">8 tasks · Full</span>
+          </div>
+        
+          <div class="r" style="display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:14px;align-items:center;font-size:14px;color:#4c4c4c;">
+            <span>Srinivas Malhotra</span>
+            <span style="position:relative;height:10px;border-radius:999px;background:#eef2f8;"><span style="position:absolute;left:0;top:0;bottom:0;border-radius:999px;width:90%;background:#b04a4a;"></span><span style="position:absolute;left:80%;top:-4px;bottom:-4px;width:2px;background:#9aa3b5;"></span></span>
+            <span style="font-size:12px;color:#b04a4a;font-weight:500;">9 tasks · Over</span>
+          </div>
+        
+      </div>
+      <div class="note" style="margin-top:16px;">The grey tick marks capacity (8 tasks). Over capacity shows a word as well as a colour.</div>
+    </div>
+
+    <!-- tracking -->
+    <div class="dc">
+      <div class="sub">Origin-to-destination tracking</div>
+      <div class="r" style="margin-top:28px;display:flex;align-items:center;gap:12px;">
+        <div style="text-align:center;"><div style="font-size:22px;font-weight:500;color:#4c4c4c;">BOM</div><div style="font-size:12px;color:#656879;">Mumbai</div></div>
+        <div style="flex:1;position:relative;height:28px;">
+          <div style="position:absolute;left:0;right:0;top:13px;height:2px;background:#dfe5ef;"></div>
+          <div style="position:absolute;left:0;width:62%;top:13px;height:2px;background:#466cb6;"></div>
+          <span style="position:absolute;left:0;top:8px;width:12px;height:12px;border-radius:50%;background:#466cb6;"></span>
+          <span style="position:absolute;left:44%;top:7px;width:14px;height:14px;border-radius:50%;background:#ffffff;border:2px solid #466cb6;"></span>
+          <svg style="position:absolute;left:calc(62% - 12px);top:2px;transform:rotate(90deg);" width="24" height="24" viewBox="0 0 24 24" fill="#466cb6" aria-hidden="true"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 00-3 0V9l-8 5v2l8-2.5V19l-2.5 2v1.5L12 21l3.5 1.5V21L13 19v-5.5z"></path></svg>
+          <span style="position:absolute;right:0;top:8px;width:12px;height:12px;border-radius:50%;background:#ffffff;border:2px solid #9aa3b5;"></span>
+        </div>
+        <div style="text-align:center;"><div style="font-size:22px;font-weight:500;color:#4c4c4c;">SIN</div><div style="font-size:12px;color:#656879;">Singapore</div></div>
+      </div>
+      <div class="r" style="display:flex;justify-content:space-between;margin-top:16px;font-size:13px;color:#4c4c4c;"><span>Departed 14:20</span><span style="color:#656879;">Via KUL</span><span><span class="badge" style="background:#07a8dd;color:#1f1f1f;height:22px;">In transit</span></span></div>
+    </div>
+
+    <!-- ETA vs actual -->
+    <div class="dc" style="grid-column:1 / span 2;">
+      <div class="sub">Estimated versus actual dates</div>
+      <div style="margin-top:16px;">
+        <div class="drow" style="border-top:none;font-size:12px;color:#656879;font-weight:500;"><span>Milestone</span><span>Planned</span><span>Actual / expected</span><span>Difference</span></div>
+        
+          <div class="drow"><span style="font-weight:500;">Departure BOM</span><span>15 Sep, 14:00</span><span style="font-weight:500;">15 Sep, 14:20</span><span><span class="badge" style="background:#fff4dc;color:#8a5a00;">20 min late</span></span></div>
+        
+          <div class="drow"><span style="font-weight:500;">Arrival SIN</span><span>15 Sep, 22:10</span><span style="font-style:italic;color:#656879;">Exp. 15 Sep, 23:05</span><span><span class="badge" style="background:#fdecec;color:#c0170f;">55 min late</span></span></div>
+        
+          <div class="drow"><span style="font-weight:500;">Delivery</span><span>17 Sep</span><span style="font-style:italic;color:#656879;">Exp. 17 Sep</span><span><span class="badge" style="background:#e3f3ec;color:#00844d;">On time</span></span></div>
+        
+      </div>
+      <div class="note" style="margin-top:12px;">Actual times are solid and estimates are italic with "Exp." in front. A delay shows its size in words, not just in red.</div>
+    </div>
+  </div>
+
+  <!-- interaction patterns -->
+  <div class="ey" style="margin-top:80px;">Interaction patterns</div>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:24px;">
+    
+      <div class="dc" style="">
+        <div class="sub" style="font-size:21px;">Create and edit forms</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          
+            <div class="step"><span class="n">1</span><span>Open the form in a drawer so the board stays in view.</span></div>
+          
+            <div class="step"><span class="n">2</span><span>Pre-fill fields from extracted documents and mark which ones AI filled.</span></div>
+          
+            <div class="step"><span class="n">3</span><span>Check each field on blur and keep the Save button visible.</span></div>
+          
+            <div class="step"><span class="n">4</span><span>Save shows a toast. Cancel restores the last saved values.</span></div>
+          
+        </div>
+      </div>
+    
+      <div class="dc" style="">
+        <div class="sub" style="font-size:21px;">Upload and validate documents</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          
+            <div class="step"><span class="n">1</span><span>Drop or browse. Each file shows its progress.</span></div>
+          
+            <div class="step"><span class="n">2</span><span>AI extracts the fields and compares them across documents.</span></div>
+          
+            <div class="step"><span class="n">3</span><span>Mismatches are flagged with both values side by side.</span></div>
+          
+            <div class="step"><span class="n">4</span><span>A person confirms or corrects before the stage moves on.</span></div>
+          
+        </div>
+      </div>
+    
+      <div class="dc" style="">
+        <div class="sub" style="font-size:21px;">Assign enquiries to staff</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          
+            <div class="step"><span class="n">1</span><span>Pick from the unassigned pool, oldest first.</span></div>
+          
+            <div class="step"><span class="n">2</span><span>Choose an owner from a list sorted by workload.</span></div>
+          
+            <div class="step"><span class="n">3</span><span>The owner is notified and the card moves to their column.</span></div>
+          
+            <div class="step"><span class="n">4</span><span>Reassigning keeps the history in the message log.</span></div>
+          
+        </div>
+      </div>
+    
+      <div class="dc" style="">
+        <div class="sub" style="font-size:21px;">Filter and bulk-update records</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          
+            <div class="step"><span class="n">1</span><span>Apply filter chips. The active filter count shows on the button.</span></div>
+          
+            <div class="step"><span class="n">2</span><span>Select rows, or select all on the page with a link to select every match.</span></div>
+          
+            <div class="step"><span class="n">3</span><span>A bulk bar offers Assign, Change stage and Export.</span></div>
+          
+            <div class="step"><span class="n">4</span><span>Changes apply together, with Undo in the toast.</span></div>
+          
+        </div>
+      </div>
+    
+      <div class="dc" style="">
+        <div class="sub" style="font-size:21px;">Confirm destructive actions</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          
+            <div class="step"><span class="n">1</span><span>The dialog names the record and what will be lost.</span></div>
+          
+            <div class="step"><span class="n">2</span><span>Focus starts on the safe choice, Keep.</span></div>
+          
+            <div class="step"><span class="n">3</span><span>Delete is red and labelled with the verb.</span></div>
+          
+            <div class="step"><span class="n">4</span><span>Where possible, Undo is offered for 10 seconds instead.</span></div>
+          
+        </div>
+      </div>
+    
+      <div class="dc" style="">
+        <div class="sub" style="font-size:21px;">Handle unsaved changes</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          
+            <div class="step"><span class="n">1</span><span>A dot on the title shows there are unsaved edits.</span></div>
+          
+            <div class="step"><span class="n">2</span><span>Drafts are saved locally while typing.</span></div>
+          
+            <div class="step"><span class="n">3</span><span>Leaving asks: Save, Discard or Keep editing.</span></div>
+          
+            <div class="step"><span class="n">4</span><span>Nothing is discarded without a clear choice.</span></div>
+          
+        </div>
+      </div>
+    
+      <div class="dc" style="grid-column:1 / span 2;">
+        <div class="sub" style="font-size:21px;">Display notifications and feedback</div>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
+          
+            <div class="step"><span class="n">1</span><span>Field errors appear inline, next to the field.</span></div>
+          
+            <div class="step"><span class="n">2</span><span>Completed actions show a toast that clears after 4 seconds.</span></div>
+          
+            <div class="step"><span class="n">3</span><span>Page-wide problems use a banner that stays until fixed.</span></div>
+          
+            <div class="step"><span class="n">4</span><span>Things that happened while away collect under the bell with a count.</span></div>
+          
+        </div>
+      </div>
+    
+  </div>
+
+  <!-- accessibility -->
+  <div class="ey" style="margin-top:80px;">Accessibility and responsive rules</div>
+  <div class="card a11y" style="margin-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 36px;">
+    
+      <div>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f6fae" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 100 18 9 9 0 000-18z M12 3v18"></path></svg></div>
+        <div class="t">Contrast and readable type</div>
+        <div class="d">Text 4.5:1 or better, and 3:1 for large text and control borders. Running text is 12 px or larger, and nothing goes below 11 px.</div>
+      </div>
+    
+      <div>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f6fae" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h18v10H3z M7 11h.01 M11 11h.01 M15 11h.01 M8 14h8"></path></svg></div>
+        <div class="t">Keyboard and visible focus</div>
+        <div class="d">Every action is reachable with Tab in reading order. The focus ring is always shown, Esc closes overlays, and focus returns to the control that opened them.</div>
+      </div>
+    
+      <div>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f6fae" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z M8 9h8 M8 12h5"></path></svg></div>
+        <div class="t">Clear labels and messages</div>
+        <div class="d">Every field has a visible label. Errors say what is wrong and how to fix it, and icon buttons have spoken labels.</div>
+      </div>
+    
+      <div>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f6fae" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4 M12 17v4 M3 12h4 M17 12h4 M12 9a3 3 0 100 6 3 3 0 000-6z"></path></svg></div>
+        <div class="t">Click and touch targets</div>
+        <div class="d">Every target is at least 44 × 44 px, with 8 px between neighbours. Icon-only buttons are 56 px in the product.</div>
+      </div>
+    
+      <div>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f6fae" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h13v10H3z M18 9h3v10h-7v-2 M7 19h6"></path></svg></div>
+        <div class="t">Responsive layouts</div>
+        <div class="d">Follow the four breakpoints. The sidebar collapses, then becomes a drawer. Boards scroll sideways, and tables turn into cards below 768 px.</div>
+      </div>
+    
+      <div>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4f6fae" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+        <div class="t">Status beyond colour</div>
+        <div class="d">Every status carries a word and usually an icon: Verified, Mismatch, Missing, Over. Timelines also use icons and fill, not hue alone.</div>
+      </div>
+    
+  </div>
+
+  <!-- applied -->
+  <div class="ey" style="margin-top:80px;">Applied in the prototypes</div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:24px;">
+    <div>
+      <img src="media/481b74a9893150abd05c9aa2c8b28004.png" alt="F16s inbox with an enquiry open and extracted enquiry details" style="display:block;width:100%;height:232px;object-fit:cover;object-position:left top;border-radius:20px;border:1px solid #e6e8ed;background:#ffffff;">
+      <div style="font-size:18px;font-weight:600;margin-top:16px;">Inbox</div>
+      <div style="font-size:16px;color:#6f788b;margin-top:4px;">Markers, assignment and AI-extracted details</div>
+    </div>
+    <div>
+      <img src="media/e3f6c023e9d7206b169c514c507ee0af.png" alt="F16s staff view showing one team member's jobs for the day" style="display:block;width:100%;height:232px;object-fit:cover;object-position:left top;border-radius:20px;border:1px solid #e6e8ed;background:#ffffff;">
+      <div style="font-size:18px;font-weight:600;margin-top:16px;">Staff view</div>
+      <div style="font-size:16px;color:#6f788b;margin-top:4px;">Workload, due dates and stage badges</div>
+    </div>
+    <div>
+      <img src="media/d28293dd588eb5731dab21888535fd2a.png" alt="F16s Focus Air website hero" style="display:block;width:100%;height:232px;object-fit:cover;object-position:center top;border-radius:20px;border:1px solid #e6e8ed;background:#ffffff;">
+      <div style="font-size:18px;font-weight:600;margin-top:16px;">Website</div>
+      <div style="font-size:16px;color:#6f788b;margin-top:4px;">Hero type and the marketing palette</div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
