@@ -54,8 +54,8 @@
       "role": "UX Designer",
       "format": "Web platform, 3 months",
       "metric": {
-        "value": "80%",
-        "label": "less documentation time, 30 min to 6 min on average"
+        "value": "70%",
+        "label": "less documentation time, 20 min to 6 min on average"
       },
       "preview": {
         "style": "f16s",
