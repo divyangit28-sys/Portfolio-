@@ -625,7 +625,7 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
     <a class="logo" href="#top"><img src="avatar.png" alt="" width="38" height="38"><span class="t">Divyangi's <b>Lab</b></span></a>
     <ul>
       <li><a class="l" href="#about">About</a></li>
-      <li><a class="l" href="#blog">Blog</a></li>
+      <li hidden><a class="l" href="#blog">Blog</a></li>
       <li><a class="l" href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -776,7 +776,7 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
   </section>
 
   <!-- BLOG -->
-  <section class="room" id="blog">
+  <section class="room" id="blog" hidden><!-- hidden until the first post is written -->
     <div class="blog-bg" aria-hidden="true"><p>Every study starts with a question that is slightly wrong. The first week is spent finding out how. We sat with nurses at the end of a double shift and watched them write the same number three times. Nobody had asked them why, because the form had always worked on paper. A good interview feels like a conversation and is built like an experiment. The pause after an answer is where the real answer usually lives. Synthesis is slow on purpose: the sticky notes move until the pattern stops arguing back. Findings are only useful when someone with a roadmap can act on them by Monday. Write the uncomfortable slide first, then earn the right to show it. Every study starts with a question that is slightly wrong. The first week is spent finding out how. We sat with nurses at the end of a double shift and watched them write the same number three times. Nobody had asked them why, because the form had always worked on paper. A good interview feels like a conversation and is built like an experiment. The pause after an answer is where the real answer usually lives. Synthesis is slow on purpose: the sticky notes move until the pattern stops arguing back. Findings are only useful when someone with a roadmap can act on them by Monday. Write the uncomfortable slide first, then earn the right to show it. Every study starts with a question that is slightly wrong. The first week is spent finding out how. We sat with nurses at the end of a double shift and watched them write the same number three times. Nobody had asked them why, because the form had always worked on paper. A good interview feels like a conversation and is built like an experiment. The pause after an answer is where the real answer usually lives. Synthesis is slow on purpose: the sticky notes move until the pattern stops arguing back. Findings are only useful when someone with a roadmap can act on them by Monday. Write the uncomfortable slide first, then earn the right to show it. </p><p>Nobody had asked them why, because the form had always worked on paper. A good interview feels like a conversation and is built like an experiment. The pause after an answer is where the real answer usually lives. Synthesis is slow on purpose: the sticky notes move until the pattern stops arguing back. Findings are only useful when someone with a roadmap can act on them by Monday. Write the uncomfortable slide first, then earn the right to show it. Nobody had asked them why, because the form had always worked on paper. A good interview feels like a conversation and is built like an experiment. The pause after an answer is where the real answer usually lives. Synthesis is slow on purpose: the sticky notes move until the pattern stops arguing back. Findings are only useful when someone with a roadmap can act on them by Monday. Write the uncomfortable slide first, then earn the right to show it. Nobody had asked them why, because the form had always worked on paper. A good interview feels like a conversation and is built like an experiment. The pause after an answer is where the real answer usually lives. Synthesis is slow on purpose: the sticky notes move until the pattern stops arguing back. Findings are only useful when someone with a roadmap can act on them by Monday. Write the uncomfortable slide first, then earn the right to show it. </p></div>
     <div class="wrap">
       <div class="head">
@@ -836,28 +836,6 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
     </div>
   </section>
 
-  <!-- JOURNEY -->
-  <section class="room" id="journey">
-    <div class="wrap">
-      <div class="head">
-        <div><div class="mono">Lab Logs</div><h2>The <em>journey</em> so far</h2></div>
-        <p>Dated entries from the notebook. Each one is a point where the experiment changed direction.</p>
-      </div>
-      <ol class="logs">
-        <li><time>2018</time><span class="dot"></span><div><span class="tag">Log 001 · Origin</span><h3>Started product design at NIFT</h3><p>A Bachelor of Design in Product Design at the National Institute of Fashion Technology, finished in 2022 with a 9.0 GPA.</p></div></li>
-        <li><time>2019.03</time><span class="dot"></span><div><span class="tag">Log 002 · First job</span><h3>Part-time associate at Decathlon India</h3><p>A year of communication design, CRM, inventory and customer management alongside college.</p></div></li>
-        <li><time>2020.12</time><span class="dot"></span><div><span class="tag">Log 003 · Internships</span><h3>Content, SEO and market research</h3><p>SEO and content strategy at Inkshed Solutions that raised user retention 15%, then trend and market research for client pitches at KH Exports.</p></div></li>
-        <li><time>2022.01</time><span class="dot"></span><div><span class="tag">Log 004 · Turning point</span><h3>User research intern at F Gear</h3><p>Behaviour and ergonomics research that refined positioning and pricing and raised the average product price 20%.</p></div></li>
-        <li><time>2022</time><span class="dot"></span><div><span class="tag">Log 005 · Healthtech</span><h3>UX Researcher at Connect and Heal</h3><p>Found drop-offs in Amplitude and fixed them with interviews and A/B tests, and shipped an EHR in 2 months.</p></div></li>
-        <li><time>2024</time><span class="dot"></span><div><span class="tag">Log 006 · Product</span><h3>Associate Product Manager, UX &amp; Product</h3><p>Shipped an AI support bot, a pharmacy catalog with Tata 1mg, pet care, self-booked appointments, Gmail health records and GST invoicing, before moving on in April 2026.</p></div></li>
-        <li class="now"><time>2026.07</time><span class="dot"></span><div><span class="tag">Log 007 · Now</span><h3>Freelance UX designer for F16s</h3><p>Designed a B2B tool for freight companies with AI workflows: documentation now takes 6 min instead of 20, and client retention is up 34%.</p></div></li>
-      </ol>
-      <div class="ctas after">
-        <a class="btn" href="#work">See the work →</a>
-        <a class="btn ghost" href="#contact">Get in touch</a>
-      </div>
-    </div>
-  </section>
 </div>
 </main>
 
@@ -1299,7 +1277,7 @@ const Cells=(function(){
   /* the card text; kept here so the sync task's projects.json schema stays unchanged. Figures match the resume section */
   const STORY={
     emr:'Clinics ran on paper registers. Interviews with doctors shaped an EMR that shipped in 2 months, cutting time to market by 20%.',
-    f16s:'Freight teams retyped every document. Now AI reads them: documentation takes 6 min instead of 20, and retention is up 34%.',
+    f16s:'Freight teams retyped every document. Now AI reads them: documentation takes 6 min instead of 30, and retention is up 34%.',
     rx:'Drop-offs found in Amplitude, causes confirmed in interviews. Now AI reads the prescription: completion rose from 58% to 77%, and approval takes 7 min instead of 20.'
   };
   function card(p,i){
@@ -1627,7 +1605,7 @@ const Cells=(function(){
       rv.hidden=true;rv.style.clipPath='';busy=false;
     })(t0);
   }
-  /* two screens: the home page, and About (with the journey) on its own */
+  /* two screens: the home page, and About on its own */
   const views={home:document.getElementById('v-home'),about:document.getElementById('v-about')};
   function showView(name){
     if(views[name].hidden){views.home.hidden=name!=='home';views.about.hidden=name!=='about';dispatchEvent(new Event('resize'))}
