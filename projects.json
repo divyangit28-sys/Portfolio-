@@ -1,6 +1,6 @@
 {
   "v": 1,
-  "syncedAt": "2026-10-28T08:40:18+05:30",
+  "syncedAt": "2026-10-29T08:41:06+05:30",
   "projects": [
     {
       "id": "emr",
@@ -54,8 +54,8 @@
       "role": "UX Designer",
       "format": "Web platform, 3 months",
       "metric": {
-        "value": "70%",
-        "label": "less documentation time, 20 min to 6 min on average"
+        "value": "80%",
+        "label": "less documentation time, 30 min to 6 min on average"
       },
       "preview": {
         "style": "f16s",
