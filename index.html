@@ -503,6 +503,12 @@ html.pvw-on,html.pvw-on body{overflow:hidden}
 .pvw-close:hover{background:var(--lav-soft)}
 .pvw-scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;outline:none;background:#F4F2F7}
 .pvw-scroll img{display:block;width:100%;height:auto;max-width:100%}
+/* corporate tale reader: the story opens over the page in the same frame as the pet viewer */
+.tlr .pvw-panel{width:min(1280px,100%);background:#141414}
+.tlr .pvw-bar{background:#FFFFFF}
+.tlr .pvw-scroll{background:#141414}
+.tlr-msg{margin:0;padding:48px 24px;text-align:center;color:#EDEDED;font-size:15px}
+.tlr-msg a{color:#F4B9A3}
 @keyframes pvwFade{from{opacity:0}}
 @keyframes pvwRise{from{opacity:0;transform:translateY(40px) scale(.97)}}
 @media (max-width:600px){.pjt{padding:10px 10px 18px}.pet-ctl .pet-btn{display:none}}
@@ -676,10 +682,10 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
       <div class="tales-glow" aria-hidden="true"></div>
       <div class="tales-track">
         <!-- one card per tale; add a new <article class="tcard tc-cover"> here when the next tale is ready -->
-        <article class="tcard tc-cover" aria-label="Designing the wait: case study">
+        <article class="tcard tc-cover" aria-label="Designing the wait: case study" data-tale="tales/designing-the-wait/index.html" data-title="Designing the wait">
           <a href="tales/designing-the-wait/" target="_blank" rel="noopener">
             <img src="tales/designing-the-wait.jpg" alt="Cover: Designing the wait. 20% less drop-off during prescription review." draggable="false">
-            <span class="tc-open">Read the story <span aria-hidden="true">↗</span></span>
+            <span class="tc-open">Read the story</span>
           </a>
         </article>
       </div>
@@ -730,7 +736,7 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
         <div class="cv-intro">
           <p>UX designer and researcher with 4+ years in healthtech and B2B logistics, turning user research and product analytics into shipped designs that move metrics.</p>
           <div class="cv-cta">
-            <a class="btn" id="dl-resume" href="resume/Divyangi_Tiwari_UX_Resume.pdf" download="Divyangi_Tiwari_UX_Resume.pdf">Download resume <svg class="dl-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
+            <a class="btn" id="dl-resume" href="resume/Divyangi_Tiwari_UX_Resume_Oct2026.pdf" download="Divyangi_Tiwari_UX_Resume.pdf">Download resume <svg class="dl-ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
             <span class="dl-msg" id="dl-msg" role="status" aria-live="polite">PDF · 1 page</span>
           </div>
         </div>
@@ -853,6 +859,13 @@ html.hero-recede .hero > *{transform-origin:50% 42%;transform:perspective(1000px
   <div class="pvw-panel">
     <div class="pvw-bar"><div><span class="pjt-k" id="pvw-k">EXP 01</span><h3 id="pvw-title">Project</h3></div><button type="button" class="pvw-close" data-close aria-label="Close project">×</button></div>
     <div class="pvw-scroll" tabindex="0"><img id="pvw-img" alt=""></div>
+  </div>
+</div>
+<div class="pvw tlr" id="tale-reader" hidden role="dialog" aria-modal="true" aria-labelledby="tlr-title">
+  <div class="pvw-back" data-close></div>
+  <div class="pvw-panel">
+    <div class="pvw-bar"><div><span class="pjt-k">Corporate tale</span><h3 id="tlr-title">Story</h3></div><button type="button" class="pvw-close" data-close aria-label="Close story">×</button></div>
+    <div class="pvw-scroll" tabindex="0"><div class="tlr-host"></div><p class="tlr-msg" hidden></p></div>
   </div>
 </div>
 <div id="reveal" hidden><canvas></canvas></div>
@@ -1466,6 +1479,51 @@ const Cells=(function(){
   grid.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>open(b)));
   view.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
   view.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();close()}else if(e.key==='Tab'){e.preventDefault();(document.activeElement===closeBtn?vScroll:closeBtn).focus()}});
+})();
+
+/* ================= corporate tales open in a reader over the page; the story's own styles stay sealed in a shadow root ================= */
+(function(){
+  const view=document.getElementById('tale-reader');if(!view)return;
+  const scroll=view.querySelector('.pvw-scroll'),host=view.querySelector('.tlr-host'),msg=view.querySelector('.tlr-msg'),
+        title=document.getElementById('tlr-title'),closeBtn=view.querySelector('.pvw-close');
+  const root=host.attachShadow({mode:'open'});
+  const cache={};let opener=null,ro=null;
+  function fit(){root.querySelectorAll('.frame').forEach(f=>{if(f.firstElementChild)f.firstElementChild.style.setProperty('--k',f.clientWidth/1400)})}
+  function render(html){
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    doc.querySelectorAll('link[rel="stylesheet"]').forEach(l=>{
+      const h=l.getAttribute('href')||'';
+      if(/^https:\/\/fonts\.googleapis\.com\//.test(h)&&!document.querySelector('link[href="'+h.replace(/"/g,'\\"')+'"]')){const n=document.createElement('link');n.rel='stylesheet';n.href=h;document.head.appendChild(n)}
+    });
+    const css=[...doc.querySelectorAll('style')].map(st=>st.textContent).join('\n')
+      .replace(/:root/g,':host').replace(/(^|[\s};,])html(?=\s*[{,])/g,'$1.tlr-html').replace(/(^|[\s};,])body(?=\s*[{,])/g,'$1.tlr-body');
+    const main=doc.querySelector('main');
+    root.innerHTML='<style>'+css+'\n.rail,.count,.pf-home{display:none!important}.tlr-body{display:block;padding-block:8px}.slide{min-height:0;padding-block:8px;scroll-snap-align:none}.frame{width:min(100%,calc((100svh - 150px) * 1.4))}</style><div class="tlr-html"><div class="tlr-body">'+(main?main.outerHTML:'')+'</div></div>';
+    fit();
+  }
+  function fail(href){
+    root.innerHTML='';msg.hidden=false;
+    msg.innerHTML='This story could not load here. <a target="_blank" rel="noopener">Open it in a new tab</a>.';
+    msg.querySelector('a').href=href;
+  }
+  async function open(card,link){
+    opener=link;title.textContent=card.dataset.title||'Story';msg.hidden=true;
+    view.hidden=false;document.documentElement.classList.add('pvw-on');scroll.scrollTop=0;closeBtn.focus();
+    const src=card.dataset.tale;
+    try{
+      if(!cache[src]){const r=await fetch(src);if(!r.ok)throw new Error(r.status);cache[src]=await r.text()}
+      render(cache[src]);
+      if(!ro&&'ResizeObserver' in window){ro=new ResizeObserver(fit);ro.observe(scroll)}
+    }catch(e){fail(link.href)}
+  }
+  function close(){if(view.hidden)return;view.hidden=true;document.documentElement.classList.remove('pvw-on');if(opener)opener.focus()}
+  document.querySelectorAll('.tcard[data-tale] a').forEach(a=>a.addEventListener('click',e=>{
+    if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0)return;
+    e.preventDefault();open(a.closest('.tcard'),a);
+  }));
+  view.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
+  view.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();close()}else if(e.key==='Tab'){e.preventDefault();(document.activeElement===closeBtn?scroll:closeBtn).focus()}});
+  addEventListener('resize',()=>{if(!view.hidden)fit()});
 })();
 
 /* ================= download resume: saves through the viewer when it can, otherwise the link opens the PDF ================= */
