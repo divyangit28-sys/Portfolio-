@@ -127,6 +127,20 @@ h2{font-size:21px;font-weight:700;margin:4px 0 0;text-wrap:balance;letter-spacin
 .warn .link{color:var(--amber)}
 .warn.done{background:var(--bg);border-color:var(--line)}
 .warn.done .s{color:var(--muted)}
+/* unsure test: the patient adds it or removes it */
+.unsure{flex-direction:column;align-items:stretch;gap:10px}
+.unsure .row{display:flex;align-items:center;gap:12px}
+.choice{display:flex;gap:8px}
+.choice button{flex:1;padding:9px 6px;border-radius:10px;font-size:13px;font-weight:600;transition:transform .12s}
+.choice button:active{transform:scale(.97)}
+.opt-rm{background:#fff;color:#a8650a;box-shadow:inset 0 0 0 1.5px #e8b04a}
+.opt-add{background:var(--pri);color:#fff}
+.warn.removed{background:var(--soft);border-color:var(--line)}
+.warn.removed .t{text-decoration:line-through;color:var(--muted)}
+.warn.removed .s{color:var(--muted)}
+.warn.done .link,.warn.removed .link{color:var(--pri)}
+/* the phone never scrolls sideways when its content changes */
+.phone{overflow:clip}
 .ben{background:var(--green-soft);border-color:transparent;color:var(--green);font-size:12.5px;font-weight:600}
 .ben .ic{background:#fff}
 .add{font-size:14px;font-weight:600;color:var(--pri);align-self:flex-start}
@@ -315,10 +329,10 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
       <h2>Check the details we found</h2>
       <p class="sub">Tap any item to edit. Amber means please double-check.</p>
       <div class="card who"><div class="ic">👤</div><div class="col"><div class="t">Divi Sharma · Self</div><div class="s">Dr. A. Mehta · Reg. MH-12345 ✓</div></div><span class="link">Change</span></div>
-      <button class="card warn" id="lipid" data-sfx="none" style="text-align:left"><div class="ic" style="background:#fff">🧪</div><div class="col"><div class="t">Lipid profile</div><div class="s" id="lipidSub">We weren't fully sure. Please confirm.</div></div><span class="link" id="lipidAct">Check</span></button>
+      <div class="card warn unsure" id="lipid"><div class="row"><div class="ic" style="background:#fff">🧪</div><div class="col"><div class="t">Lipid profile</div><div class="s" id="lipidSub">We're not sure this is on your prescription. Add it or remove it.</div></div><button class="link" id="lipidUndo" hidden>Change</button></div><div class="choice" id="lipidChoice"><button class="opt-rm" id="lipidRemove">Remove</button><button class="opt-add" id="lipidAdd">Add test</button></div></div>
       <div class="card"><div class="ic">🩸</div><div class="col"><div class="t">Complete blood count</div><div class="s">Blood · fasting not needed</div></div><span class="edit">✎</span></div>
       <div class="card"><div class="ic">🩸</div><div class="col"><div class="t">HbA1c</div><div class="s">Blood · fasting not needed</div></div><span class="edit">✎</span></div>
-      <div class="card ben"><div class="ic">🎁</div><div>Lab package benefit applied · covers all 3 tests</div></div>
+      <div class="card ben"><div class="ic">🎁</div><div id="benTxt">Lab package benefit applied · covers all 3 tests</div></div>
       <button class="add" data-sfx="tap">+ Add a missing test</button>
       <div class="grow"></div>
       <button class="cta" id="proceed">Submit details</button>
@@ -337,7 +351,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
       </div>
       <div class="stack" id="labBlock" hidden>
         <h3>Choose a lab</h3>
-        <p class="sub" style="margin-top:0">These labs can do all 3 of your tests.</p>
+        <p class="sub" style="margin-top:0" id="labsFor">These labs can do all 3 of your tests.</p>
         <div class="chiprow" id="labSort"><button class="sel">Nearest</button><button>Lowest cost</button><button>Top rated</button></div>
         <div class="labs" id="labList"></div>
       </div>
@@ -359,12 +373,12 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <section class="screen" data-step="Approved">
       <div class="wait" id="wait"><div class="spin"></div><div class="t" style="font-size:16px">Finishing approval…</div><div class="s">Your slot is held. This usually takes under 5 minutes.</div></div>
       <div id="appr" hidden style="display:contents">
-        <div class="hero g pop"><div class="badge"><svg viewBox="0 0 26 26"><path d="M6 13.5l5 5 9-10"/></svg></div><div class="big">All 3 items approved</div><div class="s" style="color:var(--ink)">Approved in 4 minutes · checked item by item</div></div>
+        <div class="hero g pop"><div class="badge"><svg viewBox="0 0 26 26"><path d="M6 13.5l5 5 9-10"/></svg></div><div class="big" id="apprBig">All 3 items approved</div><div class="s" style="color:var(--ink)">Approved in 4 minutes · checked item by item</div></div>
         <div class="items" id="items">
           <div class="lbl">Item-wise approval</div>
           <div class="item">Complete blood count <span class="pill">✓ Approved</span></div>
           <div class="item">HbA1c <span class="pill">✓ Approved</span></div>
-          <div class="item">Lipid profile <span class="pill">✓ Approved</span></div>
+          <div class="item" id="itemLipid">Lipid profile <span class="pill">✓ Approved</span></div>
         </div>
         <div class="card rx"><div class="doc"><i></i><i style="width:70%"></i><i></i><i style="width:50%"></i></div><div class="col"><div class="t">Your prescription</div><div class="s">Dr. A. Mehta · 10 Oct 2026</div></div><span class="link">View</span></div>
         <div class="grow"></div>
@@ -380,7 +394,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
         <div class="lbl">Bill breakup</div>
         <div class="kv"><span>CBC</span><b id="p1">₹350</b></div>
         <div class="kv"><span>HbA1c</span><b id="p2">₹450</b></div>
-        <div class="kv"><span>Lipid profile</span><b id="p3">₹600</b></div>
+        <div class="kv" id="rowLipid"><span>Lipid profile</span><b id="p3">₹600</b></div>
         <div class="kv"><span id="feeLbl">Home collection</span><b>₹0</b></div>
         <hr>
         <div class="kv g"><span>Lab package benefit</span><b id="pBen">− ₹1,400</b></div>
@@ -480,7 +494,8 @@ const enter={
          $$(`#scanwrap .mark[data-k="${k}"]`).forEach(m=>m.classList.add('on')); },900+k*750));
        later(()=>{ sw.classList.add('done'); play('confirm'); },900+c.length*750);
        later(()=>go(2),900+c.length*750+900); },
-  4(){ if(approved){ $('#wait').hidden=true; $('#appr').hidden=false; $$('#items .item').forEach(x=>x.classList.add('in')); return; }
+  4(){ $('#apprBig').textContent=`${lipidIn?'All 3 items':'Both items'} approved`; $('#itemLipid').hidden=!lipidIn;
+       if(approved){ $('#wait').hidden=true; $('#appr').hidden=false; $$('#items .item').forEach(x=>x.classList.add('in')); return; }
        $('#wait').hidden=false; $('#appr').hidden=true; $$('#items .item').forEach(x=>x.classList.remove('in'));
        later(()=>{ approved=true; $('#wait').hidden=true; $('#appr').hidden=false; play('success');
          $$('#items .item').forEach((x,k)=>later(()=>{x.classList.add('in');play('tick');},400+k*220)); },2200); },
@@ -490,7 +505,7 @@ const enter={
        $('#dAddr').textContent=h?addrs[selAddr].line:selLab.addr;
        later(()=>{ confetti(); },350); },
   3(){ const b=$('#banner'); b.classList.remove('run'); void b.offsetWidth; b.classList.add('run'); },
-  5(){ const h=mode==='home', p=h?[350,450,600]:selLab.tests, tot=p[0]+p[1]+p[2];
+  5(){ const h=mode==='home', p=h?[350,450,600]:selLab.tests, tot=p[0]+p[1]+(lipidIn?p[2]:0); $('#rowLipid').hidden=!lipidIn;
        $('#feeLbl').textContent=h?'Home collection':'Lab visit fee';
        ['#p1','#p2','#p3'].forEach((id,i)=>$(id).textContent=inr(p[i]));
        $('#pBen').textContent='− '+inr(tot); $('#pSave').textContent=`🎉 Your benefits saved you ${inr(tot)} on this order`; }
@@ -502,11 +517,22 @@ $$('[data-go]').forEach(b=>b.addEventListener('click',()=>{ if(b.dataset.sfx!=='
 $$('[data-sfx="tap"]:not([data-go])').forEach(b=>b.addEventListener('click',()=>{play('tap');toast('Prototype: this would open a test search');}));
 
 const lipid=$('#lipid');
-lipid.addEventListener('click',()=>{ if(lipidOk) return; lipidOk=true;
-  lipid.classList.add('done'); $('#lipidSub').textContent='Blood · fast 10–12 hours before'; $('#lipidAct').textContent='✓'; $('#lipidAct').style.color='var(--green)'; });
+let lipidIn=true;
+const nTests=()=>lipidIn?3:2;
+/* the patient decides: 'pending' until they pick, then 'added' or 'removed'; Change reopens the choice */
+function setLipid(state){
+  lipidOk=state!=='pending'; lipidIn=state!=='removed';
+  lipid.classList.toggle('done',state==='added'); lipid.classList.toggle('removed',state==='removed');
+  $('#lipidChoice').hidden=state!=='pending'; $('#lipidUndo').hidden=state==='pending';
+  $('#lipidSub').textContent=state==='added'?'Added · blood test, fast 10–12 hours before':state==='removed'?'Removed · it won\'t be booked':"We're not sure this is on your prescription. Add it or remove it.";
+  $('#benTxt').textContent=`Lab package benefit applied · covers ${lipidIn?'all 3 tests':'both tests'}`;
+}
+$('#lipidAdd').addEventListener('click',()=>{ setLipid('added'); toast('Lipid profile added'); });
+$('#lipidRemove').addEventListener('click',()=>{ setLipid('removed'); toast('Lipid profile removed'); });
+$('#lipidUndo').addEventListener('click',()=>setLipid('pending'));
 $('#proceed').addEventListener('click',e=>{
   if(!lipidOk){ play('error'); const b=e.currentTarget; b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
-    lipid.animate?.([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:400}); toast('Please confirm Lipid profile first'); return; }
+    lipid.animate?.([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:400}); toast('Add or remove Lipid profile first'); return; }
   play('tap'); go(3); });
 
 $$('#modes .mode').forEach(m=>m.addEventListener('click',()=>{ play('select'); mode=m.dataset.mode;
@@ -560,13 +586,14 @@ const labs=[
   {name:'Apex Diagnostics',km:1.2,hrs:'7 AM–10 PM',tests:[350,450,600],rating:4.6,addr:'2nd floor, Sunrise Plaza, Link Road, Andheri W',full:'2–3 PM'},
   {name:'CityCare Labs',km:2.4,hrs:'8 AM–8 PM',tests:[300,400,550],rating:4.4,addr:'Shop 4, Lokhandwala Market, Andheri W',full:'9–10 AM'},
   {name:'Metro Path Labs',km:3.1,hrs:'Open 24 hours',tests:[400,500,600],rating:4.8,addr:'Ground floor, Juhu Tara Road, Juhu',full:'12–1 PM'}];
-labs.forEach(l=>l.price=l.tests[0]+l.tests[1]+l.tests[2]);
+const labPrice=l=>l.tests[0]+l.tests[1]+(lipidIn?l.tests[2]:0);
 let selLab=null, labSort='Nearest';
 function inr(n){ return '₹'+n.toLocaleString('en-IN'); }
 function renderLabs(){
-  const order=[...labs].sort((a,b)=>labSort==='Lowest cost'?a.price-b.price:labSort==='Top rated'?b.rating-a.rating:a.km-b.km);
+  $('#labsFor').textContent=`These labs can do ${lipidIn?'all 3':'both'} of your tests.`;
+  const order=[...labs].sort((a,b)=>labSort==='Lowest cost'?labPrice(a)-labPrice(b):labSort==='Top rated'?b.rating-a.rating:a.km-b.km);
   $('#labList').innerHTML=order.map(l=>`<button class="lab${l===selLab?' sel':''}" data-n="${esc(l.name)}">
-    <span class="lt"><span class="ic">🏥</span><span class="col"><span class="t">${esc(l.name)}</span><span class="s">${l.km} km · ${esc(l.hrs)}</span></span><span class="price">${inr(l.price)}</span></span>
+    <span class="lt"><span class="ic">🏥</span><span class="col"><span class="t">${esc(l.name)}</span><span class="s">${l.km} km · ${esc(l.hrs)}</span></span><span class="price">${inr(labPrice(l))}</span></span>
     <span class="meta"><span class="mini">★ ${l.rating}</span><span class="mini cov">✓ Covered by benefit</span>${l===selLab?'<span class="mini now">Selected</span>':''}</span></button>`).join('');
   $$('#labList .lab').forEach(b=>b.addEventListener('click',()=>{
     const first=!selLab; selLab=labs.find(l=>l.name===b.dataset.n); renderLabs(); updateBook();
@@ -594,7 +621,7 @@ $('#bookBtn').addEventListener('click',e=>{
   go(4); });
 updateBook();
 
-function reset(){ lipidOk=false; approved=false; closeSheet(); selLab=null; mode='home'; $$('#modes .mode').forEach(x=>x.classList.toggle('sel',x.dataset.mode==='home')); updateBook(); lipid.classList.remove('done'); $('#lipidSub').textContent="We weren't fully sure. Please confirm."; $('#lipidAct').textContent='Check'; $('#lipidAct').style.color='';
+function reset(){ lipidOk=false; approved=false; closeSheet(); selLab=null; mode='home'; $$('#modes .mode').forEach(x=>x.classList.toggle('sel',x.dataset.mode==='home')); updateBook(); setLipid('pending');
   stopConfetti(); go(0); }
 $('#again').addEventListener('click',()=>{ play('tap'); reset(); });
 $('#back').addEventListener('click',()=>{ play('tap');

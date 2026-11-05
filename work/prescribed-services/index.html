@@ -602,7 +602,7 @@ body::before{background:var(--ground)}
       <div class="field"><span class="k">Patient</span><span class="v">Divi Sharma</span><span class="tag ok">✓ Match</span></div>
       <div class="field"><span class="k">Doctor</span><span class="v">Reg. MH-12345</span><span class="tag ok">✓ Verified</span></div>
       <div class="field"><span class="k">Dated</span><span class="v">Within 30 days</span><span class="tag ok">✓ Valid</span></div>
-      <div class="field"><span class="k">Tests</span><span class="v">Lipid profile</span><span class="tag chk">Please confirm</span></div>
+      <div class="field"><span class="k">Tests</span><span class="v">Lipid profile</span><span class="tag chk">Add or remove</span></div>
     </div>
     <div class="float glass f1"><span class="dot" style="background:var(--mint)"></span>Printed Rx · ~90% confidence</div>
     <div class="float glass f2"><span class="dot" style="background:var(--amber)"></span>Unsure fields go to a human</div>
@@ -736,7 +736,7 @@ body::before{background:var(--ground)}
             <div class="pg"><div class="tr"></div><div class="fl" style="width:37%"></div><div class="kn" style="left:25%">Review</div></div>
             <h6>Check the details we found</h6><span class="s">Tap any item to edit. A dashed outline means please double-check.</span>
             <div class="bx"><span class="ci"></span><span class="col"><span class="t">Divi Sharma · Self</span><span class="s">Dr. A. Mehta · Reg. MH-12345 ✓</span></span><span class="lk">Change</span></div>
-            <div class="bx dash"><span class="ci k">!</span><span class="col"><span class="t">Lipid profile</span><span class="s">We weren't fully sure. Please confirm.</span></span><span class="lk">Check</span></div>
+            <div class="bx dash v"><div style="display:flex;align-items:center;gap:7px"><span class="ci k">!</span><span class="col"><span class="t">Lipid profile</span><span class="s">Not sure it's on your Rx.</span></span></div><div class="g2"><span class="chipx">Remove</span><span class="chipx on">Add test</span></div></div>
             <div class="bx"><span class="ci"></span><span class="col"><span class="t">Complete blood count</span><span class="s">Blood · fasting not needed</span></span></div>
             <div class="bx"><span class="ci"></span><span class="col"><span class="t">HbA1c</span><span class="s">Blood · fasting not needed</span></span></div>
             <div class="bx"><span class="ci"></span><span class="t">Lab package benefit applied · covers all 3 tests</span></div>
@@ -825,7 +825,7 @@ body::before{background:var(--ground)}
               <div class="pg"><div class="tr"></div><div class="fl" style="width:42%"></div><div class="kn" style="left:28%">Review</div></div>
               <h4>Check the details we found</h4><div class="s">Amber means please double-check.</div>
               <div class="c who2"><span class="ic">👤</span><span class="col"><span class="t">Divi Sharma · Self</span><span class="s">Dr. A. Mehta · Reg. MH-12345 ✓</span></span><span class="a">Change</span></div>
-              <div class="c warn"><span class="ic" style="background:#fff">🧪</span><span class="col"><span class="t">Lipid profile</span><span class="s">We weren't fully sure. Please confirm.</span></span><span class="a">Check</span></div>
+              <div class="c no"><div style="display:flex;align-items:center;gap:8px"><span class="ic" style="background:#fff">🧪</span><span class="col"><span class="t">Lipid profile</span><span class="s" style="color:#b97a07">Not sure it's on your Rx. Add or remove?</span></span></div><div class="btns"><span style="background:#fff;color:#b97a07;box-shadow:inset 0 0 0 1px #e8b04a">Remove</span><span style="background:#2f5fd9;color:#fff">Add test</span></div></div>
               <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">Complete blood count</span><span class="s">Fasting not needed</span></span></div>
               <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">HbA1c</span><span class="s">Fasting not needed</span></span></div>
               <div class="c ben">🎁 Lab package benefit applied · covers all 3</div>
@@ -921,13 +921,13 @@ body::before{background:var(--ground)}
           <h4>Check the details we found</h4>
           <div class="s">Amber means please double-check.</div>
           <div class="c who2"><span class="ic">👤</span><span class="col"><span class="t">Divi Sharma · Self</span><span class="s">Dr. A. Mehta · Reg. MH-12345 ✓</span></span><span class="a">Change</span></div>
-          <div class="c warn"><span class="ic" style="background:#fff">🧪</span><span class="col"><span class="t">Lipid profile</span><span class="s">We weren't fully sure. Please confirm.</span></span><span class="a">Check</span></div>
+          <div class="c no"><div style="display:flex;align-items:center;gap:8px"><span class="ic" style="background:#fff">🧪</span><span class="col"><span class="t">Lipid profile</span><span class="s" style="color:#b97a07">Not sure it's on your Rx. Add or remove?</span></span></div><div class="btns"><span style="background:#fff;color:#b97a07;box-shadow:inset 0 0 0 1px #e8b04a">Remove</span><span style="background:#2f5fd9;color:#fff">Add test</span></div></div>
           <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">Complete blood count</span><span class="s">Fasting not needed</span></span></div>
           <div class="c"><span class="ic">🩸</span><span class="col"><span class="t">HbA1c</span><span class="s">Fasting not needed</span></span></div>
           <div class="c ben">🎁 Lab package benefit applied · covers all 3</div>
           <div class="btn">Submit details</div>
         </div>
-        <div class="cap"><span class="no">02 · REVIEW</span><h3>Show where the AI is unsure</h3><p>Handwritten prescriptions read at 50–70% confidence. Uncertain items turn amber for the patient to confirm.</p></div>
+        <div class="cap"><span class="no">02 · REVIEW</span><h3>Show where the AI is unsure</h3><p>Handwritten prescriptions read at 50–70% confidence. Uncertain tests turn amber, and the patient adds or removes each one.</p></div>
       </div>
       <div class="shot">
         <div class="ph" aria-label="Phone screen: booking a slot while approval runs">
@@ -1001,7 +1001,7 @@ body::before{background:var(--ground)}
     </div>
     <div class="qa">
       <article class="glass"><span class="q">How long does parsing take?</span><span class="a">5–10 seconds</span><p class="ch"><b>Changed:</b> a live scan, so the wait feels like progress.</p></article>
-      <article class="glass"><span class="q">How confident is the AI?</span><span class="a">~90% printed, 50–70% handwritten</span><p class="ch"><b>Changed:</b> uncertain items turn amber for review.</p></article>
+      <article class="glass"><span class="q">How confident is the AI?</span><span class="a">~90% printed, 50–70% handwritten</span><p class="ch"><b>Changed:</b> uncertain tests turn amber, and the patient adds or removes them.</p></article>
       <article class="glass"><span class="q">What if parsing fails?</span><span class="a">One silent retry, then a manual route</span><p class="ch"><b>Changed:</b> the first failure stays invisible and nothing is lost.</p></article>
       <article class="glass"><span class="q">Can a slot be held for 30 minutes?</span><span class="a">Not when demand is high</span><p class="ch"><b>Changed:</b> slots became preferences, confirmed after approval.</p></article>
       <article class="glass"><span class="q">What happens with a duplicate?</span><span class="a">Warn, never block</span><p class="ch"><b>Changed:</b> a warning the patient can move past.</p></article>
@@ -1018,7 +1018,7 @@ body::before{background:var(--ground)}
     <div class="edges">
       <div class="edge"><span class="w">Upload</span><b>Photo unclear</b><span>Instant check. Retake or continue.</span></div>
       <div class="edge"><span class="w">Reading</span><b>Parsing fails</b><span>Silent retry, then a manual route.</span></div>
-      <div class="edge"><span class="w">Review</span><b>Handwritten, low confidence</b><span>Amber items for the patient to confirm.</span></div>
+      <div class="edge"><span class="w">Review</span><b>Handwritten, low confidence</b><span>Amber tests the patient adds or removes.</span></div>
       <div class="edge"><span class="w">Upload</span><b>Duplicate prescription</b><span>A warning. The patient can continue.</span></div>
       <div class="edge"><span class="w">Approval</span><b>Prescription not accepted</b><span>Clear reasons. Re-upload, selections kept.</span></div>
       <div class="edge"><span class="w">Approval</span><b>Test not covered</b><span>Pay for it, remove it, or talk to the team.</span></div>
