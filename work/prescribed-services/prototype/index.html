@@ -6,9 +6,9 @@
 :root{
   --stage:#e9eaee; --stage-ink:#2a2d36; --stage-muted:#6b7080; --stage-chip:#ffffff; --stage-line:#d6d8df;
   /* product palette, taken from the Figma flow */
-  --bg:#ffffff; --ink:#1c2029; --muted:#737a87; --line:#e1e4ea; --soft:#f4f6f8;
-  --pri:#2f5fd9; --pri-soft:#e8eeff; --green:#22994f; --green-soft:#e6f6eb; --knob:#45995f;
-  --amber:#d98c0d; --amber-soft:#fff5dc; --track:#fff2d1; --track-line:#d18c1f;
+  --bg:#ffffff; --ink:#1c2029; --muted:#6b7280; --line:#e1e4ea; --soft:#f4f6f8;
+  --pri:#2f5fd9; --pri-soft:#e8eeff; --green:#1f8a48; --green-soft:#e6f6eb; --knob:#45995f;
+  --amber:#a8650a; --amber-soft:#fff5dc; --amber-line:#e8b04a; --track:#fff2d1; --track-line:#d18c1f; --red:#c9473f;
   --font:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--stage:#16181d;--stage-ink:#e8e9ed;--stage-muted:#9095a2;--stage-chip:#23262d;--stage-line:#33363f;color-scheme:dark}}
@@ -17,21 +17,26 @@ html,body{height:100%}
 [hidden]{display:none!important}
 body{background:var(--stage);color:var(--stage-ink);font-family:var(--font);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px;
-  display:flex;flex-direction:column;align-items:center;gap:12px;box-sizing:border-box}
+  display:flex;flex-direction:column;align-items:center;gap:10px;box-sizing:border-box}
 *{box-sizing:border-box}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
-button:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+button:focus-visible,input:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 .bar{width:min(390px,100%);display:flex;align-items:center;gap:8px}
 .bar h1{font-size:14px;font-weight:600;margin:0;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .bar h1 span{color:var(--stage-muted);font-weight:500}
-.ctl{display:flex;align-items:center;gap:6px;background:var(--stage-chip);border:1px solid var(--stage-line);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:600;color:var(--stage-ink)}
-a.ctl{text-decoration:none;white-space:nowrap;flex:none}
+.ctl{display:flex;align-items:center;gap:6px;background:var(--stage-chip);border:1px solid var(--stage-line);border-radius:999px;padding:7px 12px;font-size:12px;font-weight:600;color:var(--stage-ink);white-space:nowrap}
+.ctl .i{width:14px;height:14px}
+a.ctl{text-decoration:none;flex:none}
+.ctl{flex:none}
+@media (max-width:480px){.ctl .tx{display:none}button.ctl{padding:7px 9px}}
 a.ctl:hover{border-color:var(--pri)}
 a.ctl:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
+.paths{width:min(390px,100%);margin:0;font-size:12px;line-height:1.45;color:var(--stage-muted);text-align:center}
 
-.phone{position:relative;width:min(390px,100%);height:min(812px,calc(100% - 44px));min-height:560px;background:var(--bg);color:var(--ink);
-  border-radius:36px;overflow:hidden;box-shadow:0 0 0 8px #101217,0 24px 60px rgba(0,0,0,.25);isolation:isolate}
+.phone{position:relative;width:min(390px,100%);height:min(812px,calc(100% - 92px));min-height:560px;background:var(--bg);color:var(--ink);
+  border-radius:36px;overflow:hidden;overflow:clip;box-shadow:0 0 0 8px #101217,0 24px 60px rgba(0,0,0,.25);isolation:isolate}
 
 /* progress */
 .back{position:absolute;left:14px;top:27px;width:36px;height:36px;border-radius:50%;background:var(--soft);display:grid;place-items:center;z-index:6;transition:transform .12s,background .2s}
@@ -48,41 +53,54 @@ a.ctl:focus-visible{outline:2px solid var(--pri);outline-offset:2px}
 
 /* screens */
 .screens{position:absolute;inset:78px 0 0 0}
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;padding:8px 22px 22px;gap:16px;overflow-y:auto;
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;padding:8px 22px 22px;gap:14px;overflow-y:auto;
   transition:transform .45s cubic-bezier(.4,0,.2,1),opacity .35s;opacity:0;transform:translateX(40px);pointer-events:none}
 .screen.on{opacity:1;transform:none;pointer-events:auto}
 .screen.past{transform:translateX(-40px)}
 .screen>.grow{flex:1}
 h2{font-size:21px;font-weight:700;margin:4px 0 0;text-wrap:balance;letter-spacing:-.01em}
-.sub{font-size:13px;color:var(--muted);margin:-8px 0 0;line-height:1.45}
-.lbl{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.sub{font-size:13px;color:var(--muted);margin:-6px 0 0;line-height:1.45}
+.lbl{font-size:12.5px;font-weight:600;color:var(--muted);margin:2px 0 -4px}
 
-.cta{width:100%;padding:15px;border-radius:14px;background:var(--pri);color:#fff;font-weight:600;font-size:15px;transition:transform .12s,filter .2s}
+.cta{width:100%;padding:15px;border-radius:14px;background:var(--pri);color:#fff;font-weight:600;font-size:15px;transition:transform .12s,filter .2s,opacity .2s}
 .cta:active{transform:scale(.97)}
+.cta:disabled{opacity:.45;cursor:not-allowed}
 .cta.ghost{background:var(--bg);color:var(--pri);box-shadow:inset 0 0 0 1.5px var(--pri)}
 .cta.green{background:var(--green)}
-.cta.shake{animation:shake .4s}
+.cta.shake,.card.shake{animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 
-.card{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px;background:var(--bg)}
-.ic{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px;background:var(--soft)}
+.card{border:1px solid var(--line);border-radius:14px;padding:11px 12px 11px 14px;display:flex;align-items:center;gap:12px;background:var(--bg)}
+.ic{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--pri)}
 .col{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .t{font-size:14px;font-weight:600}
-.s{font-size:12px;color:var(--muted)}
-.link{font-size:13px;font-weight:600;color:var(--pri)}
+.s{font-size:12px;color:var(--muted);line-height:1.4}
+.link{font-size:13px;font-weight:600;color:var(--pri);white-space:nowrap}
+.ib{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:var(--muted);transition:background .2s,color .2s}
+.ib:hover{background:var(--soft);color:var(--ink)}
+.ib.rm:hover{color:var(--red)}
+.ib .i{width:17px;height:17px}
+.stack8{display:flex;flex-direction:column;gap:8px}
 
 .rx{background:var(--soft)}
 .rx .doc{flex:none;width:34px;height:42px;border-radius:5px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;padding:8px 6px}
 .rx .doc i{height:3px;border-radius:2px;background:var(--line)}
 
 /* upload */
-.found{border:1.5px solid #7fcf98;background:var(--green-soft);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.found{border:1.5px solid #7fcf98;background:var(--green-soft);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:11px}
 .found .row{display:flex;gap:12px;align-items:center}
-.found .ic{background:#fff}
-.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.tile{border-radius:14px;background:var(--pri-soft);box-shadow:inset 0 0 0 1.5px var(--pri);padding:16px 4px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--pri);font-size:12px;font-weight:600;transition:transform .12s}
+.found .ic{background:#fff;color:var(--green)}
+.from{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--green)}
+.from .i{width:15px;height:15px}
+.incl{display:flex;flex-direction:column;gap:6px}
+.incl .s{color:#2f6b47}
+.chipset{display:flex;flex-wrap:wrap;gap:6px}
+.tchip{font-size:11.5px;font-weight:600;background:#fff;border:1px solid #bfe6cb;color:#1f6b3e;border-radius:999px;padding:4px 9px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{border-radius:14px;background:var(--pri-soft);box-shadow:inset 0 0 0 1.5px var(--pri);padding:12px 2px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;color:var(--pri);font-size:11.5px;font-weight:600;line-height:1.2;text-align:center;transition:transform .12s}
 .tile:active{transform:scale(.95)}
-.tile .ic{background:#fff;width:40px;height:40px;font-size:17px}
+.tile .ic{background:#fff;width:40px;height:40px}
+.tile .ic .i{width:20px;height:20px}
 .tip{background:var(--soft);border-radius:12px;padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.5}
 
 /* reading */
@@ -94,11 +112,10 @@ h2{font-size:21px;font-weight:700;margin:4px 0 0;text-wrap:balance;letter-spacin
 .paper .rxs{font-size:20px;font-weight:700;color:#c4c9d3;font-family:Georgia,serif;font-style:italic;line-height:1}
 .paper .ln{position:relative;height:7px;border-radius:4px;background:#e6e9ef}
 .paper .sig{margin-top:auto;align-self:flex-end;width:60px;height:14px;border-bottom:1.5px solid #c4c9d3;border-radius:0 0 40% 10%}
-/* detected boxes light up as each check passes */
-.paper .tx{font-size:10px;color:#4a505c;line-height:1.5}
+.paper .tx{font-size:11px;color:#3d4350;line-height:1.5;font-family:"Segoe Print","Bradley Hand","Noteworthy",cursive}
 .mark{border-radius:4px;padding:1px 3px;margin:-1px -3px;transition:background .3s,box-shadow .3s}
 .mark.on{background:rgba(47,107,255,.12);box-shadow:0 0 0 1.5px #2f6bff}
-/* the blue scan: tint that grows behind a glowing line */
+.mark.on.w{background:rgba(232,176,74,.16);box-shadow:0 0 0 1.5px var(--amber-line)}
 .tint{position:absolute;left:0;right:0;top:0;height:0;background:linear-gradient(180deg,rgba(47,107,255,.04),rgba(47,107,255,.16));animation:tint 2.2s ease-in-out infinite alternate;pointer-events:none}
 .beam{position:absolute;left:-10%;right:-10%;height:3px;top:0;background:#2f6bff;box-shadow:0 0 12px 4px rgba(47,107,255,.6),0 0 30px 10px rgba(47,107,255,.25);animation:beam 2.2s ease-in-out infinite alternate;pointer-events:none}
 @keyframes beam{to{top:calc(100% - 3px)}}
@@ -112,41 +129,46 @@ h2{font-size:21px;font-weight:700;margin:4px 0 0;text-wrap:balance;letter-spacin
 .scanwrap.done .corner{border-color:var(--green);transition:border-color .4s}
 .checks{border:1px solid var(--line);border-radius:14px;padding:6px 14px}
 .chk{display:flex;align-items:center;gap:12px;padding:9px 0;font-size:14px;color:var(--muted);transition:color .3s}
-.chk .dot{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-size:11px;color:var(--green);transition:background .3s,transform .3s}
+.chk .dot{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-size:11px;transition:background .3s,transform .3s}
 .chk .dot::after{content:"…";color:var(--muted)}
-.chk.ok{color:var(--ink)}
+.chk.ok,.chk.wn{color:var(--ink)}
 .chk.ok .dot{background:var(--green-soft);transform:scale(1.1)}
 .chk.ok .dot::after{content:"✓";color:var(--green);font-weight:700}
+.chk.wn .dot{background:var(--amber-soft);transform:scale(1.1)}
+.chk.wn .dot::after{content:"!";color:var(--amber);font-weight:800}
+.chk small{display:block;font-size:11.5px;color:var(--amber);font-weight:500}
 .hint{font-size:12px;color:var(--muted);text-align:center}
 
 /* review */
 .who{background:var(--pri-soft);border-color:transparent}
 .who .ic{background:#fff}
-.warn{background:var(--amber-soft);border:1.5px solid #e8b04a;transition:background .4s,border-color .4s}
-.warn .s{color:var(--amber)}
-.warn .link{color:var(--amber)}
-.warn.done{background:var(--bg);border-color:var(--line)}
-.warn.done .s{color:var(--muted)}
-/* unsure test: the patient adds it or removes it */
+.warnline{display:flex;align-items:center;gap:6px;margin:2px 0 -6px;font-size:12.5px;font-weight:600;color:var(--amber);line-height:1.35}
+.warnline .i{width:15px;height:15px}
+.warn{background:var(--amber-soft);border:1.5px solid var(--amber-line)}
+.warn .ic{background:#fff;color:var(--amber)}
 .unsure{flex-direction:column;align-items:stretch;gap:10px}
 .unsure .row{display:flex;align-items:center;gap:12px}
 .choice{display:flex;gap:8px}
 .choice button{flex:1;padding:9px 6px;border-radius:10px;font-size:13px;font-weight:600;transition:transform .12s}
 .choice button:active{transform:scale(.97)}
-.opt-rm{background:#fff;color:#a8650a;box-shadow:inset 0 0 0 1.5px #e8b04a}
+.opt-rm{background:#fff;color:var(--amber);box-shadow:inset 0 0 0 1.5px var(--amber-line)}
 .opt-add{background:var(--pri);color:#fff}
-.warn.removed{background:var(--soft);border-color:var(--line)}
-.warn.removed .t{text-decoration:line-through;color:var(--muted)}
-.warn.removed .s{color:var(--muted)}
-.warn.done .link,.warn.removed .link{color:var(--pri)}
-/* the phone never scrolls sideways when its content changes */
-.phone{overflow:clip}
-.ben{background:var(--green-soft);border-color:transparent;color:var(--green);font-size:12.5px;font-weight:600}
-.ben .ic{background:#fff}
-.add{font-size:14px;font-weight:600;color:var(--pri);align-self:flex-start}
-.edit{color:var(--pri);font-size:14px}
+.choice.c3 button{font-size:12.5px;padding:9px 4px}
+.card.removed{background:var(--soft);border-color:var(--line)}
+.card.removed .t{text-decoration:line-through;color:var(--muted)}
+.card.removed .ic{color:var(--muted)}
+.ben{background:var(--green-soft);border-color:transparent;align-items:flex-start}
+.ben .ic{background:#fff;color:var(--green)}
+.ben .bn{font-size:14px;font-weight:600;color:var(--ink)}
+.ben .bc{font-size:12.5px;font-weight:600;color:var(--green)}
+.ben .link{align-self:center}
+.add{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--pri);align-self:flex-start;padding:2px 0}
+.add .i{width:16px;height:16px;stroke-width:2.2}
 
-/* book */
+/* slot */
+.note{display:flex;gap:10px;align-items:flex-start;background:var(--amber-soft);border-radius:12px;padding:10px 12px;font-size:12.5px;color:#6b4a07;line-height:1.45}
+.note .i{color:var(--amber);margin-top:1px}
+.note b{font-weight:600}
 .banner{display:flex;gap:12px;align-items:center;background:var(--pri-soft);border-radius:14px;padding:10px 14px 10px 10px}
 .donut{flex:none;position:relative;width:40px;height:40px}
 .donut svg{width:40px;height:40px;transform:rotate(-90deg)}
@@ -160,11 +182,10 @@ h2{font-size:21px;font-weight:700;margin:4px 0 0;text-wrap:balance;letter-spacin
 .banner .s{font-size:11.5px}
 .livedot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--pri);margin-right:6px;vertical-align:1px;animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{50%{opacity:.25}}
-.addr{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:-4px}
-.addr .col{gap:1px}
+.addr{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.addr .ic{width:30px;height:30px}
+.addr .ic .i{width:16px;height:16px}
 .addr .t{font-size:13px}
-
-/* lab picker (lab visit only) */
 .stack{display:flex;flex-direction:column;gap:12px}
 .reveal{animation:rise .45s cubic-bezier(.3,.7,.3,1)}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}}
@@ -176,62 +197,40 @@ h2{font-size:21px;font-weight:700;margin:4px 0 0;text-wrap:balance;letter-spacin
 .lab:active{transform:scale(.98)}
 .lab.sel{border-color:var(--pri);background:var(--pri-soft);box-shadow:0 0 0 3px rgba(47,95,217,.12)}
 .lab .lt{display:flex;gap:10px;align-items:center}
-.lab .ic{background:var(--soft);width:34px;height:34px}
 .lab.sel .ic{background:#fff}
-.lab .price{font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
+.price{font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
 .lab .meta{display:flex;gap:6px;flex-wrap:wrap}
 .mini{font-size:11px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--muted);background:var(--bg)}
 .mini.cov{color:var(--green);border-color:#a9dcbb;background:var(--green-soft)}
 .mini.now{color:var(--pri);border-color:var(--pri)}
-
-/* address picker, a screen that slides over the flow */
-.sheet{position:absolute;inset:0;z-index:25;background:var(--bg);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);visibility:hidden}
-.sheet.open{transform:none;visibility:visible}
-.sheet .top{display:flex;align-items:center;gap:12px;padding:27px 22px 8px 14px}
-.sheet .top .back{position:static}
-.sheet .top h2{margin:0;font-size:19px}
-.sheet .body{flex:1;overflow-y:auto;padding:12px 22px 22px;display:flex;flex-direction:column;gap:12px}
-.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;border:1.5px solid var(--line);border-radius:14px;padding:12px;transition:border-color .2s,background .2s}
-.opt.sel{border-color:var(--pri);background:var(--pri-soft)}
-.radio{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid #b9bfca;margin-top:2px;display:grid;place-items:center;transition:border-color .2s}
-.opt.sel .radio{border-color:var(--pri)}
-.opt.sel .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--pri)}
-.tag{font-size:10.5px;font-weight:600;color:var(--muted);background:var(--soft);border-radius:6px;padding:2px 7px;margin-left:6px}
-.addnew{display:flex;align-items:center;gap:10px;border:1.5px dashed #b9c6ea;border-radius:14px;padding:14px;color:var(--pri);font-weight:600;font-size:14px}
-.form{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:14px;padding:14px}
-.form label{font-size:12px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;gap:5px}
-.form input{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-.form input:focus{outline:2px solid var(--pri);outline-offset:-1px;border-color:transparent}
-.form input.err{border-color:#d9534f;background:#fff6f6}
-.chips{display:flex;gap:8px}
-.chips button{font-size:12.5px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
-.chips button.sel{background:var(--pri-soft);border-color:var(--pri);color:var(--pri)}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .mode{text-align:left;border:1.5px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:4px;transition:border-color .2s,background .2s,transform .12s}
 .mode:active{transform:scale(.97)}
 .mode.sel{border-color:var(--pri);background:var(--pri-soft);box-shadow:0 0 0 3px rgba(47,95,217,.12)}
 .mode .t{font-size:13.5px}
 .mode .s{font-size:11.5px;line-height:1.35}
-h3{font-size:18px;font-weight:700;margin:4px 0 -4px}
+h3{font-size:17px;font-weight:700;margin:4px 0 -4px}
 .dates{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
 .date,.slot{border:1px solid var(--line);border-radius:10px;padding:8px 0;font-size:12px;font-weight:600;line-height:1.3;text-align:center;transition:all .2s;font-variant-numeric:tabular-nums}
 .date.sel{background:var(--pri);border-color:var(--pri);color:#fff;transform:translateY(-2px)}
-.part{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:-6px}
+.part{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:-6px}
+.part .i{width:15px;height:15px}
 .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .slot{padding:11px 0;font-weight:500}
 .slot.sel{background:var(--pri-soft);border-color:var(--pri);color:var(--pri);font-weight:600}
 .slot:disabled{background:var(--soft);color:#a8adb7;cursor:not-allowed}
 
-/* approved */
+/* approval */
 .wait{display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 10px;text-align:center}
 .spin{width:54px;height:54px;border-radius:50%;border:4px solid var(--pri-soft);border-top-color:var(--pri);animation:rot 0.9s linear infinite}
 @keyframes rot{to{transform:rotate(360deg)}}
 .hero{border-radius:18px;padding:20px 14px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
 .hero.g{background:var(--green-soft)}
 .hero.b{background:var(--pri-soft)}
-.badge{width:52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:22px}
+.badge{width:52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center}
 .badge svg{width:26px;height:26px}
 .badge path{stroke:var(--green);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:30}
+.hero.b .badge path{stroke:var(--pri)}
 .on .badge path{animation:draw .5s .25s forwards}
 @keyframes draw{to{stroke-dashoffset:0}}
 .hero .big{font-size:19px;font-weight:700}
@@ -240,11 +239,26 @@ h3{font-size:18px;font-weight:700;margin:4px 0 -4px}
 .items{border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
 .item{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px;opacity:0;transform:translateY(6px);transition:all .35s}
 .item.in{opacity:1;transform:none}
-.pill{font-size:11px;font-weight:600;color:var(--green);background:var(--green-soft);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--green);background:var(--green-soft);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.pill .i{width:12px;height:12px;stroke-width:2.6}
 .pop{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
 @keyframes pop{0%{transform:scale(.4);opacity:0}}
+.fold{border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.fold summary{list-style:none;display:flex;align-items:center;gap:12px;padding:11px 12px 11px 14px;cursor:pointer}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary:focus-visible{outline:2px solid var(--pri);outline-offset:2px;border-radius:14px}
+.fold .chev{color:var(--muted);transition:transform .25s}
+.fold[open] .chev{transform:rotate(90deg)}
+.fold-body{padding:0 14px 12px 60px;display:flex;flex-direction:column;gap:8px;font-size:12.5px;color:var(--muted);line-height:1.45}
+.fold-body b{display:block;color:var(--ink);font-weight:600;font-size:13px}
 
-/* pay */
+/* review and pay */
+.sum{border:1px solid var(--line);border-radius:14px;padding:4px 14px}
+.sum .r{display:flex;gap:12px;padding:10px 0;align-items:flex-start}
+.sum .r+.r{border-top:1px solid var(--line)}
+.sum .ic{width:30px;height:30px}
+.sum .ic .i{width:16px;height:16px}
+.sum .k{font-size:11.5px;font-weight:600;color:var(--muted)}
 .bill{border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;font-size:13px}
 .kv{display:flex;justify-content:space-between;gap:8px;font-variant-numeric:tabular-nums}
 .kv span:first-child{color:var(--muted)}
@@ -253,13 +267,53 @@ h3{font-size:18px;font-weight:700;margin:4px 0 -4px}
 .kv.tot span:first-child{color:var(--ink);font-weight:600}
 .kv.tot b{font-weight:700;font-size:15px}
 hr{border:0;border-top:1px solid var(--line);margin:0}
-.save{background:var(--green-soft);color:var(--green);font-size:12.5px;font-weight:600;border-radius:12px;padding:10px 12px}
+.save{background:var(--green-soft);color:var(--green);font-size:12.5px;font-weight:600;border-radius:12px;padding:10px 12px;line-height:1.45}
 
 /* done */
 .det{border:1px solid var(--line);border-radius:14px;padding:6px 14px}
 .det .r{display:flex;gap:12px;padding:9px 0;align-items:flex-start}
-.det .ic{width:30px;height:30px;font-size:13px}
+.det .ic{width:30px;height:30px}
+.det .ic .i{width:16px;height:16px}
 canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+
+/* sheets: full screens that slide over the flow */
+.sheet{position:absolute;inset:0;z-index:25;background:var(--bg);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1),visibility 0s .4s;visibility:hidden}
+.sheet.open{transform:none;visibility:visible;transition:transform .4s cubic-bezier(.4,0,.2,1),visibility 0s}
+.sheet .top{display:flex;align-items:center;gap:12px;padding:27px 22px 8px 14px}
+.sheet .top .back{position:static}
+.sheet .top h2{margin:0;font-size:19px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sheet .body{flex:1;overflow-y:auto;padding:12px 22px 22px;display:flex;flex-direction:column;gap:12px}
+.opt,.pick{display:flex;gap:12px;align-items:center;text-align:left;border:1.5px solid var(--line);border-radius:14px;padding:11px 12px;transition:border-color .2s,background .2s}
+.opt.sel,.pick.sel{border-color:var(--pri);background:var(--pri-soft)}
+.radio{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid #b9bfca;display:grid;place-items:center;transition:border-color .2s}
+.sel .radio{border-color:var(--pri)}
+.sel .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--pri)}
+.box{flex:none;width:20px;height:20px;border-radius:6px;border:2px solid #b9bfca;display:grid;place-items:center;transition:all .2s}
+.pick.sel .box{background:var(--pri);border-color:var(--pri)}
+.pick.sel .box::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg)}
+.tag{font-size:10.5px;font-weight:600;color:var(--muted);background:var(--soft);border-radius:6px;padding:2px 7px;margin-left:6px}
+.addnew{display:flex;align-items:center;gap:10px;border:1.5px dashed #b9c6ea;border-radius:14px;padding:13px 14px;color:var(--pri);font-weight:600;font-size:14px}
+.form{display:flex;flex-direction:column;gap:10px;border:1px solid var(--line);border-radius:14px;padding:14px}
+.form label,.fl{font-size:12px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+.form input,.inrow input,.search input{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+.form input:focus,.inrow input:focus,.search input:focus{outline:2px solid var(--pri);outline-offset:-1px;border-color:transparent}
+.form input.err,.inrow input.err{border-color:var(--red);background:#fff6f6}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{font-size:12.5px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.chips button.sel{background:var(--pri-soft);border-color:var(--pri);color:var(--pri)}
+.inrow{display:flex;gap:8px}
+.mini-cta{flex:none;padding:0 16px;border-radius:10px;background:var(--pri);color:#fff;font-weight:600;font-size:13px}
+.msg{margin:0;font-size:12.5px;line-height:1.45;color:var(--amber);background:var(--amber-soft);border-radius:10px;padding:9px 11px}
+.search{position:relative}
+.search .i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.search input{padding-left:38px}
+.empty{margin:8px 0;font-size:13px;color:var(--muted);text-align:center}
+.meter{height:8px;border-radius:999px;background:#d5ecdd;overflow:hidden}
+.meter b{display:block;height:100%;border-radius:999px;background:var(--green)}
+.benhead{border-radius:16px;background:var(--green-soft);padding:16px;display:flex;flex-direction:column;gap:10px}
+.benhead .big{font-size:24px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.benhead .big span{font-size:13px;font-weight:500;color:var(--muted)}
+.list{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:var(--ink)}
 
 .toast{position:absolute;left:50%;bottom:96px;transform:translate(-50%,20px);background:#1c2029;color:#fff;font-size:12.5px;font-weight:500;padding:10px 14px;border-radius:12px;opacity:0;transition:all .3s;z-index:30;white-space:nowrap;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -267,12 +321,45 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 16l-5-5-8 8.5"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.2h7a2 2 0 0 1 2 2v7.8a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-records" viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10.5a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5z"/><path d="M14 3.5V8h4"/><path d="M8.5 14h2l1.2-2.5 1.6 5 1.2-2.5h1.5"/></symbol>
+  <symbol id="i-rx" viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M15 3.5V7h3.5"/><path d="M9 10.5h6M9 13.5h6M9 16.5h3.5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></symbol>
+  <symbol id="i-user-plus" viewBox="0 0 24 24"><circle cx="10" cy="8.5" r="3.5"/><path d="M3.5 20c.8-3.6 3.3-5.5 6.5-5.5 1.6 0 3 .5 4.1 1.3"/><path d="M18 13.5v6M15 16.5h6"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s-6 6.4-6 10.8a6 6 0 0 0 12 0C18 9.9 12 3.5 12 3.5z"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9.5 3.5h5M10.5 3.5v6L5.6 18a1.8 1.8 0 0 0 1.6 2.6h9.6a1.8 1.8 0 0 0 1.6-2.6l-4.9-8.5v-6"/><path d="M8 14.5h8"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5l7 3v5.2c0 4.4-3 7.6-7 8.8-4-1.2-7-4.4-7-8.8V6.5z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></symbol>
+  <symbol id="i-lab" viewBox="0 0 24 24"><path d="M4.5 20.5v-14h9v14M13.5 10.5h6v10"/><path d="M3 20.5h18"/><path d="M9 9v4M7 11h4"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M9 16v-2.5M12 16v-5M15 16v-3.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L9 19H5v-4z"/><path d="M13 7l4 4"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/><path d="M10 11v5M14 11v5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17.3v.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.3l2.6 2.6 4.8-5.2"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-sunrise" viewBox="0 0 24 24"><path d="M4 18h16M6.5 18a5.5 5.5 0 0 1 11 0"/><path d="M12 6v3M5 10.5l1.6 1.2M19 10.5l-1.6 1.2"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></symbol>
+  <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3"/><path d="M4.5 4.5v4h4"/></symbol>
+</svg>
+
 <div class="bar">
   <a class="ctl" href="../">← Case study</a>
   <h1>Flow A · Lab tests <span>with home collection</span></h1>
-  <button class="ctl" id="snd" aria-pressed="true">🔊 Sound on</button>
-  <button class="ctl" id="restart">↺ Restart</button>
+  <button class="ctl" id="snd" aria-pressed="true" aria-label="Sound"><svg class="i" aria-hidden="true"><use href="#i-sound"/></svg><span class="tx">Sound on</span></button>
+  <button class="ctl" id="restart" aria-label="Restart"><svg class="i" aria-hidden="true"><use href="#i-restart"/></svg><span class="tx">Restart</span></button>
 </div>
+<p class="paths">Two ways in: use the suggested prescription, or upload one to see an unsure test and a name that needs matching.</p>
 
 <div class="phone" id="phone">
   <button class="back" id="back" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -284,29 +371,32 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
       <h2>Upload your prescription</h2>
       <p class="sub">We'll read it and fill in everything for you.</p>
       <div class="found">
-        <div class="row"><div class="ic">📄</div><div class="col"><div class="t">Prescription · Dr. A. Mehta · 3 days ago</div><div class="s">Includes lab tests and a recent lab report</div></div></div>
-        <button class="cta green" data-go="1" data-sfx="tap">Use this prescription</button>
+        <div class="from"><svg class="i" aria-hidden="true"><use href="#i-check-c"/></svg>From your most recent consultation with us</div>
+        <div class="row"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-rx"/></svg></div><div class="col"><div class="t">Prescription · Dr. A. Mehta</div><div class="s" style="color:#2f6b47">CNH consultation · 10 Oct 2026</div></div></div>
+        <div class="incl"><div class="s">Includes</div><div class="chipset"><span class="tchip">Complete blood count</span><span class="tchip">Liver profile (LFT)</span><span class="tchip">HbA1c</span></div></div>
+        <button class="cta green" id="useCnh">Use this prescription</button>
       </div>
-      <div class="lbl">Or upload a new one</div>
+      <div class="lbl">Or upload a new one using</div>
       <div class="tiles">
-        <button class="tile" data-go="1" data-sfx="tap"><span class="ic">📷</span>Camera</button>
-        <button class="tile" data-go="1" data-sfx="tap"><span class="ic">🖼️</span>Gallery</button>
-        <button class="tile" data-go="1" data-sfx="tap"><span class="ic">🗂️</span>My documents</button>
+        <button class="tile" data-up="camera"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-camera"/></svg></span>Camera</button>
+        <button class="tile" data-up="gallery"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-image"/></svg></span>Gallery</button>
+        <button class="tile" data-up="files"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg></span>Files</button>
+        <button class="tile" data-up="records"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-records"/></svg></span>Health records</button>
       </div>
       <div class="tip">Tip: keep the whole page, doctor's signature and registration number visible.</div>
     </section>
 
-    <!-- 2 Reading -->
+    <!-- 2 Reading (uploaded prescriptions only) -->
     <section class="screen" data-step="Reading">
       <h2>Reading your prescription…</h2>
       <div class="scanwrap" id="scanwrap" aria-hidden="true">
         <div class="paper">
           <div class="hd">
-            <div class="mark" data-k="2"><div class="dn">Dr. A. Mehta, MBBS</div><div class="dr">Reg. MH-12345 · Andheri Clinic</div></div>
-            <div style="text-align:right"><div class="dr mark" data-k="3">10 Oct 2026</div><div class="rxs">Rx</div></div>
+            <div class="mark" data-k="2"><div class="dn">Dr. R. Kapoor, MD</div><div class="dr">Reg. MH-48210 · Bandra Clinic</div></div>
+            <div style="text-align:right"><div class="dr mark" data-k="3">12 Oct 2026</div><div class="rxs">Rx</div></div>
           </div>
-          <div class="tx"><span class="mark" data-k="1">Patient: Divi Sharma · 32 F</span></div>
-          <div class="tx mark" data-k="4">1. Complete blood count<br>2. HbA1c<br>3. Lipid profile (fasting)</div>
+          <div class="tx"><span class="mark w" data-k="1">Pt: Divya S. · 32 F</span></div>
+          <div class="tx">1. CBC<br>2. HbA1c<br>3. <span class="mark w" data-k="4">Lipid prof. (fasting)</span></div>
           <div class="ln" style="width:70%"></div>
           <div class="sig"></div>
           <div class="tint"></div><div class="beam"></div>
@@ -314,33 +404,33 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
         <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       </div>
       <div class="checks" id="checks">
-        <div class="chk"><span class="dot"></span>Image is clear</div>
-        <div class="chk"><span class="dot"></span>Patient: Divi Sharma</div>
-        <div class="chk"><span class="dot"></span>Doctor registration verified</div>
-        <div class="chk"><span class="dot"></span>Dated within 30 days</div>
-        <div class="chk"><span class="dot"></span>Matching your benefit</div>
+        <div class="chk" data-r="ok"><span class="dot"></span><div>Image is clear</div></div>
+        <div class="chk" data-r="wn"><span class="dot"></span><div>Patient: Divya S.<small>Not on your account, you can match it next</small></div></div>
+        <div class="chk" data-r="ok"><span class="dot"></span><div>Doctor registration verified</div></div>
+        <div class="chk" data-r="ok"><span class="dot"></span><div>Dated within 30 days</div></div>
+        <div class="chk" data-r="wn"><span class="dot"></span><div>3 tests found<small>1 is hard to read, please check it</small></div></div>
       </div>
       <div class="grow"></div>
       <p class="hint">Takes a few seconds</p>
     </section>
 
     <!-- 3 Review -->
-    <section class="screen" data-step="Review">
+    <section class="screen" data-step="Review" id="rev">
       <h2>Check the details we found</h2>
-      <p class="sub">Tap any item to edit. Amber means please double-check.</p>
-      <div class="card who"><div class="ic">👤</div><div class="col"><div class="t">Divi Sharma · Self</div><div class="s">Dr. A. Mehta · Reg. MH-12345 ✓</div></div><span class="link">Change</span></div>
-      <div class="card warn unsure" id="lipid"><div class="row"><div class="ic" style="background:#fff">🧪</div><div class="col"><div class="t">Lipid profile</div><div class="s" id="lipidSub">We're not sure this is on your prescription. Add it or remove it.</div></div><button class="link" id="lipidUndo" hidden>Change</button></div><div class="choice" id="lipidChoice"><button class="opt-rm" id="lipidRemove">Remove</button><button class="opt-add" id="lipidAdd">Add test</button></div></div>
-      <div class="card"><div class="ic">🩸</div><div class="col"><div class="t">Complete blood count</div><div class="s">Blood · fasting not needed</div></div><span class="edit">✎</span></div>
-      <div class="card"><div class="ic">🩸</div><div class="col"><div class="t">HbA1c</div><div class="s">Blood · fasting not needed</div></div><span class="edit">✎</span></div>
-      <div class="card ben"><div class="ic">🎁</div><div id="benTxt">Lab package benefit applied · covers all 3 tests</div></div>
-      <button class="add" data-sfx="tap">+ Add a missing test</button>
+      <p class="sub">Edit or remove any test before you continue.</p>
+      <div id="patientBox" class="stack8"></div>
+      <div class="lbl">Tests</div>
+      <div id="testList" class="stack8"></div>
+      <button class="add" id="addTest"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Add a missing test</button>
+      <div class="card ben"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div><div class="col"><div class="bn">Lab package</div><div class="bc" id="benTxt">Applied · covers all 3 tests</div></div><button class="link" id="benMore">View details</button></div>
       <div class="grow"></div>
       <button class="cta" id="proceed">Submit details</button>
     </section>
 
-    <!-- 4 Book -->
-    <section class="screen" data-step="Book">
-      <h2>Select preferred mode</h2>
+    <!-- 4 Slot -->
+    <section class="screen" data-step="Slot" id="slotScreen">
+      <h2>Pick your address and slot</h2>
+      <div class="note"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span><b>These are preferred slots.</b> We'll hold your pick for 30 minutes. The final slot is confirmed after approval.</span></div>
       <div class="banner" id="banner">
         <div class="donut"><svg viewBox="0 0 40 40"><circle class="bgc" cx="20" cy="20" r="16"/><circle class="arc" cx="20" cy="20" r="16"/></svg><b>~5m</b></div>
         <div class="col"><div class="t"><span class="livedot"></span>Approval in progress</div><div class="s">Keep going, we'll notify you when it's done.</div></div>
@@ -356,75 +446,133 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
         <div class="labs" id="labList"></div>
       </div>
       <div class="stack" id="timeBlock">
-        <h3>Pick a time</h3>
+        <div class="addr" id="addrCard"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></div><div class="col"><div class="t" id="whereT">Collect from · Home</div><div class="s" id="where">Flat 302, Palm Residency, Andheri W</div></div><button class="link" id="chgAddr">Change</button></div>
+        <h3>Preferred slot</h3>
         <p class="sub" id="timeFor" hidden style="margin-top:0"></p>
-        <div class="addr" id="addrCard"><div class="ic" style="width:30px;height:30px;font-size:13px">📍</div><div class="col"><div class="t" id="whereT">Collect from · Home</div><div class="s" id="where">Flat 302, Palm Residency, Andheri W</div></div><button class="link" id="chgAddr">Change</button></div>
         <div class="dates" id="dates"></div>
-        <div class="part">🌅 Morning</div>
-        <div class="slots" data-g="m"><button class="slot" data-t="7–8 AM">7–8 AM</button><button class="slot sel" data-t="8–9 AM">8–9 AM</button><button class="slot" data-t="9–10 AM">9–10 AM</button></div>
-        <div class="part">☀️ Afternoon</div>
-        <div class="slots" data-g="a"><button class="slot" data-t="12–1 PM">12–1 PM</button><button class="slot" data-t="2–3 PM">2–3 PM</button><button class="slot" data-t="4–5 PM">4–5 PM</button></div>
+        <div class="part"><svg class="i" aria-hidden="true"><use href="#i-sunrise"/></svg>Morning</div>
+        <div class="slots"><button class="slot" data-t="7–8 AM">7–8 AM</button><button class="slot sel" data-t="8–9 AM">8–9 AM</button><button class="slot" data-t="9–10 AM">9–10 AM</button></div>
+        <div class="part"><svg class="i" aria-hidden="true"><use href="#i-sun"/></svg>Afternoon</div>
+        <div class="slots"><button class="slot" data-t="12–1 PM">12–1 PM</button><button class="slot" data-t="2–3 PM">2–3 PM</button><button class="slot" data-t="4–5 PM">4–5 PM</button></div>
       </div>
       <div class="grow"></div>
-      <button class="cta" id="bookBtn">Confirm</button>
+      <button class="cta" id="bookBtn">Hold this slot</button>
     </section>
 
-    <!-- 5 Approved -->
-    <section class="screen" data-step="Approved">
+    <!-- 5 Approval -->
+    <section class="screen" data-step="Approval">
       <div class="wait" id="wait"><div class="spin"></div><div class="t" style="font-size:16px">Finishing approval…</div><div class="s">Your slot is held. This usually takes under 5 minutes.</div></div>
       <div id="appr" hidden style="display:contents">
-        <div class="hero g pop"><div class="badge"><svg viewBox="0 0 26 26"><path d="M6 13.5l5 5 9-10"/></svg></div><div class="big" id="apprBig">All 3 items approved</div><div class="s" style="color:var(--ink)">Approved in 4 minutes · checked item by item</div></div>
-        <div class="items" id="items">
-          <div class="lbl">Item-wise approval</div>
-          <div class="item">Complete blood count <span class="pill">✓ Approved</span></div>
-          <div class="item">HbA1c <span class="pill">✓ Approved</span></div>
-          <div class="item" id="itemLipid">Lipid profile <span class="pill">✓ Approved</span></div>
-        </div>
-        <div class="card rx"><div class="doc"><i></i><i style="width:70%"></i><i></i><i style="width:50%"></i></div><div class="col"><div class="t">Your prescription</div><div class="s">Dr. A. Mehta · 10 Oct 2026</div></div><span class="link">View</span></div>
+        <div class="hero g pop"><div class="badge"><svg viewBox="0 0 26 26"><path d="M6 13.5l5 5 9-10"/></svg></div><div class="big" id="apprBig">All 3 tests approved</div><div class="s" style="color:var(--ink)">Approved in 4 minutes · checked test by test</div></div>
+        <div class="items" id="items"></div>
+        <details class="fold" id="fold">
+          <summary><span class="ic" id="foldIc"></span><span class="col"><span class="t" id="foldT">Home collection · Sun 18 Oct, 8–9 AM</span><span class="s">Slot confirmed · tap for details</span></span><svg class="i chev" aria-hidden="true"><use href="#i-chev"/></svg></summary>
+          <div class="fold-body" id="foldBody"></div>
+        </details>
+        <div class="card rx"><div class="doc"><i></i><i style="width:70%"></i><i></i><i style="width:50%"></i></div><div class="col"><div class="t">Your prescription</div><div class="s" id="apprRx">Dr. A. Mehta · 10 Oct 2026</div></div><span class="link">View</span></div>
         <div class="grow"></div>
-        <button class="cta" data-go="5" data-sfx="tap">Continue to payment</button>
+        <button class="cta" data-go="5">Review and pay</button>
       </div>
     </section>
 
-    <!-- 6 Pay -->
+    <!-- 6 Review and pay -->
     <section class="screen" data-step="Pay">
-      <h2>Review &amp; pay</h2>
-      <div class="card rx"><div class="doc"><i></i><i style="width:70%"></i><i></i><i style="width:50%"></i></div><div class="col"><div class="t">Your prescription</div><div class="s">Dr. A. Mehta · 10 Oct 2026</div></div><span class="link">View</span></div>
+      <h2>Review and confirm</h2>
+      <p class="sub">Everything in one place before you pay.</p>
+      <div class="sum" id="sum"></div>
       <div class="bill">
-        <div class="lbl">Bill breakup</div>
-        <div class="kv"><span>CBC</span><b id="p1">₹350</b></div>
-        <div class="kv"><span>HbA1c</span><b id="p2">₹450</b></div>
-        <div class="kv" id="rowLipid"><span>Lipid profile</span><b id="p3">₹600</b></div>
-        <div class="kv"><span id="feeLbl">Home collection</span><b>₹0</b></div>
+        <div class="lbl" style="margin:0">Bill breakup</div>
+        <div id="billRows" style="display:contents"></div>
         <hr>
-        <div class="kv g"><span>Lab package benefit</span><b id="pBen">− ₹1,400</b></div>
+        <div class="kv g"><span>Lab package</span><b id="pBen">− ₹1,350</b></div>
         <hr>
-        <div class="kv tot"><span>You pay</span><b>₹0</b></div>
+        <div class="kv tot"><span>You pay</span><b id="pTot">₹0</b></div>
       </div>
-      <div class="save" id="pSave">🎉 Your benefits saved you ₹1,400 on this order</div>
+      <div class="save" id="pSave">Your Lab package covers ₹1,350. ₹2,250 left after this order.</div>
       <div class="grow"></div>
-      <button class="cta" data-go="6" data-sfx="tap">Confirm booking</button>
+      <button class="cta" data-go="6" id="payBtn">Confirm booking</button>
     </section>
 
     <!-- 7 Done -->
     <section class="screen" data-step="Done">
-      <div class="hero b pop"><div class="badge">🎉</div><div class="big">You're all set!</div><div class="s" style="color:var(--ink)">Booking ID LB-48213</div></div>
+      <div class="hero b pop"><div class="badge"><svg viewBox="0 0 26 26"><path d="M6 13.5l5 5 9-10"/></svg></div><div class="big">You're all set!</div><div class="s" style="color:var(--ink)">Booking ID LB-48213</div></div>
       <div class="det">
-        <div class="r"><div class="ic" id="dIc">🏠</div><div class="col"><div class="t" id="dMode">Home sample collection</div><div class="s" id="dWhen">Sun 18 Oct · 8–9 AM</div></div></div>
-        <div class="r"><div class="ic">📍</div><div class="col"><div class="t" id="dAddrT">Collection address</div><div class="s" id="dAddr">Flat 302, Palm Residency, Andheri W</div></div></div>
-        <div class="r"><div class="ic">📑</div><div class="col"><div class="t">Reports</div><div class="s">In the app within 24 hours</div></div></div>
+        <div class="r"><div class="ic" id="dIc"></div><div class="col"><div class="t" id="dMode">Home sample collection</div><div class="s" id="dWhen">Sun 18 Oct · 8–9 AM</div></div></div>
+        <div class="r"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></div><div class="col"><div class="t" id="dAddrT">Collection address</div><div class="s" id="dAddr">Flat 302, Palm Residency, Andheri W</div></div></div>
+        <div class="r"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-report"/></svg></div><div class="col"><div class="t">Reports</div><div class="s">In the app within 24 hours</div></div></div>
       </div>
-      <div class="card rx"><div class="doc"><i></i><i style="width:70%"></i><i></i><i style="width:50%"></i></div><div class="col"><div class="t">Your prescription</div><div class="s">Dr. A. Mehta · 10 Oct 2026</div></div><span class="link">View</span></div>
       <div class="grow"></div>
       <button class="cta ghost" id="again">Go to my orders</button>
     </section>
   </div>
-  <div class="sheet" id="sheet" aria-hidden="true">
-    <div class="top"><button class="back" id="sheetBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>Select address</h2></div>
+
+  <!-- who is this for -->
+  <div class="sheet" id="sheetWho" aria-hidden="true">
+    <div class="top"><button class="back" data-close aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>Who is this for?</h2></div>
+    <div class="body">
+      <div class="fl"><label for="rxName">Name on the prescription</label>
+        <div class="inrow"><input id="rxName" autocomplete="off"><button class="mini-cta" id="saveName">Save</button></div></div>
+      <p class="msg" id="nameMsg" hidden></p>
+      <div class="lbl">Select a family member</div>
+      <div id="memList" class="stack8"></div>
+      <button class="addnew" id="memAdd"><svg class="i" aria-hidden="true"><use href="#i-user-plus"/></svg>Add a new member</button>
+      <form class="form" id="memForm" hidden novalidate>
+        <div class="t">New member</div>
+        <label for="mName">Full name<input id="mName" autocomplete="off"></label>
+        <div class="fl">Relation<div class="chips" id="mRel"><button type="button">Spouse</button><button type="button">Child</button><button type="button">Parent</button><button type="button">Other</button></div></div>
+        <label for="mAge">Age<input id="mAge" inputmode="numeric" maxlength="3" placeholder="e.g. 32"></label>
+        <div class="fl">Gender<div class="chips" id="mGen"><button type="button">Female</button><button type="button">Male</button><button type="button">Other</button></div></div>
+        <button class="cta" type="submit">Add and select</button>
+      </form>
+      <div class="grow" style="flex:1"></div>
+      <button class="cta" id="useMem">Use selected member</button>
+    </div>
+  </div>
+
+  <!-- add or replace tests -->
+  <div class="sheet" id="sheetTests" aria-hidden="true">
+    <div class="top"><button class="back" data-close aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2 id="tTitle">Add tests</h2></div>
+    <div class="body">
+      <div class="search"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><input id="tq" type="search" placeholder="Search tests, e.g. thyroid" aria-label="Search tests" autocomplete="off"></div>
+      <div id="tList" class="stack8"></div>
+      <p class="s" style="margin:0">Tests that aren't on your prescription are checked during approval.</p>
+      <div class="grow" style="flex:1"></div>
+      <button class="cta" id="tDo" disabled>Select tests to add</button>
+    </div>
+  </div>
+
+  <!-- benefit details -->
+  <div class="sheet" id="sheetBen" aria-hidden="true">
+    <div class="top"><button class="back" data-close aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>Lab package</h2></div>
+    <div class="body">
+      <div class="benhead">
+        <div class="s" style="color:var(--green);font-weight:600">Annual health benefit · from your employer</div>
+        <div class="big" id="bBal">₹3,600 <span>left of ₹5,000</span></div>
+        <div class="meter"><b id="bMeter" style="width:72%"></b></div>
+        <div class="s">Valid till 31 Mar 2027 · for you and up to 3 family members</div>
+      </div>
+      <div class="bill">
+        <div class="kv"><span>This order</span><b id="bOrder">₹1,350</b></div>
+        <div class="kv"><span>Covered by Lab package</span><b id="bCov">₹1,350</b></div>
+        <hr>
+        <div class="kv tot"><span>Left after this order</span><b id="bAfter">₹2,250</b></div>
+      </div>
+      <div class="lbl">Covers</div>
+      <ul class="list"><li>Routine blood and urine tests</li><li>Lipid, liver, kidney and thyroid profiles</li><li>HbA1c, vitamin D and B12</li><li>Home collection at no extra cost</li></ul>
+      <div class="lbl">Doesn't cover</div>
+      <ul class="list"><li>Scans and imaging</li><li>Genetic tests</li></ul>
+      <div class="grow" style="flex:1"></div>
+      <button class="cta ghost" data-close>Done</button>
+    </div>
+  </div>
+
+  <!-- address -->
+  <div class="sheet" id="sheetAddr" aria-hidden="true">
+    <div class="top"><button class="back" data-close aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2>Select address</h2></div>
     <div class="body">
       <p class="sub" style="margin:0">Where should the technician collect your sample?</p>
-      <div id="addrList" style="display:flex;flex-direction:column;gap:10px"></div>
-      <button class="addnew" id="addNew"><span style="font-size:18px">＋</span>Add new address</button>
+      <div id="addrList" class="stack8"></div>
+      <button class="addnew" id="addNew"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Add new address</button>
       <form class="form" id="addrForm" hidden novalidate>
         <div class="t">New address</div>
         <div class="chips" id="tagChips"><button type="button" class="sel">Home</button><button type="button">Work</button><button type="button">Other</button></div>
@@ -438,36 +586,61 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
     </div>
   </div>
   <canvas id="confetti"></canvas>
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </div>
 
 <script>
 (()=>{
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const I=(n,c='')=>`<svg class="i ${c}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const inr=n=>'₹'+n.toLocaleString('en-IN');
 const screens=$$('.screen'), knob=$('#knob'), fill=$('#fill');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let cur=0, timers=[], approved=false, lipidOk=false, mode='home', date='Sun 18', slot='8–9 AM';
+let cur=0, timers=[], approved=false, mode='home', date='Sun 18', slot='8–9 AM';
 
 /* ---------- sound (synthesised, no files) ---------- */
 let ac=null, soundOn=true;
 function ctx(){ if(!ac){ try{ac=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } if(ac&&ac.state==='suspended') ac.resume(); return ac; }
 function tone(f,t0,d,type='sine',v=.18,f2){ const a=ctx(); if(!a||!soundOn) return; const o=a.createOscillator(), g=a.createGain(); o.type=type; o.frequency.setValueAtTime(f,a.currentTime+t0); if(f2) o.frequency.exponentialRampToValueAtTime(f2,a.currentTime+t0+d); g.gain.setValueAtTime(0,a.currentTime+t0); g.gain.linearRampToValueAtTime(v,a.currentTime+t0+.01); g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+t0+d); o.connect(g).connect(a.destination); o.start(a.currentTime+t0); o.stop(a.currentTime+t0+d+.02); }
-function noise(t0,d,v=.15){ const a=ctx(); if(!a||!soundOn) return; const b=a.createBuffer(1,a.sampleRate*d,a.sampleRate), ch=b.getChannelData(0); for(let i=0;i<ch.length;i++) ch[i]=(Math.random()*2-1)*(1-i/ch.length); const s=a.createBufferSource(), g=a.createGain(), hp=a.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=1800; g.gain.value=v; s.buffer=b; s.connect(hp).connect(g).connect(a.destination); s.start(a.currentTime+t0); }
 const sfx={
   /* taps, navigation and selections are silent by design */
-  tap:()=>{},
-  select:()=>{},
   tick:()=>tone(1320,0,.06,'sine',.08),
-  whoosh:()=>tone(300,0,.25,'sine',.05,900),
   error:()=>{tone(220,0,.12,'square',.06);tone(180,.1,.14,'square',.06);},
   confirm:()=>{tone(784,0,.1,'triangle',.13);tone(1047,.08,.16,'triangle',.13);},
   success:()=>[523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.35,'triangle',.13)),
-  /* confetti: a soft pop, a bell chord, then light twinkles drifting down as the pieces fall */
   party:()=>{ tone(900,0,.12,'sine',.12,220);
     [784,988,1175,1568].forEach(f=>{ tone(f,.08,1.4,'sine',.05); tone(f*2,.08,.6,'sine',.015); });
     for(let i=0;i<22;i++){ const t=.3+i*.1+Math.random()*.06, f=3200-i*70+Math.random()*500; tone(f,t,.22,'sine',.035+Math.random()*.02); } }
 };
 const play=k=>{ try{ sfx[k]&&sfx[k](); }catch(e){} };
+document.addEventListener('pointerdown',ctx,{once:true});
+
+/* ---------- data ---------- */
+const CAT={
+  cbc:{n:'Complete blood count',m:'Blood · no fasting',p:350,ic:'drop',k:'cbc hemogram'},
+  lft:{n:'Liver profile (LFT)',m:'Blood · no fasting',p:550,ic:'drop',k:'liver lft'},
+  hba1c:{n:'HbA1c',m:'Blood · no fasting',p:450,ic:'drop',k:'sugar diabetes glucose'},
+  lipid:{n:'Lipid profile',m:'Blood · fast 10–12 hours',p:600,ic:'drop',k:'cholesterol'},
+  kft:{n:'Kidney profile (KFT)',m:'Blood · no fasting',p:500,ic:'drop',k:'kidney creatinine renal'},
+  thy:{n:'Thyroid profile (T3, T4, TSH)',m:'Blood · no fasting',p:450,ic:'drop',k:'thyroid tsh'},
+  vitd:{n:'Vitamin D (25-OH)',m:'Blood · no fasting',p:900,ic:'drop',k:'vitamin d'},
+  b12:{n:'Vitamin B12',m:'Blood · no fasting',p:700,ic:'drop',k:'vitamin b12'},
+  fbs:{n:'Blood sugar, fasting',m:'Blood · fast 8–10 hours',p:150,ic:'drop',k:'glucose fbs sugar'},
+  crp:{n:'C-reactive protein (CRP)',m:'Blood · no fasting',p:400,ic:'drop',k:'crp inflammation'},
+  urine:{n:'Urine routine',m:'Urine · first morning sample',p:200,ic:'flask',k:'urine'}
+};
+const RX={
+  cnh:{doctor:'Dr. A. Mehta',reg:'MH-12345',date:'10 Oct 2026',read:'Divi Sharma',tests:['cbc','lft','hba1c'],unsure:null,member:0},
+  up:{doctor:'Dr. R. Kapoor',reg:'MH-48210',date:'12 Oct 2026',read:'Divya S.',tests:['cbc','hba1c','lipid'],unsure:'lipid',member:null}
+};
+const MEMBERS=[{name:'Divi Sharma',rel:'Self',age:32,g:'Female'},{name:'Arjun Sharma',rel:'Spouse',age:35,g:'Male'},{name:'Meena Sharma',rel:'Mother',age:61,g:'Female'}];
+const BAL=3600, BEN_TOTAL=5000;
+let members=MEMBERS.map(m=>({...m})), src='cnh', items=[], unsure=null, member=null, readName='';
+function startFrom(s){ src=s; const r=RX[s]; items=r.tests.slice(); unsure=r.unsure?{id:r.unsure,state:'pending'}:null; member=r.member; readName=r.read; approved=false; renderReview(); }
+/* tests that will be booked: everything except an unsure test the patient removed */
+const active=()=>items.filter(id=>!(unsure&&unsure.id===id&&unsure.state==='removed'));
+const countWords=n=>n===1?'your test':n===2?'both tests':`all ${n} tests`;
 
 /* ---------- progress ---------- */
 function setProgress(i){
@@ -482,88 +655,203 @@ function setProgress(i){
 function clearT(){ timers.forEach(clearTimeout); timers=[]; }
 function later(fn,ms){ timers.push(setTimeout(fn,reduce?Math.min(ms,150):ms)); }
 function go(i){
-  clearT();
+  clearT(); closeSheet();
   screens.forEach((s,k)=>{ s.classList.toggle('on',k===i); s.classList.toggle('past',k<i); });
   cur=i; setProgress(i); screens[i].scrollTop=0;
   enter[i]&&enter[i]();
 }
 const enter={
-  1(){ const c=$$('#checks .chk'), sw=$('#scanwrap'); c.forEach(x=>x.classList.remove('ok'));
+  1(){ const c=$$('#checks .chk'), sw=$('#scanwrap'); c.forEach(x=>x.classList.remove('ok','wn'));
        $$('#scanwrap .mark').forEach(m=>m.classList.remove('on')); sw.classList.remove('done');
-       c.forEach((x,k)=>later(()=>{ x.classList.add('ok'); play('tick');
+       c.forEach((x,k)=>later(()=>{ x.classList.add(x.dataset.r); play('tick');
          $$(`#scanwrap .mark[data-k="${k}"]`).forEach(m=>m.classList.add('on')); },900+k*750));
        later(()=>{ sw.classList.add('done'); play('confirm'); },900+c.length*750);
-       later(()=>go(2),900+c.length*750+900); },
-  4(){ $('#apprBig').textContent=`${lipidIn?'All 3 items':'Both items'} approved`; $('#itemLipid').hidden=!lipidIn;
-       if(approved){ $('#wait').hidden=true; $('#appr').hidden=false; $$('#items .item').forEach(x=>x.classList.add('in')); return; }
-       $('#wait').hidden=false; $('#appr').hidden=true; $$('#items .item').forEach(x=>x.classList.remove('in'));
+       later(()=>go(2),900+c.length*750+1100); },
+  3(){ const b=$('#banner'); b.classList.remove('run'); void b.offsetWidth; b.classList.add('run'); updateBook(); },
+  4(){ const a=active(), h=mode==='home';
+       $('#apprBig').textContent=`${a.length===1?'Your test':a.length===2?'Both tests':`All ${a.length} tests`} approved`;
+       $('#items').innerHTML='<div class="lbl" style="margin:0">Test-by-test approval</div>'+a.map(id=>`<div class="item">${esc(CAT[id].n)} <span class="pill">${I('check')}Approved</span></div>`).join('');
+       $('#foldIc').innerHTML=I(h?'home':'lab');
+       $('#foldT').textContent=`${h?'Home collection':'Lab visit'} · ${date} Oct, ${slot}`;
+       $('#foldBody').innerHTML=h
+         ?`<div><b>${esc(addrs[selAddr].tag)}</b>${esc(addrs[selAddr].line)}, ${esc(addrs[selAddr].pin)}</div><div>A technician comes at ${esc(slot)}. You'll get their name and number a day before.</div>`
+         :`<div><b>${esc(selLab.name)}</b>${esc(selLab.addr)}</div><div>Walk in any time in your ${esc(slot)} slot.</div>`;
+       $('#fold').open=false;
+       $('#apprRx').textContent=`${RX[src].doctor} · ${RX[src].date}`;
+       const items=$$('#items .item');
+       if(approved){ $('#wait').hidden=true; $('#appr').hidden=false; items.forEach(x=>x.classList.add('in')); return; }
+       $('#wait').hidden=false; $('#appr').hidden=true;
        later(()=>{ approved=true; $('#wait').hidden=true; $('#appr').hidden=false; play('success');
-         $$('#items .item').forEach((x,k)=>later(()=>{x.classList.add('in');play('tick');},400+k*220)); },2200); },
+         items.forEach((x,k)=>later(()=>{x.classList.add('in');play('tick');},400+k*220)); },2200); },
+  5(){ const h=mode==='home', a=active(), m=members[member], r=RX[src];
+       const pr=id=>h?CAT[id].p:priceAt(id,selLab), total=a.reduce((s,id)=>s+pr(id),0), cov=Math.min(total,BAL), pay=total-cov;
+       const row=(ic,k,t,s)=>`<div class="r"><div class="ic">${I(ic)}</div><div class="col"><span class="k">${k}</span><div class="t">${t}</div>${s?`<div class="s">${s}</div>`:''}</div></div>`;
+       $('#sum').innerHTML=
+         row('user','Patient',`${esc(m.name)} · ${esc(m.rel)}`,`${m.age} · ${esc(m.g)}`)+
+         row('drop','Tests',`${a.length} test${a.length>1?'s':''} · all approved`,a.map(id=>esc(CAT[id].n)).join(', '))+
+         row(h?'home':'lab','Collection',h?'Home collection':`Lab visit · ${esc(selLab.name)}`,`${date} Oct · ${slot}`)+
+         row('pin','Address',h?esc(addrs[selAddr].tag):'Lab address',h?`${esc(addrs[selAddr].line)}, ${esc(addrs[selAddr].pin)}`:esc(selLab.addr))+
+         row('rx','Prescription',`${esc(r.doctor)} · ${esc(r.date)}`,src==='cnh'?'From your CNH consultation':'Uploaded by you');
+       $('#billRows').innerHTML=a.map(id=>`<div class="kv"><span>${esc(CAT[id].n)}</span><b>${inr(pr(id))}</b></div>`).join('')+
+         `<div class="kv"><span>${h?'Home collection':'Lab visit fee'}</span><b>₹0</b></div>`;
+       $('#pBen').textContent='− '+inr(cov); $('#pTot').textContent=inr(pay);
+       $('#pSave').textContent=`Your Lab package covers ${inr(cov)}. ${inr(BAL-cov)} left after this order.`;
+       $('#payBtn').textContent=pay?`Pay ${inr(pay)} and confirm`:'Confirm booking'; },
   6(){ const h=mode==='home';
-       $('#dIc').textContent=h?'🏠':'🏥'; $('#dMode').textContent=h?'Home sample collection':`Lab visit · ${selLab.name}`;
+       $('#dIc').innerHTML=I(h?'home':'lab'); $('#dMode').textContent=h?'Home sample collection':`Lab visit · ${selLab.name}`;
        $('#dWhen').textContent=`${date} Oct · ${slot}`; $('#dAddrT').textContent=h?'Collection address':'Lab address';
        $('#dAddr').textContent=h?addrs[selAddr].line:selLab.addr;
-       later(()=>{ confetti(); },350); },
-  3(){ const b=$('#banner'); b.classList.remove('run'); void b.offsetWidth; b.classList.add('run'); },
-  5(){ const h=mode==='home', p=h?[350,450,600]:selLab.tests, tot=p[0]+p[1]+(lipidIn?p[2]:0); $('#rowLipid').hidden=!lipidIn;
-       $('#feeLbl').textContent=h?'Home collection':'Lab visit fee';
-       ['#p1','#p2','#p3'].forEach((id,i)=>$(id).textContent=inr(p[i]));
-       $('#pBen').textContent='− '+inr(tot); $('#pSave').textContent=`🎉 Your benefits saved you ${inr(tot)} on this order`; }
+       later(()=>{ confetti(); play('party'); },350); }
 };
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
 
-/* ---------- interactions ---------- */
-document.addEventListener('pointerdown',ctx,{once:true});
-$$('[data-go]').forEach(b=>b.addEventListener('click',()=>{ if(b.dataset.sfx!=='none') play(b.dataset.sfx||'tap'); go(+b.dataset.go); }));
-$$('[data-sfx="tap"]:not([data-go])').forEach(b=>b.addEventListener('click',()=>{play('tap');toast('Prototype: this would open a test search');}));
+/* ---------- upload ---------- */
+$('#useCnh').addEventListener('click',()=>{ startFrom('cnh'); go(2); });
+$$('[data-up]').forEach(b=>b.addEventListener('click',()=>{ startFrom('up'); if(b.dataset.up==='records') toast('Picked your latest prescription from Health records'); go(1); }));
 
-const lipid=$('#lipid');
-let lipidIn=true;
-const nTests=()=>lipidIn?3:2;
-/* the patient decides: 'pending' until they pick, then 'added' or 'removed'; Change reopens the choice */
-function setLipid(state){
-  lipidOk=state!=='pending'; lipidIn=state!=='removed';
-  lipid.classList.toggle('done',state==='added'); lipid.classList.toggle('removed',state==='removed');
-  $('#lipidChoice').hidden=state!=='pending'; $('#lipidUndo').hidden=state==='pending';
-  $('#lipidSub').textContent=state==='added'?'Added · blood test, fast 10–12 hours before':state==='removed'?'Removed · it won\'t be booked':"We're not sure this is on your prescription. Add it or remove it.";
-  $('#benTxt').textContent=`Lab package benefit applied · covers ${lipidIn?'all 3 tests':'both tests'}`;
+/* ---------- review ---------- */
+function renderReview(){
+  const r=RX[src];
+  if(member==null){
+    $('#patientBox').innerHTML=`<p class="warnline">${I('alert')}This name doesn't match anyone on your account.</p>
+      <div class="card warn unsure" id="whoCard"><div class="row"><span class="ic">${I('user')}</span><div class="col"><div class="t">${esc(readName)}</div><div class="s">Name on the prescription</div></div></div>
+      <div class="choice c3"><button class="opt-rm" data-who="edit">Edit name</button><button class="opt-rm" data-who="add">Add new</button><button class="opt-add" data-who="pick">Select member</button></div></div>`;
+  } else {
+    const m=members[member], same=readName.toLowerCase()===m.name.toLowerCase();
+    const sub=src==='cnh'?`From your CNH consultation · ${r.doctor}`:same?`${r.doctor} · Reg. ${r.reg} verified`:`Prescription says “${readName}” · matched by you`;
+    $('#patientBox').innerHTML=`<div class="card who"><span class="ic">${I('user')}</span><div class="col"><div class="t">${esc(m.name)} · ${esc(m.rel)}</div><div class="s">${esc(sub)}</div></div><button class="link" data-who="pick">Change</button></div>`;
+  }
+  $('#testList').innerHTML=items.map(id=>{
+    const t=CAT[id];
+    if(unsure&&unsure.id===id&&unsure.state==='pending')
+      return `<p class="warnline">${I('alert')}We're unsure this is on your Rx. Add or remove it.</p>
+        <div class="card warn unsure" id="unsureCard"><div class="row"><span class="ic">${I(t.ic)}</span><div class="col"><div class="t">${esc(t.n)}</div><div class="s">${esc(t.m)}</div></div></div>
+        <div class="choice"><button class="opt-rm" data-un="removed">Remove</button><button class="opt-add" data-un="added">Add test</button></div></div>`;
+    if(unsure&&unsure.id===id&&unsure.state==='removed')
+      return `<div class="card removed"><span class="ic">${I(t.ic)}</span><div class="col"><div class="t">${esc(t.n)}</div><div class="s">Removed · it won't be booked</div></div><button class="link" data-un="pending">Undo</button></div>`;
+    return `<div class="card"><span class="ic">${I(t.ic)}</span><div class="col"><div class="t">${esc(t.n)}</div><div class="s">${esc(t.m)}</div></div>
+      <button class="ib" data-edit="${id}" aria-label="Edit ${esc(t.n)}">${I('edit')}</button><button class="ib rm" data-rm="${id}" aria-label="Remove ${esc(t.n)}">${I('trash')}</button></div>`;
+  }).join('');
+  const n=active().length, total=active().reduce((s,id)=>s+CAT[id].p,0);
+  $('#benTxt').textContent=total<=BAL?`Applied · covers ${countWords(n)}`:`Applied · covers ${inr(BAL)}, you pay the rest`;
 }
-$('#lipidAdd').addEventListener('click',()=>{ setLipid('added'); toast('Lipid profile added'); });
-$('#lipidRemove').addEventListener('click',()=>{ setLipid('removed'); toast('Lipid profile removed'); });
-$('#lipidUndo').addEventListener('click',()=>setLipid('pending'));
-$('#proceed').addEventListener('click',e=>{
-  if(!lipidOk){ play('error'); const b=e.currentTarget; b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
-    lipid.animate?.([{transform:'scale(1)'},{transform:'scale(1.03)'},{transform:'scale(1)'}],{duration:400}); toast('Add or remove Lipid profile first'); return; }
-  play('tap'); go(3); });
+$('#rev').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.un){ unsure.state=b.dataset.un; renderReview(); if(b.dataset.un!=='pending') toast(`${CAT[unsure.id].n} ${b.dataset.un}`); }
+  else if(b.dataset.rm){ removeTest(b.dataset.rm); }
+  else if(b.dataset.edit){ openTests('replace',b.dataset.edit); }
+  else if(b.dataset.who){ openWho(b.dataset.who); }
+});
+function removeTest(id){
+  if(active().length<=1){ play('error'); toast('Keep at least one test'); return; }
+  items=items.filter(x=>x!==id); if(unsure&&unsure.id===id) unsure=null;
+  renderReview(); toast(`${CAT[id].n} removed`);
+}
+function nudge(el,msg){ play('error'); const b=$('#proceed'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+  if(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); el.scrollIntoView({block:'center',behavior:reduce?'auto':'smooth'}); } toast(msg); }
+$('#proceed').addEventListener('click',()=>{
+  if(member==null) return nudge($('#whoCard'),'Match the patient first');
+  if(unsure&&unsure.state==='pending') return nudge($('#unsureCard'),`Add or remove ${CAT[unsure.id].n} first`);
+  go(3);
+});
 
-$$('#modes .mode').forEach(m=>m.addEventListener('click',()=>{ play('select'); mode=m.dataset.mode;
-  $$('#modes .mode').forEach(x=>x.classList.toggle('sel',x===m));
-  updateBook(); }));
+/* ---------- sheets ---------- */
+function openSheet(id){ const s=$('#'+id); s.classList.add('open'); s.setAttribute('aria-hidden','false'); s.querySelector('.body').scrollTop=0; }
+function closeSheet(id){ (id?[$('#'+id)]:$$('.sheet')).forEach(s=>{ s.classList.remove('open'); s.setAttribute('aria-hidden','true'); }); }
+$$('.sheet [data-close]').forEach(b=>b.addEventListener('click',()=>closeSheet(b.closest('.sheet').id)));
 
-/* ---------- addresses ---------- */
+/* who is this for: edit the name, select a member, or add one */
+let pickMem=null, mRel='', mGen='';
+function renderMembers(){
+  $('#memList').innerHTML=members.map((m,i)=>`<button class="opt${i===pickMem?' sel':''}" data-i="${i}"><span class="radio"></span><span class="col"><span class="t">${esc(m.name)}<span class="tag">${esc(m.rel)}</span></span><span class="s">${m.age} · ${esc(m.g)}</span></span></button>`).join('');
+}
+$('#memList').addEventListener('click',e=>{ const b=e.target.closest('.opt'); if(!b) return; pickMem=+b.dataset.i; renderMembers(); });
+function openWho(kind){
+  pickMem=member; $('#rxName').value=readName; $('#rxName').classList.remove('err'); $('#nameMsg').hidden=true;
+  $('#memForm').hidden=kind!=='add'; $('#memAdd').hidden=kind==='add';
+  if(kind==='add'){ resetMemForm(); }
+  renderMembers(); openSheet('sheetWho');
+  setTimeout(()=>{ if(kind==='edit'){ const n=$('#rxName'); n.focus(); n.select(); } if(kind==='add'){ $('#memForm').scrollIntoView({block:'start'}); $('#mName').focus(); } },420);
+}
+function resetMemForm(){ $('#mName').value=member==null?readName:''; $('#mAge').value=''; mRel=''; mGen=''; $$('#mRel button,#mGen button').forEach(x=>x.classList.remove('sel')); $$('#memForm input').forEach(x=>x.classList.remove('err')); }
+$('#saveName').addEventListener('click',()=>{
+  const v=$('#rxName').value.trim().replace(/\s+/g,' ');
+  if(!v){ $('#rxName').classList.add('err'); play('error'); return; }
+  $('#rxName').classList.remove('err'); readName=v;
+  const hit=members.findIndex(m=>m.name.toLowerCase()===v.toLowerCase());
+  if(hit>=0){ member=hit; renderReview(); closeSheet('sheetWho'); toast(`Matched to ${members[hit].name}`); return; }
+  renderReview();
+  $('#nameMsg').textContent=`No one named “${v}” on your account. Select a member below, or add them.`; $('#nameMsg').hidden=false;
+});
+$('#memAdd').addEventListener('click',()=>{ resetMemForm(); $('#memAdd').hidden=true; $('#memForm').hidden=false; setTimeout(()=>$('#mName').focus(),50); });
+$$('#mRel button').forEach(b=>b.addEventListener('click',()=>{ mRel=b.textContent; $$('#mRel button').forEach(x=>x.classList.toggle('sel',x===b)); }));
+$$('#mGen button').forEach(b=>b.addEventListener('click',()=>{ mGen=b.textContent; $$('#mGen button').forEach(x=>x.classList.toggle('sel',x===b)); }));
+$('#memForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=$('#mName'), a=$('#mAge'), age=+a.value.trim(); let bad=false;
+  const ne=!n.value.trim(); n.classList.toggle('err',ne); bad=bad||ne;
+  const ae=!(age>0&&age<121); a.classList.toggle('err',ae); bad=bad||ae;
+  if(!mRel||!mGen) bad=true;
+  if(bad){ play('error'); toast(!mRel||!mGen?'Pick a relation and gender':'Fill in the highlighted fields'); return; }
+  members.push({name:n.value.trim().replace(/\s+/g,' '),rel:mRel,age,g:mGen});
+  member=members.length-1; renderReview(); closeSheet('sheetWho'); toast(`${members[member].name} added to your family`);
+});
+$('#useMem').addEventListener('click',()=>{
+  if(pickMem==null){ play('error'); toast('Select a member, or add a new one'); return; }
+  member=pickMem; renderReview(); closeSheet('sheetWho'); toast(`Booking for ${members[member].name}`);
+});
+
+/* add missing tests (search, then select) or replace one */
+let tMode='add', tTarget=null, tPick=new Set();
+function openTests(m,target){ tMode=m; tTarget=target||null; tPick=new Set(); $('#tq').value='';
+  $('#tTitle').textContent=m==='add'?'Add tests':`Replace ${CAT[target].n}`; renderPicks(); openSheet('sheetTests'); }
+function renderPicks(){
+  const q=$('#tq').value.trim().toLowerCase();
+  const ids=Object.keys(CAT).filter(id=>!items.includes(id)).filter(id=>!q||CAT[id].n.toLowerCase().includes(q)||CAT[id].k.includes(q));
+  $('#tList').innerHTML=ids.length?ids.map(id=>`<button class="pick${tPick.has(id)?' sel':''}" data-id="${id}"><span class="${tMode==='add'?'box':'radio'}"></span><span class="col"><span class="t">${esc(CAT[id].n)}</span><span class="s">${esc(CAT[id].m)}</span></span><span class="price">${inr(CAT[id].p)}</span></button>`).join('')
+    :`<p class="empty">No tests match “${esc(q)}”.</p>`;
+  const n=tPick.size, d=$('#tDo'); d.disabled=!n;
+  d.textContent=tMode==='add'?(n?`Add ${n} test${n>1?'s':''}`:'Select tests to add'):(n?'Replace test':'Select a test');
+}
+$('#tq').addEventListener('input',renderPicks);
+$('#tList').addEventListener('click',e=>{ const b=e.target.closest('.pick'); if(!b) return; const id=b.dataset.id;
+  if(tMode==='replace') tPick=new Set([id]); else tPick.has(id)?tPick.delete(id):tPick.add(id); renderPicks(); });
+$('#tDo').addEventListener('click',()=>{
+  const ids=[...tPick]; if(!ids.length) return;
+  if(tMode==='add'){ items.push(...ids); toast(ids.length>1?`${ids.length} tests added`:`${CAT[ids[0]].n} added`); }
+  else { items[items.indexOf(tTarget)]=ids[0]; if(unsure&&unsure.id===tTarget) unsure=null; toast(`Replaced with ${CAT[ids[0]].n}`); }
+  renderReview(); closeSheet('sheetTests');
+});
+$('#addTest').addEventListener('click',()=>openTests('add'));
+
+/* benefit details */
+$('#benMore').addEventListener('click',()=>{
+  const total=active().reduce((s,id)=>s+CAT[id].p,0), cov=Math.min(total,BAL);
+  $('#bBal').innerHTML=`${inr(BAL)} <span>left of ${inr(BEN_TOTAL)}</span>`; $('#bMeter').style.width=(BAL/BEN_TOTAL*100)+'%';
+  $('#bOrder').textContent=inr(total); $('#bCov').textContent=inr(cov); $('#bAfter').textContent=inr(BAL-cov);
+  openSheet('sheetBen');
+});
+
+/* ---------- slot ---------- */
+$$('#modes .mode').forEach(m=>m.addEventListener('click',()=>{ mode=m.dataset.mode;
+  $$('#modes .mode').forEach(x=>x.classList.toggle('sel',x===m)); updateBook(); }));
 const addrs=[
   {tag:'Home',line:'Flat 302, Palm Residency, Andheri W',pin:'Mumbai 400053'},
   {tag:'Work',line:'5th floor, Tower B, Bandra Kurla Complex',pin:'Mumbai 400051'},
   {tag:'Parents',line:'12, Shanti Kunj, Borivali W',pin:'Mumbai 400092'}];
 let selAddr=0, pickAddr=0, newTag='Home';
 function showWhere(){
-  const h=mode==='home';
-  $('#whereT').textContent=h?`Collect from · ${addrs[selAddr].tag}`:'Lab · Apex Diagnostics';
-  $('#where').textContent=h?addrs[selAddr].line:'2nd floor, Sunrise Plaza, Link Road · 1.2 km';
-  $('#chgAddr').hidden=!h;
+  $('#whereT').textContent=`Collect from · ${addrs[selAddr].tag}`;
+  $('#where').textContent=addrs[selAddr].line;
 }
-const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function renderAddrs(){
   $('#addrList').innerHTML=addrs.map((a,i)=>`<button class="opt${i===pickAddr?' sel':''}" data-i="${i}"><span class="radio"></span><span class="col"><span class="t">${esc(a.tag)}${i===selAddr?'<span class="tag">Current</span>':''}</span><span class="s">${esc(a.line)}, ${esc(a.pin)}</span></span></button>`).join('');
-  $$('#addrList .opt').forEach(b=>b.addEventListener('click',()=>{ play('select'); pickAddr=+b.dataset.i; renderAddrs(); }));
 }
-const sheet=$('#sheet');
-function openSheet(){ pickAddr=selAddr; renderAddrs(); $('#addrForm').hidden=true; $('#addNew').hidden=false; sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false'); }
-function closeSheet(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true'); }
-$('#chgAddr').addEventListener('click',()=>{ play('tap'); openSheet(); });
-$('#sheetBack').addEventListener('click',()=>{ play('tap'); closeSheet(); });
-$('#useAddr').addEventListener('click',()=>{ selAddr=pickAddr; showWhere(); closeSheet(); toast(`Collecting from ${addrs[selAddr].tag}`); });
-$('#addNew').addEventListener('click',()=>{ play('tap'); $('#addNew').hidden=true; $('#addrForm').hidden=false; setTimeout(()=>$('#fFlat').focus(),50); });
-$$('#tagChips button').forEach(b=>b.addEventListener('click',()=>{ play('select'); newTag=b.textContent; $$('#tagChips button').forEach(x=>x.classList.toggle('sel',x===b)); }));
+$('#addrList').addEventListener('click',e=>{ const b=e.target.closest('.opt'); if(!b) return; pickAddr=+b.dataset.i; renderAddrs(); });
+$('#chgAddr').addEventListener('click',()=>{ pickAddr=selAddr; renderAddrs(); $('#addrForm').hidden=true; $('#addNew').hidden=false; openSheet('sheetAddr'); });
+$('#useAddr').addEventListener('click',()=>{ selAddr=pickAddr; showWhere(); closeSheet('sheetAddr'); toast(`Collecting from ${addrs[selAddr].tag}`); });
+$('#addNew').addEventListener('click',()=>{ $('#addNew').hidden=true; $('#addrForm').hidden=false; setTimeout(()=>$('#fFlat').focus(),50); });
+$$('#tagChips button').forEach(b=>b.addEventListener('click',()=>{ newTag=b.textContent; $$('#tagChips button').forEach(x=>x.classList.toggle('sel',x===b)); }));
 $('#addrForm').addEventListener('submit',e=>{
   e.preventDefault();
   const f=$('#fFlat'), a=$('#fArea'), p=$('#fPin'); let bad=false;
@@ -575,36 +863,36 @@ $('#addrForm').addEventListener('submit',e=>{
   [f,a,p].forEach(x=>{x.value='';x.classList.remove('err');});
   $('#addrForm').hidden=true; $('#addNew').hidden=false; toast('Address added');
 });
-
 const days=[['Sat',17],['Sun',18],['Mon',19],['Tue',20],['Wed',21]];
 $('#dates').innerHTML=days.map(([d,n])=>`<button class="date${n===18?' sel':''}" data-d="${d} ${n}">${d}<br>${n}</button>`).join('');
-$$('.date').forEach(b=>b.addEventListener('click',()=>{ play('select'); date=b.dataset.d; $$('.date').forEach(x=>x.classList.toggle('sel',x===b)); }));
-$$('.slot').forEach(b=>b.addEventListener('click',()=>{ if(b.disabled) return; play('select'); slot=b.dataset.t; $$('.slot').forEach(x=>x.classList.toggle('sel',x===b)); }));
+$$('.date').forEach(b=>b.addEventListener('click',()=>{ date=b.dataset.d; $$('.date').forEach(x=>x.classList.toggle('sel',x===b)); }));
+$$('.slot').forEach(b=>b.addEventListener('click',()=>{ if(b.disabled) return; slot=b.dataset.t; $$('.slot').forEach(x=>x.classList.toggle('sel',x===b)); }));
 
-/* ---------- labs (lab visit: pick a lab first, then a slot) ---------- */
+/* labs (lab visit: pick a lab first, then a slot) */
 const labs=[
-  {name:'Apex Diagnostics',km:1.2,hrs:'7 AM–10 PM',tests:[350,450,600],rating:4.6,addr:'2nd floor, Sunrise Plaza, Link Road, Andheri W',full:'2–3 PM'},
-  {name:'CityCare Labs',km:2.4,hrs:'8 AM–8 PM',tests:[300,400,550],rating:4.4,addr:'Shop 4, Lokhandwala Market, Andheri W',full:'9–10 AM'},
-  {name:'Metro Path Labs',km:3.1,hrs:'Open 24 hours',tests:[400,500,600],rating:4.8,addr:'Ground floor, Juhu Tara Road, Juhu',full:'12–1 PM'}];
-const labPrice=l=>l.tests[0]+l.tests[1]+(lipidIn?l.tests[2]:0);
+  {name:'Apex Diagnostics',km:1.2,hrs:'7 AM–10 PM',f:1,rating:4.6,addr:'2nd floor, Sunrise Plaza, Link Road, Andheri W',full:'2–3 PM'},
+  {name:'CityCare Labs',km:2.4,hrs:'8 AM–8 PM',f:.9,rating:4.4,addr:'Shop 4, Lokhandwala Market, Andheri W',full:'9–10 AM'},
+  {name:'Metro Path Labs',km:3.1,hrs:'Open 24 hours',f:1.1,rating:4.8,addr:'Ground floor, Juhu Tara Road, Juhu',full:'12–1 PM'}];
+const priceAt=(id,l)=>Math.round(CAT[id].p*l.f/50)*50;
+const labPrice=l=>active().reduce((s,id)=>s+priceAt(id,l),0);
 let selLab=null, labSort='Nearest';
-function inr(n){ return '₹'+n.toLocaleString('en-IN'); }
 function renderLabs(){
-  $('#labsFor').textContent=`These labs can do ${lipidIn?'all 3':'both'} of your tests.`;
+  const n=active().length;
+  $('#labsFor').textContent=`These labs can do ${n===1?'your test':n===2?'both of your tests':`all ${n} of your tests`}.`;
   const order=[...labs].sort((a,b)=>labSort==='Lowest cost'?labPrice(a)-labPrice(b):labSort==='Top rated'?b.rating-a.rating:a.km-b.km);
   $('#labList').innerHTML=order.map(l=>`<button class="lab${l===selLab?' sel':''}" data-n="${esc(l.name)}">
-    <span class="lt"><span class="ic">🏥</span><span class="col"><span class="t">${esc(l.name)}</span><span class="s">${l.km} km · ${esc(l.hrs)}</span></span><span class="price">${inr(labPrice(l))}</span></span>
-    <span class="meta"><span class="mini">★ ${l.rating}</span><span class="mini cov">✓ Covered by benefit</span>${l===selLab?'<span class="mini now">Selected</span>':''}</span></button>`).join('');
-  $$('#labList .lab').forEach(b=>b.addEventListener('click',()=>{
-    const first=!selLab; selLab=labs.find(l=>l.name===b.dataset.n); renderLabs(); updateBook();
-    if(first){ const sc=screens[3], tb=$('#timeBlock'); setTimeout(()=>sc.scrollTo({top:tb.offsetTop-12,behavior:reduce?'auto':'smooth'}),120); } }));
+    <span class="lt"><span class="ic">${I('lab')}</span><span class="col"><span class="t">${esc(l.name)}</span><span class="s">${l.km} km · ${esc(l.hrs)}</span></span><span class="price">${inr(labPrice(l))}</span></span>
+    <span class="meta"><span class="mini">★ ${l.rating}</span><span class="mini cov">Covered by Lab package</span>${l===selLab?'<span class="mini now">Selected</span>':''}</span></button>`).join('');
 }
+$('#labList').addEventListener('click',e=>{ const b=e.target.closest('.lab'); if(!b) return;
+  const first=!selLab; selLab=labs.find(l=>l.name===b.dataset.n); updateBook();
+  if(first){ const sc=$('#slotScreen'), tb=$('#timeBlock'); setTimeout(()=>sc.scrollTo({top:tb.offsetTop-12,behavior:reduce?'auto':'smooth'}),120); } });
 $$('#labSort button').forEach(b=>b.addEventListener('click',()=>{ labSort=b.textContent; $$('#labSort button').forEach(x=>x.classList.toggle('sel',x===b)); renderLabs(); }));
 function applySlots(full){
   const all=$$('.slot');
   all.forEach(b=>{ const f=b.dataset.t===full; b.disabled=f; b.textContent=f?'Full':b.dataset.t; });
-  const cur=all.find(b=>b.dataset.t===slot);
-  if(!cur||cur.disabled) slot=all.find(b=>!b.disabled).dataset.t;
+  const c=all.find(b=>b.dataset.t===slot);
+  if(!c||c.disabled) slot=all.find(b=>!b.disabled).dataset.t;
   all.forEach(b=>b.classList.toggle('sel',b.dataset.t===slot));
 }
 function updateBook(){
@@ -617,21 +905,23 @@ function updateBook(){
 }
 $('#bookBtn').addEventListener('click',e=>{
   if(mode==='lab'&&!selLab){ play('error'); const b=e.currentTarget; b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
-    toast('Choose a lab first'); screens[3].scrollTo({top:$('#labBlock').offsetTop-12,behavior:reduce?'auto':'smooth'}); return; }
-  go(4); });
-updateBook();
+    toast('Choose a lab first'); $('#slotScreen').scrollTo({top:$('#labBlock').offsetTop-12,behavior:reduce?'auto':'smooth'}); return; }
+  toast(`Held ${date} Oct, ${slot} for 30 minutes`); go(4); });
 
-function reset(){ lipidOk=false; approved=false; closeSheet(); selLab=null; mode='home'; $$('#modes .mode').forEach(x=>x.classList.toggle('sel',x.dataset.mode==='home')); updateBook(); setLipid('pending');
-  stopConfetti(); go(0); }
-$('#again').addEventListener('click',()=>{ play('tap'); reset(); });
-$('#back').addEventListener('click',()=>{ play('tap');
+/* ---------- restart, back, sound ---------- */
+function reset(){ approved=false; closeSheet(); selLab=null; mode='home'; selAddr=0; members=MEMBERS.map(m=>({...m}));
+  $$('#modes .mode').forEach(x=>x.classList.toggle('sel',x.dataset.mode==='home')); updateBook(); startFrom('cnh'); stopConfetti(); go(0); }
+$('#again').addEventListener('click',reset);
+$('#restart').addEventListener('click',reset);
+$('#back').addEventListener('click',()=>{
+  if($$('.sheet.open').length){ closeSheet(); return; }
   if(cur===0){ toast('Prototype: would return to Prescribed Services'); return; }
   if(cur===6) stopConfetti();
   go(cur===2?0:cur-1); });   // going back from Review skips the automatic Reading step
-$('#restart').addEventListener('click',()=>{ play('tap'); reset(); });
-$('#snd').addEventListener('click',e=>{ soundOn=!soundOn; const b=e.currentTarget; b.setAttribute('aria-pressed',soundOn); b.textContent=soundOn?'🔊 Sound on':'🔇 Sound off'; if(soundOn) play('tap'); });
+$('#snd').addEventListener('click',e=>{ soundOn=!soundOn; const b=e.currentTarget; b.setAttribute('aria-pressed',soundOn);
+  b.innerHTML=`${I(soundOn?'sound':'mute')}<span class="tx">Sound ${soundOn?'on':'off'}</span>`; });
 
-let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),1800); }
+let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),1900); }
 
 /* ---------- confetti ---------- */
 const cv=$('#confetti'), cx=cv.getContext('2d'); let parts=[], raf=0, spawnUntil=0, fadeEnd=0;
@@ -649,10 +939,10 @@ function frame(t){ const W=cv.clientWidth,H=cv.clientHeight; cx.clearRect(0,0,W,
   if(parts.length) raf=requestAnimationFrame(frame); else cx.clearRect(0,0,W,H); }
 function stopConfetti(){ cancelAnimationFrame(raf); parts=[]; cx.clearRect(0,0,cv.width,cv.height); }
 
+startFrom('cnh'); updateBook();
 addEventListener('resize',()=>setProgress(cur));
 document.fonts?.ready.then(()=>setProgress(cur));
 setProgress(0);
 })();
 </script>
-
 </body></html>
