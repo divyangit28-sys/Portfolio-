@@ -273,11 +273,31 @@ h3{font-size:17px;font-weight:700;margin:4px 0 -4px}
 hr{border:0;border-top:1px solid var(--line);margin:0}
 .save{background:var(--green-soft);color:var(--green);font-size:12.5px;font-weight:600;border-radius:12px;padding:10px 12px;line-height:1.45}
 
-/* done */
-.det{border:1px solid var(--line);border-radius:14px;padding:6px 14px}
-.det .r{display:flex;gap:12px;padding:9px 0;align-items:flex-start}
-.det .ic{width:30px;height:30px}
-.det .ic .i{width:16px;height:16px}
+/* order details */
+.okbar{display:flex;align-items:center;gap:12px;background:var(--green-soft);border-radius:14px;padding:12px 14px}
+.okic{flex:none;width:34px;height:34px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center}
+.okic .i{width:18px;height:18px;stroke-width:2.6}
+.okbar .t{color:var(--green)}
+.stat{flex-direction:column;align-items:stretch;gap:14px;padding:14px}
+.spill{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:#8a5208;background:var(--amber-soft);border:1px solid #f0d08a;border-radius:999px;padding:5px 11px}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--amber-line);animation:blink 1.2s ease-in-out infinite}
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tl li{position:relative;display:flex;gap:12px;padding-bottom:16px}
+.tl li:last-child{padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:10px;top:24px;bottom:2px;width:2px;border-radius:2px;background:var(--line)}
+.tl li:last-child::before{display:none}
+.tl li.done::before{background:var(--green)}
+.dotx{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid #c9ced8;background:var(--bg);display:grid;place-items:center;color:#fff}
+.dotx .i{width:12px;height:12px;stroke-width:3}
+.tl li.done .dotx{background:var(--green);border-color:var(--green)}
+.tl li.now .dotx{border-color:var(--amber-line)}
+.tl li.now .dotx::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--amber-line)}
+.tl .t{font-size:13.5px}
+.tl li.next .t{color:var(--muted);font-weight:500}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cta.sm{padding:11px;font-size:14px}
+/* once approved, there is no way back, so the progress bar takes the space */
+.back[hidden]+.prog{left:22px}
 canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
 
 /* sheets: full screens that slide over the flow */
@@ -346,6 +366,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/><path d="M10 11v5M14 11v5"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17.3v.2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.2M12 7.9v.2"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-check-c" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.3 12.3l2.6 2.6 4.8-5.2"/></symbol>
   <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
@@ -496,16 +517,19 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
       <button class="cta" data-go="6" id="payBtn">Confirm booking</button>
     </section>
 
-    <!-- 7 Done -->
-    <section class="screen" data-step="Done">
-      <div class="hero b pop"><div class="badge"><svg viewBox="0 0 26 26"><path d="M6 13.5l5 5 9-10"/></svg></div><div class="big">You're all set!</div><div class="s" style="color:var(--ink)">Booking ID LB-48213</div></div>
-      <div class="det">
-        <div class="r"><div class="ic" id="dIc"></div><div class="col"><div class="t" id="dMode">Home sample collection</div><div class="s" id="dWhen">Sun 18 Oct · 8–9 AM</div></div></div>
-        <div class="r"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></div><div class="col"><div class="t" id="dAddrT">Collection address</div><div class="s" id="dAddr">Flat 302, Palm Residency, Andheri W</div></div></div>
-        <div class="r"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-report"/></svg></div><div class="col"><div class="t">Reports</div><div class="s">In the app within 24 hours</div></div></div>
-      </div>
-      <div class="grow"></div>
-      <button class="cta ghost" id="again">Go to my orders</button>
+    <!-- 7 Order details -->
+    <section class="screen" data-step="Order">
+      <h2>Order details</h2>
+      <p class="sub">Order LB-48213 · placed 16 Oct 2026, 10:42 AM</p>
+      <div class="okbar pop"><span class="okic"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><div class="col"><div class="t">Booking confirmed</div><div class="s" id="okSub">Fully covered by your Lab package</div></div></div>
+      <div class="card stat"><span class="spill" id="ordPill"></span><ul class="tl" id="tl"></ul></div>
+      <div class="note" id="prep" hidden><svg class="i" aria-hidden="true"><use href="#i-info"/></svg><span id="prepTxt"></span></div>
+      <div class="lbl">Booking details</div>
+      <div class="sum" id="ordSum"></div>
+      <div class="lbl">Payment</div>
+      <div class="bill" id="ordBill"></div>
+      <div class="acts"><button class="cta ghost sm" id="resch">Reschedule</button><button class="cta ghost sm" id="help">Get help</button></div>
+      <button class="cta" id="again">Back to home</button>
     </section>
   </div>
 
@@ -612,9 +636,6 @@ const sfx={
   error:()=>{tone(220,0,.12,'square',.06);tone(180,.1,.14,'square',.06);},
   confirm:()=>{tone(784,0,.1,'triangle',.13);tone(1047,.08,.16,'triangle',.13);},
   success:()=>[523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.35,'triangle',.13)),
-  party:()=>{ tone(900,0,.12,'sine',.12,220);
-    [784,988,1175,1568].forEach(f=>{ tone(f,.08,1.4,'sine',.05); tone(f*2,.08,.6,'sine',.015); });
-    for(let i=0;i<22;i++){ const t=.3+i*.1+Math.random()*.06, f=3200-i*70+Math.random()*500; tone(f,t,.22,'sine',.035+Math.random()*.02); } }
 };
 const play=k=>{ try{ sfx[k]&&sfx[k](); }catch(e){} };
 document.addEventListener('pointerdown',ctx,{once:true});
@@ -655,12 +676,13 @@ function setProgress(i){
 }
 
 /* ---------- navigation ---------- */
+function updateBack(){ $('#back').hidden=cur===6||(cur===4&&approved); }
 function clearT(){ timers.forEach(clearTimeout); timers=[]; }
 function later(fn,ms){ timers.push(setTimeout(fn,reduce?Math.min(ms,150):ms)); }
 function go(i){
   clearT(); closeSheet();
   screens.forEach((s,k)=>{ s.classList.toggle('on',k===i); s.classList.toggle('past',k<i); });
-  cur=i; setProgress(i); screens[i].scrollTop=0;
+  cur=i; updateBack(); setProgress(i); screens[i].scrollTop=0;
   enter[i]&&enter[i]();
 }
 const enter={
@@ -684,28 +706,41 @@ const enter={
        const items=$$('#items .item');
        if(approved){ $('#wait').hidden=true; $('#appr').hidden=false; items.forEach(x=>x.classList.add('in')); return; }
        $('#wait').hidden=false; $('#appr').hidden=true;
-       later(()=>{ approved=true; $('#wait').hidden=true; $('#appr').hidden=false; play('success');
+       later(()=>{ approved=true; updateBack(); setProgress(cur); $('#wait').hidden=true; $('#appr').hidden=false; play('success');
          items.forEach((x,k)=>later(()=>{x.classList.add('in');play('tick');},400+k*220)); },2200); },
-  5(){ const h=mode==='home', a=active(), m=members[member], r=RX[src];
-       const pr=id=>h?CAT[id].p:priceAt(id,selLab), total=a.reduce((s,id)=>s+pr(id),0), cov=Math.min(total,BAL), pay=total-cov;
-       const row=(ic,k,t,s)=>`<div class="r"><div class="ic">${I(ic)}</div><div class="col"><span class="k">${k}</span><div class="t">${t}</div>${s?`<div class="s">${s}</div>`:''}</div></div>`;
-       $('#sum').innerHTML=
-         row('user','Patient',`${esc(m.name)} · ${esc(m.rel)}`,`${m.age} · ${esc(m.g)}`)+
-         row('drop','Tests',`${a.length} test${a.length>1?'s':''} · all approved`,a.map(id=>esc(CAT[id].n)).join(', '))+
-         row(h?'home':'lab','Collection',h?'Home collection':`Lab visit · ${esc(selLab.name)}`,`${date} Oct · ${slot}`)+
-         row('pin','Address',h?esc(addrs[selAddr].tag):'Lab address',h?`${esc(addrs[selAddr].line)}, ${esc(addrs[selAddr].pin)}`:esc(selLab.addr))+
-         row('rx','Prescription',`${esc(r.doctor)} · ${esc(r.date)}`,src==='cnh'?'From your CNH consultation':'Uploaded by you');
-       $('#billRows').innerHTML=a.map(id=>`<div class="kv"><span>${esc(CAT[id].n)}</span><b>${inr(pr(id))}</b></div>`).join('')+
-         `<div class="kv"><span>${h?'Home collection':'Lab visit fee'}</span><b>₹0</b></div>`;
-       $('#pBen').textContent='− '+inr(cov); $('#pTot').textContent=inr(pay);
-       $('#pSave').textContent=`Your Lab package covers ${inr(cov)}. ${inr(BAL-cov)} left after this order.`;
-       $('#payBtn').textContent=pay?`Pay ${inr(pay)} and confirm`:'Confirm booking'; },
-  6(){ const h=mode==='home';
-       $('#dIc').innerHTML=I(h?'home':'lab'); $('#dMode').textContent=h?'Home sample collection':`Lab visit · ${selLab.name}`;
-       $('#dWhen').textContent=`${date} Oct · ${slot}`; $('#dAddrT').textContent=h?'Collection address':'Lab address';
-       $('#dAddr').textContent=h?addrs[selAddr].line:selLab.addr;
-       later(()=>{ confetti(); play('party'); },350); }
+  5(){ const b=bill();
+       $('#sum').innerHTML=summary();
+       $('#billRows').innerHTML=billRows(b);
+       $('#pBen').textContent='− '+inr(b.cov); $('#pTot').textContent=inr(b.pay);
+       $('#pSave').textContent=`Your Lab package covers ${inr(b.cov)}. ${inr(BAL-b.cov)} left after this order.`;
+       $('#payBtn').textContent=b.pay?`Pay ${inr(b.pay)} and confirm`:'Confirm booking'; },
+  6(){ const b=bill(), h=b.h, when=`${date} Oct, ${slot}`;
+       $('#okSub').textContent=b.pay?`Payment of ${inr(b.pay)} successful`:'Fully covered by your Lab package';
+       $('#ordPill').innerHTML=`<span class="pdot"></span>${h?'Sample pickup pending':'Lab visit pending'}`;
+       const st=h?[['done','Booking confirmed','16 Oct, 10:42 AM'],['now','Sample pickup',`${when} · technician details a day before`],['next','Sample reaches the lab',''],['next','Reports ready','Within 24 hours of pickup']]
+                 :[['done','Booking confirmed','16 Oct, 10:42 AM'],['now',`Visit ${selLab.name}`,when],['next','Reports ready','Within 24 hours of your visit']];
+       $('#tl').innerHTML=st.map(([c,t,x])=>`<li class="${c}"><span class="dotx">${c==='done'?I('check'):''}</span><div class="col"><div class="t">${esc(t)}</div>${x?`<div class="s">${esc(x)}</div>`:''}</div></li>`).join('');
+       const hrs=id=>{ const m=CAT[id].m.match(/fast (\d+)–?(\d*) hours/); return m?+m[1]:0; };
+       const fast=b.a.filter(hrs).sort((x,y)=>hrs(y)-hrs(x));
+       $('#prep').hidden=!fast.length;
+       if(fast.length) $('#prepTxt').innerHTML=`<b>Before your ${h?'pickup':'visit'}</b> Don't eat for ${CAT[fast[0]].m.match(/fast (.+ hours)/)[1]} before your slot, for your ${fast.map(id=>esc(CAT[id].n)).join(' and ')}. Water is fine.`;
+       $('#ordSum').innerHTML=summary();
+       $('#ordBill').innerHTML=billRows(b)+`<hr><div class="kv g"><span>Lab package</span><b>− ${inr(b.cov)}</b></div><hr>`+
+         `<div class="kv tot"><span>Amount paid</span><b>${inr(b.pay)}</b></div><div class="kv"><span>Paid with</span><b>${b.pay&&b.cov?'Lab package and UPI':b.pay?'UPI':'Lab package'}</b></div>`;
+       later(()=>confetti(),350); }
 };
+/* what the patient booked, shown before paying and again on the order */
+function bill(){ const h=mode==='home', a=active(), pr=id=>h?CAT[id].p:priceAt(id,selLab), total=a.reduce((s,id)=>s+pr(id),0), cov=Math.min(total,BAL);
+  return {h,a,pr,total,cov,pay:total-cov}; }
+function billRows(b){ return b.a.map(id=>`<div class="kv"><span>${esc(CAT[id].n)}</span><b>${inr(b.pr(id))}</b></div>`).join('')+
+  `<div class="kv"><span>${b.h?'Home collection':'Lab visit fee'}</span><b>₹0</b></div>`; }
+function summary(){ const h=mode==='home', a=active(), m=members[member], r=RX[src];
+  const row=(ic,k,t,x)=>`<div class="r"><div class="ic">${I(ic)}</div><div class="col"><span class="k">${k}</span><div class="t">${t}</div>${x?`<div class="s">${x}</div>`:''}</div></div>`;
+  return row('user','Patient',`${esc(m.name)} · ${esc(m.rel)}`,`${m.age} · ${esc(m.g)}`)+
+    row('drop','Tests',`${a.length} test${a.length>1?'s':''} · all approved`,a.map(id=>esc(CAT[id].n)).join(', '))+
+    row(h?'home':'lab','Collection',h?'Home collection':`Lab visit · ${esc(selLab.name)}`,`${date} Oct · ${slot}`)+
+    row('pin','Address',h?esc(addrs[selAddr].tag):'Lab address',h?`${esc(addrs[selAddr].line)}, ${esc(addrs[selAddr].pin)}`:esc(selLab.addr))+
+    row('rx','Prescription',`${esc(r.doctor)} · ${esc(r.date)}`,src==='cnh'?'From your CNH consultation':'Uploaded by you'); }
 $$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
 
 /* ---------- upload ---------- */
@@ -915,11 +950,13 @@ $('#bookBtn').addEventListener('click',e=>{
 function reset(){ approved=false; closeSheet(); selLab=null; mode='home'; selAddr=0; members=MEMBERS.map(m=>({...m}));
   $$('#modes .mode').forEach(x=>x.classList.toggle('sel',x.dataset.mode==='home')); updateBook(); startFrom('cnh'); stopConfetti(); go(0); }
 $('#again').addEventListener('click',reset);
+$('#resch').addEventListener('click',()=>toast('Prototype: opens the slot picker'));
+$('#help').addEventListener('click',()=>toast('Prototype: opens a chat with support'));
 $('#restart').addEventListener('click',reset);
 $('#back').addEventListener('click',()=>{
   if($$('.sheet.open').length){ closeSheet(); return; }
   if(cur===0){ toast('Prototype: would return to Prescribed Services'); return; }
-  if(cur===6) stopConfetti();
+  if(cur===6||(cur===4&&approved)) return;   // approved or paid: the booking is locked
   go(cur===2?0:cur-1); });   // going back from Review skips the automatic Reading step
 $('#snd').addEventListener('click',e=>{ soundOn=!soundOn; const b=e.currentTarget; b.setAttribute('aria-pressed',soundOn);
   b.innerHTML=`${I(soundOn?'sound':'mute')}<span class="tx">Sound ${soundOn?'on':'off'}</span>`; });
