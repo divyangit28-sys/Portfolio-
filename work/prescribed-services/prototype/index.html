@@ -81,6 +81,10 @@ h2{font-size:21px;font-weight:700;margin:4px 0 0;text-wrap:balance;letter-spacin
 .ib.rm:hover{color:var(--red)}
 .ib .i{width:17px;height:17px}
 .stack8{display:flex;flex-direction:column;gap:8px}
+.sec{display:flex;align-items:center;justify-content:space-between;margin:2px 0 -4px}
+.sec .lbl{margin:0}
+.ib.rm{color:var(--red);background:#fdf0ef}
+.ib.rm:hover{background:#fbe1df;color:var(--red)}
 
 .rx{background:var(--soft)}
 .rx .doc{flex:none;width:34px;height:42px;border-radius:5px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;gap:4px;padding:8px 6px}
@@ -340,7 +344,6 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
   <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M9 16v-2.5M12 16v-5M15 16v-3.5"/></symbol>
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.3-4.3"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L9 19H5v-4z"/><path d="M13 7l4 4"/></symbol>
   <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/><path d="M10 11v5M14 11v5"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 16H3z"/><path d="M12 10v4.5M12 17.3v.2"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
@@ -417,9 +420,9 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <!-- 3 Review -->
     <section class="screen" data-step="Review" id="rev">
       <h2>Check the details we found</h2>
-      <p class="sub">Edit or remove any test before you continue.</p>
+      <p class="sub">Remove or add tests before you continue.</p>
       <div id="patientBox" class="stack8"></div>
-      <div class="lbl">Tests</div>
+      <div class="sec"><div class="lbl">Tests</div><button class="link" id="editTests" aria-pressed="false">Edit</button></div>
       <div id="testList" class="stack8"></div>
       <button class="add" id="addTest"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg>Add a missing test</button>
       <div class="card ben"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></div><div class="col"><div class="bn">Lab package</div><div class="bc" id="benTxt">Applied · covers all 3 tests</div></div><button class="link" id="benMore">View details</button></div>
@@ -529,7 +532,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
     </div>
   </div>
 
-  <!-- add or replace tests -->
+  <!-- add missing tests -->
   <div class="sheet" id="sheetTests" aria-hidden="true">
     <div class="top"><button class="back" data-close aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><h2 id="tTitle">Add tests</h2></div>
     <div class="body">
@@ -636,8 +639,8 @@ const RX={
 };
 const MEMBERS=[{name:'Divi Sharma',rel:'Self',age:32,g:'Female'},{name:'Arjun Sharma',rel:'Spouse',age:35,g:'Male'},{name:'Meena Sharma',rel:'Mother',age:61,g:'Female'}];
 const BAL=3600, BEN_TOTAL=5000;
-let members=MEMBERS.map(m=>({...m})), src='cnh', items=[], unsure=null, member=null, readName='';
-function startFrom(s){ src=s; const r=RX[s]; items=r.tests.slice(); unsure=r.unsure?{id:r.unsure,state:'pending'}:null; member=r.member; readName=r.read; approved=false; renderReview(); }
+let editing=false, members=MEMBERS.map(m=>({...m})), src='cnh', items=[], unsure=null, member=null, readName='';
+function startFrom(s){ src=s; const r=RX[s]; items=r.tests.slice(); unsure=r.unsure?{id:r.unsure,state:'pending'}:null; member=r.member; readName=r.read; approved=false; editing=false; renderReview(); }
 /* tests that will be booked: everything except an unsure test the patient removed */
 const active=()=>items.filter(id=>!(unsure&&unsure.id===id&&unsure.state==='removed'));
 const countWords=n=>n===1?'your test':n===2?'both tests':`all ${n} tests`;
@@ -730,16 +733,17 @@ function renderReview(){
     if(unsure&&unsure.id===id&&unsure.state==='removed')
       return `<div class="card removed"><span class="ic">${I(t.ic)}</span><div class="col"><div class="t">${esc(t.n)}</div><div class="s">Removed · it won't be booked</div></div><button class="link" data-un="pending">Undo</button></div>`;
     return `<div class="card"><span class="ic">${I(t.ic)}</span><div class="col"><div class="t">${esc(t.n)}</div><div class="s">${esc(t.m)}</div></div>
-      <button class="ib" data-edit="${id}" aria-label="Edit ${esc(t.n)}">${I('edit')}</button><button class="ib rm" data-rm="${id}" aria-label="Remove ${esc(t.n)}">${I('trash')}</button></div>`;
+      ${editing?`<button class="ib rm" data-rm="${id}" aria-label="Remove ${esc(t.n)}">${I('trash')}</button>`:''}</div>`;
   }).join('');
   const n=active().length, total=active().reduce((s,id)=>s+CAT[id].p,0);
+  $('#editTests').textContent=editing?'Done':'Edit'; $('#editTests').setAttribute('aria-pressed',editing);
   $('#benTxt').textContent=total<=BAL?`Applied · covers ${countWords(n)}`:`Applied · covers ${inr(BAL)}, you pay the rest`;
 }
 $('#rev').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b) return;
   if(b.dataset.un){ unsure.state=b.dataset.un; renderReview(); if(b.dataset.un!=='pending') toast(`${CAT[unsure.id].n} ${b.dataset.un}`); }
   else if(b.dataset.rm){ removeTest(b.dataset.rm); }
-  else if(b.dataset.edit){ openTests('replace',b.dataset.edit); }
+  else if(b.id==='editTests'){ editing=!editing; renderReview(); }
   else if(b.dataset.who){ openWho(b.dataset.who); }
 });
 function removeTest(id){
@@ -752,6 +756,7 @@ function nudge(el,msg){ play('error'); const b=$('#proceed'); b.classList.remove
 $('#proceed').addEventListener('click',()=>{
   if(member==null) return nudge($('#whoCard'),'Match the patient first');
   if(unsure&&unsure.state==='pending') return nudge($('#unsureCard'),`Add or remove ${CAT[unsure.id].n} first`);
+  if(editing){ editing=false; renderReview(); }
   go(3);
 });
 
@@ -801,28 +806,26 @@ $('#useMem').addEventListener('click',()=>{
   member=pickMem; renderReview(); closeSheet('sheetWho'); toast(`Booking for ${members[member].name}`);
 });
 
-/* add missing tests (search, then select) or replace one */
-let tMode='add', tTarget=null, tPick=new Set();
-function openTests(m,target){ tMode=m; tTarget=target||null; tPick=new Set(); $('#tq').value='';
-  $('#tTitle').textContent=m==='add'?'Add tests':`Replace ${CAT[target].n}`; renderPicks(); openSheet('sheetTests'); }
+/* add missing tests: search, then select one or more */
+let tPick=new Set();
+function openTests(){ tPick=new Set(); $('#tq').value=''; renderPicks(); openSheet('sheetTests'); }
 function renderPicks(){
   const q=$('#tq').value.trim().toLowerCase();
   const ids=Object.keys(CAT).filter(id=>!items.includes(id)).filter(id=>!q||CAT[id].n.toLowerCase().includes(q)||CAT[id].k.includes(q));
-  $('#tList').innerHTML=ids.length?ids.map(id=>`<button class="pick${tPick.has(id)?' sel':''}" data-id="${id}"><span class="${tMode==='add'?'box':'radio'}"></span><span class="col"><span class="t">${esc(CAT[id].n)}</span><span class="s">${esc(CAT[id].m)}</span></span><span class="price">${inr(CAT[id].p)}</span></button>`).join('')
+  $('#tList').innerHTML=ids.length?ids.map(id=>`<button class="pick${tPick.has(id)?' sel':''}" data-id="${id}"><span class="box"></span><span class="col"><span class="t">${esc(CAT[id].n)}</span><span class="s">${esc(CAT[id].m)}</span></span><span class="price">${inr(CAT[id].p)}</span></button>`).join('')
     :`<p class="empty">No tests match “${esc(q)}”.</p>`;
   const n=tPick.size, d=$('#tDo'); d.disabled=!n;
-  d.textContent=tMode==='add'?(n?`Add ${n} test${n>1?'s':''}`:'Select tests to add'):(n?'Replace test':'Select a test');
+  d.textContent=n?`Add ${n} test${n>1?'s':''}`:'Select tests to add';
 }
 $('#tq').addEventListener('input',renderPicks);
 $('#tList').addEventListener('click',e=>{ const b=e.target.closest('.pick'); if(!b) return; const id=b.dataset.id;
-  if(tMode==='replace') tPick=new Set([id]); else tPick.has(id)?tPick.delete(id):tPick.add(id); renderPicks(); });
+  tPick.has(id)?tPick.delete(id):tPick.add(id); renderPicks(); });
 $('#tDo').addEventListener('click',()=>{
   const ids=[...tPick]; if(!ids.length) return;
-  if(tMode==='add'){ items.push(...ids); toast(ids.length>1?`${ids.length} tests added`:`${CAT[ids[0]].n} added`); }
-  else { items[items.indexOf(tTarget)]=ids[0]; if(unsure&&unsure.id===tTarget) unsure=null; toast(`Replaced with ${CAT[ids[0]].n}`); }
+  items.push(...ids); toast(ids.length>1?`${ids.length} tests added`:`${CAT[ids[0]].n} added`);
   renderReview(); closeSheet('sheetTests');
 });
-$('#addTest').addEventListener('click',()=>openTests('add'));
+$('#addTest').addEventListener('click',()=>openTests());
 
 /* benefit details */
 $('#benMore').addEventListener('click',()=>{
