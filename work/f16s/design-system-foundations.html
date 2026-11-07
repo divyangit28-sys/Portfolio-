@@ -24,7 +24,9 @@ body{margin:0}
 .trow .m{font-family:'Roboto',sans-serif;color:#5f6778;}
 .tok{font-family:'Roboto',sans-serif;font-size:13px;color:#6f788b;margin-top:10px;}
 .tokn{font-size:15px;font-weight:600;margin-top:12px;}
-.bp{display:grid;grid-template-columns:150px 140px 110px 90px minmax(0,1fr);gap:16px;padding:14px 0;border-top:1px solid #eceef2;font-size:15px;align-items:center;}
+.bp{display:grid;grid-template-columns:170px 180px 120px 110px minmax(0,1fr);gap:16px;padding:16px 0;border-top:1px solid #eceef2;font-size:15px;line-height:1.45;align-items:center;}
+.spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 32px;}
+.spec .v{font-size:17px;line-height:1.4;margin-top:6px;color:#2b3140;}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"><style>
 /* shared case-study header: the portfolio's top bar, with the way back, the project and its sections */
@@ -59,7 +61,7 @@ body{margin:0}
 <div class="pf-board">
 
 
-<div style="width:1400px;height:3880px;box-sizing:border-box;padding:72px 120px;display:flex;flex-direction:column;background:#f3f4f6;font-family:'Manrope',sans-serif;color:#2b3140;">
+<div style="width:1400px;height:5100px;box-sizing:border-box;padding:72px 120px;display:flex;flex-direction:column;background:#f3f4f6;font-family:'Manrope',sans-serif;color:#2b3140;">
 
   <!-- top bar -->
   <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:28px;border-bottom:1px solid #e3e5ea;">
@@ -399,7 +401,7 @@ body{margin:0}
   <!-- layout -->
   <div class="ey" style="margin-top:80px;">Layout and breakpoints</div>
   <div class="card" style="margin-top:24px;">
-    <div style="display:grid;grid-template-columns:460px minmax(0,1fr);gap:48px;align-items:start;">
+    <div style="display:grid;grid-template-columns:460px minmax(0,1fr);gap:56px;align-items:center;">
       <div>
         <div style="height:300px;border-radius:20px;background:#e6f3fe;padding:12px;display:flex;gap:12px;">
           <div style="width:72px;border-radius:12px;background:#f2f9ff;display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:10px;">
@@ -412,23 +414,28 @@ body{margin:0}
             </div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px;margin-top:20px;font-size:15px;">
-          <div><b>Sidebar</b> <span style="color:#6f788b;">260 px, fixed</span></div>
-          <div><b>Header</b> <span style="color:#6f788b;">96 px</span></div>
-          <div><b>Work panel</b> <span style="color:#6f788b;">32 px padding, radius 32</span></div>
-          <div><b>Grid</b> <span style="color:#6f788b;">12 columns, 24 px gutter</span></div>
-          <div><b>Website</b> <span style="color:#6f788b;">1200 px max content</span></div>
-          <div><b>Controls</b> <span style="color:#6f788b;">48 px, compact 32 px</span></div>
-        </div>
       </div>
       <div>
-        <div class="bp lbl" style="border-top:none;font-size:12px;"><span>Breakpoint</span><span>Width</span><span>Columns</span><span>Margin</span><span>Navigation</span></div>
-        <div class="bp"><span style="font-weight:600;">Desktop</span><span class="r" style="font-family:'Roboto';">1280 px and up</span><span>12</span><span>32 px</span><span>Full sidebar with labels</span></div>
-        <div class="bp"><span style="font-weight:600;">Laptop</span><span style="font-family:'Roboto';">1024–1279</span><span>12</span><span>24 px</span><span>Sidebar collapses to 80 px icons</span></div>
-        <div class="bp"><span style="font-weight:600;">Tablet</span><span style="font-family:'Roboto';">768–1023</span><span>8</span><span>24 px</span><span>Sidebar opens as a drawer; boards scroll sideways</span></div>
-        <div class="bp"><span style="font-weight:600;">Mobile</span><span style="font-family:'Roboto';">Below 768</span><span>4</span><span>16 px</span><span>Top bar with menu; one column, cards stack</span></div>
-        <div class="note" style="margin-top:16px;">The shell sizes come from the prototypes. The breakpoints are proposed for the responsive build.</div>
+        <div style="font-size:18px;font-weight:600;">Shell sizes</div>
+        <div class="note" style="margin-top:6px;">The fixed parts of the product frame, taken from the prototypes.</div>
+        <div class="spec" style="margin-top:28px;">
+          <div><div class="lbl" style="font-size:12px;">Sidebar</div><div class="v">260 px, fixed</div></div>
+          <div><div class="lbl" style="font-size:12px;">Header</div><div class="v">96 px</div></div>
+          <div><div class="lbl" style="font-size:12px;">Work panel</div><div class="v">32 px padding, radius 32</div></div>
+          <div><div class="lbl" style="font-size:12px;">Grid</div><div class="v">12 columns, 24 px gutter</div></div>
+          <div><div class="lbl" style="font-size:12px;">Website</div><div class="v">1200 px max content</div></div>
+          <div><div class="lbl" style="font-size:12px;">Controls</div><div class="v">48 px, compact 32 px</div></div>
+        </div>
       </div>
+    </div>
+    <div style="margin-top:40px;padding-top:28px;border-top:1px solid #eceef2;">
+      <div style="font-size:18px;font-weight:600;">Breakpoints</div>
+      <div class="note" style="margin-top:6px;">Proposed for the responsive build.</div>
+      <div class="bp lbl" style="border-top:none;font-size:12px;margin-top:20px;"><span>Breakpoint</span><span>Width</span><span>Columns</span><span>Margin</span><span>Navigation</span></div>
+      <div class="bp"><span style="font-weight:600;">Desktop</span><span style="font-family:'Roboto';">1280 px and up</span><span>12</span><span>32 px</span><span>Full sidebar with labels</span></div>
+      <div class="bp"><span style="font-weight:600;">Laptop</span><span style="font-family:'Roboto';">1024–1279 px</span><span>12</span><span>24 px</span><span>Sidebar collapses to 80 px icons</span></div>
+      <div class="bp"><span style="font-weight:600;">Tablet</span><span style="font-family:'Roboto';">768–1023 px</span><span>8</span><span>24 px</span><span>Sidebar opens as a drawer; boards scroll sideways</span></div>
+      <div class="bp"><span style="font-weight:600;">Mobile</span><span style="font-family:'Roboto';">Below 768 px</span><span>4</span><span>16 px</span><span>Top bar with menu; one column, cards stack</span></div>
     </div>
   </div>
 
