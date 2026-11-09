@@ -472,7 +472,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
         <div class="addr" id="addrCard"><div class="ic"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></div><div class="col"><div class="t" id="whereT">Collect from · Home</div><div class="s" id="where">Flat 302, Palm Residency, Andheri W</div></div><button class="link" id="chgAddr">Change</button></div>
         <h3>Preferred slot</h3>
         <p class="sub" id="timeFor" hidden style="margin-top:0"></p>
-        <div class="note"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span><b>These are preferred slots.</b> We'll hold your pick for 30 minutes. The final slot is confirmed after approval.</span></div>
+        <div class="note"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg><span><b>These are preferred slots.</b> We'll confirm the final slot once your prescription is approved.</span></div>
         <div class="dates" id="dates"></div>
         <div class="part"><svg class="i" aria-hidden="true"><use href="#i-sunrise"/></svg>Morning</div>
         <div class="slots"><button class="slot" data-t="7–8 AM">7–8 AM</button><button class="slot sel" data-t="8–9 AM">8–9 AM</button><button class="slot" data-t="9–10 AM">9–10 AM</button></div>
@@ -480,12 +480,12 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-in
         <div class="slots"><button class="slot" data-t="12–1 PM">12–1 PM</button><button class="slot" data-t="2–3 PM">2–3 PM</button><button class="slot" data-t="4–5 PM">4–5 PM</button></div>
       </div>
       <div class="grow"></div>
-      <button class="cta" id="bookBtn">Hold this slot</button>
+      <button class="cta" id="bookBtn">Book preferred slot</button>
     </section>
 
     <!-- 5 Approval -->
     <section class="screen" data-step="Approval">
-      <div class="wait" id="wait"><div class="spin"></div><div class="t" style="font-size:16px">Finishing approval…</div><div class="s">Your slot is held. This usually takes under 5 minutes.</div></div>
+      <div class="wait" id="wait"><div class="spin"></div><div class="t" style="font-size:16px">Finishing approval…</div><div class="s">Your preferred slot is saved. This usually takes under 5 minutes.</div></div>
       <div id="appr" hidden style="display:contents">
         <div class="hero g pop"><div class="badge"><svg viewBox="0 0 26 26"><path d="M6 13.5l5 5 9-10"/></svg></div><div class="big" id="apprBig">All 3 tests approved</div><div class="s" style="color:var(--ink)">Approved in 4 minutes · checked test by test</div></div>
         <div class="items" id="items"></div>
@@ -944,7 +944,7 @@ function updateBook(){
 $('#bookBtn').addEventListener('click',e=>{
   if(mode==='lab'&&!selLab){ play('error'); const b=e.currentTarget; b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
     toast('Choose a lab first'); $('#slotScreen').scrollTo({top:$('#labBlock').offsetTop-12,behavior:reduce?'auto':'smooth'}); return; }
-  toast(`Held ${date} Oct, ${slot} for 30 minutes`); go(4); });
+  toast(`Preferred slot saved: ${date} Oct, ${slot}`); go(4); });
 
 /* ---------- restart, back, sound ---------- */
 function reset(){ approved=false; closeSheet(); selLab=null; mode='home'; selAddr=0; members=MEMBERS.map(m=>({...m}));
