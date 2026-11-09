@@ -10,7 +10,7 @@
       "sector": "Health tech · Clinics",
       "title": "From paper registers to one simple record",
       "summary": "Helping on-site clinics swap paper registers for one record that works for doctors, nurses and the employers who care for them.",
-      "role": "Core UX research",
+      "role": "UX research and design",
       "format": "End-to-end responsive website",
       "metric": {
         "value": "40 sec",
@@ -37,7 +37,7 @@
           },
           {
             "k": "My role",
-            "v": "Core UX research"
+            "v": "UX research and design"
           }
         ]
       },
