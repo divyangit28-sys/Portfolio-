@@ -602,6 +602,13 @@ body{overflow-x:clip}
 .mp .ph.im img{display:block;width:100%;height:auto;margin-top:34px}
 </style>
 <style>
+/* showcase: drag or swipe the belt */
+.sc-stage{cursor:grab;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.sc-stage.drag{cursor:grabbing}
+.sc-stage:focus-visible{outline:2px solid #8fa8f5;outline-offset:6px;border-radius:28px}
+.sc-stage img{-webkit-user-drag:none;pointer-events:none}
+</style>
+<style>
 /* product moments: screens from the final prototype */
 .phones .ph.ut-img{height:auto;padding:0;display:block;aspect-ratio:390/800}
 .phones .ph.ut-img img{display:block;width:100%;height:100%}
@@ -745,7 +752,7 @@ body{overflow-x:clip}
   <section class="panel dark" id="flow" aria-label="Wireframes to prototype showcase">
     <div class="head">
       <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Wireframe to prototype</p><h2>Every screen, from grey box <em>to the real thing</em></h2></div>
-      <p>The full lab-test flow. Each wireframe becomes the finished screen as it reaches the centre. <a href="prototype/" target="_blank" rel="noopener">Open the clickable prototype ↗</a></p>
+      <p>The full lab-test flow. Each wireframe becomes the finished screen as it reaches the centre. Drag or swipe to move through them yourself. <a href="prototype/" target="_blank" rel="noopener">Open the clickable prototype ↗</a></p>
     </div>
     <div class="stagewrap">
       <div class="sc-stage" id="scStage">
@@ -1075,23 +1082,70 @@ body{overflow-x:clip}
   const names=['Upload your prescription','Reading your prescription','Check the details we found','Pick your address and slot','All tests approved','Review and confirm','Order details'];
   const dots=document.getElementById('scDots'), K=document.getElementById('scK'), V=document.getElementById('scV');
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let idx=N, timer=null, playing=!reduce, visible=true, hover=false;
+  /* idx: the screen at the centre; pos: where the belt actually is (fractional while dragging) */
+  let idx=N, pos=N, timer=null, playing=!reduce, visible=true, hover=false, dragging=false, manualAt=0;
   const mod=i=>((i%N)+N)%N;
   names.forEach((n,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Show '+n);b.addEventListener('click',()=>{go(i-mod(idx));restart();});dots.appendChild(b);});
-  function place(anim){track.style.transition=anim&&!reduce?'transform .95s cubic-bezier(.65,0,.35,1)':'none';track.style.transform='translateX('+(-(idx*(W+G)+W/2))+'px)';}
+  function place(anim,dur){track.style.transition=anim&&!reduce?'transform '+(dur||.95)+'s cubic-bezier(.65,0,.35,1)':'none';track.style.transform='translateX('+(-(pos*(W+G)+W/2))+'px)';}
   function show(){const k=mod(idx);scr.forEach((s,j)=>s.classList.toggle('on',j===k));items.forEach((el,j)=>el.classList.toggle('mid',j===idx));[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===k));K.textContent='Screen '+(k+1)+' of '+N;V.textContent=names[k];}
-  function norm(){if(idx<N||idx>=2*N){idx=mod(idx)+N;place(false);void track.offsetWidth;show();}}
-  function go(d){norm();if(!d)return;idx+=d;place(true);show();if(reduce)norm();}
+  /* keep the centre in the middle copy so the loop never runs out */
+  function norm(){if(dragging)return;if(idx<N||idx>=2*N){const d=mod(idx)+N-idx;idx+=d;pos+=d;place(false);void track.offsetWidth;show();}}
+  function go(d){norm();if(!d)return;idx+=d;pos=idx;place(true);show();if(reduce)norm();}
   track.addEventListener('transitionend',e=>{if(e.target===track&&e.propertyName==='transform')norm();});
-  function tick(){if(playing&&visible&&!hover&&!document.hidden)go(1);}
+  /* autoplay waits a few seconds after someone moves the belt themselves */
+  function tick(){if(playing&&visible&&!hover&&!dragging&&!document.hidden&&Date.now()-manualAt>4500)go(1);}
   function restart(){clearInterval(timer);timer=setInterval(tick,3200);}
   document.getElementById('scPrev').addEventListener('click',()=>{go(-1);restart();});
   document.getElementById('scNext').addEventListener('click',()=>{go(1);restart();});
   const pb=document.getElementById('scPlay');
   function setPlay(p){playing=p;pb.textContent=p?'❚❚':'▶';pb.setAttribute('aria-label',p?'Pause':'Play');}
   pb.addEventListener('click',()=>{setPlay(!playing);restart();});
-  stage.addEventListener('mouseenter',()=>hover=true);stage.addEventListener('mouseleave',()=>hover=false);
+  /* a mouse resting on the belt pauses it; a finger's tap does not */
+  stage.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')hover=true;});stage.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')hover=false;});
   if('IntersectionObserver' in window){new IntersectionObserver(es=>{visible=es[0].isIntersecting;},{threshold:.2}).observe(stage);}
+
+  /* ---- moving it by hand ---- */
+  const step=()=>{const a=items[0].getBoundingClientRect(),b=items[1].getBoundingClientRect();return (b.left-a.left)||(W+G);};
+  const clamp=p=>Math.max(1,Math.min(3*N-2,p));
+  function freeze(){const m=new DOMMatrixReadOnly(getComputedStyle(track).transform);pos=(-m.m41-W/2)/(W+G);place(false);}
+  function live(p){pos=clamp(p);const r=Math.round(pos);if(r!==idx){idx=r;show();}place(false);}
+  function settle(t,dur){idx=clamp(t);const moving=Math.abs(pos-idx)>.001;pos=idx;place(moving,dur);show();manualAt=Date.now();restart();if(!moving||reduce)norm();}
+  let sx=0,sp=0,lx=0,lt=0,vx=0,moved=false,pid=null;
+  stage.addEventListener('pointerdown',e=>{
+    if(e.pointerType==='mouse'&&e.button!==0)return;
+    freeze();dragging=true;moved=false;pid=e.pointerId;sx=lx=e.clientX;sp=pos;lt=e.timeStamp;vx=0;
+  });
+  stage.addEventListener('pointermove',e=>{
+    if(!dragging||e.pointerId!==pid)return;
+    const dx=e.clientX-sx;
+    if(!moved){if(Math.abs(dx)<5)return;moved=true;stage.classList.add('drag');try{stage.setPointerCapture(pid);}catch(_){}}
+    const dt=Math.max(1,e.timeStamp-lt);vx=.75*((e.clientX-lx)/dt)+.25*vx;lx=e.clientX;lt=e.timeStamp;
+    live(sp-dx/step());
+  });
+  function end(e){
+    if(!dragging||e.pointerId!==pid)return;
+    dragging=false;stage.classList.remove('drag');
+    if(!moved){settle(idx,.5);return;}
+    const fling=Math.max(-2,Math.min(2,-vx*120/step()));   // a quick flick carries on a little
+    settle(Math.round(pos+fling),.55);
+  }
+  stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end);
+  /* trackpads and shift + wheel scroll it sideways; plain vertical scrolling still scrolls the page */
+  let wheelT=null;
+  stage.addEventListener('wheel',e=>{
+    const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:(e.shiftKey?e.deltaY:0);
+    if(!d)return;
+    e.preventDefault();
+    if(wheelT===null)freeze();
+    live(pos+(e.deltaMode===1?d*16:d)/step());
+    clearTimeout(wheelT);wheelT=setTimeout(()=>{wheelT=null;settle(Math.round(pos),.45);},140);
+  },{passive:false});
+  stage.tabIndex=0;stage.setAttribute('role','region');stage.setAttribute('aria-label','Screens. Drag, swipe or use the arrow keys to move through them.');
+  stage.addEventListener('keydown',e=>{
+    if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;
+    e.preventDefault();go(e.key==='ArrowRight'?1:-1);manualAt=Date.now();restart();
+  });
+
   setPlay(playing);place(false);show();restart();
 })();
 </script>
