@@ -613,6 +613,69 @@ body{overflow-x:clip}
 .phones .ph.ut-img{height:auto;padding:0;display:block;aspect-ratio:390/800}
 .phones .ph.ut-img img{display:block;width:100%;height:100%}
 </style>
+<style>
+/* agent dashboard: sources open beside the case */
+.ops.wide{grid-template-columns:minmax(0,1fr)}
+.ops.wide .points{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+@media (max-width:960px){.ops.wide .points{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.ops.wide .points{grid-template-columns:minmax(0,1fr)}}
+.dash .tt h5 .rel{display:inline-block;vertical-align:2px;margin-left:6px;font-size:10px;font-weight:700;color:#2f5fd9;background:#e8eeff;border-radius:999px;padding:2px 8px}
+.dash .acts{display:flex;gap:6px;flex-wrap:wrap}
+.dash .ab{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:10.5px;font-weight:700;color:#1c2029;background:#fff;border:1px solid #d9dee8;border-radius:7px;padding:6px 10px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.dash .ab svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.dash .ab:hover{border-color:#2f5fd9;color:#2f5fd9}
+.dash .ab[aria-pressed="true"]{background:#2f5fd9;border-color:#2f5fd9;color:#fff}
+.dash .ab:focus-visible,.dash .rtab:focus-visible,.dash .rx-x:focus-visible,.dash .zb:focus-visible,.dash .item:focus-visible{outline:2px solid #2f5fd9;outline-offset:2px}
+.dash .bd{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
+.dash.split .bd{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:700px){.dash.split .bd{grid-template-columns:minmax(0,1fr)}}
+.dash .case{display:flex;flex-direction:column;gap:10px;min-width:0}
+.dash .ref{background:#fff;border:1px solid #e1e4ea;border-radius:10px;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.dash .rh{display:flex;align-items:center;gap:2px;padding:4px 6px 0 6px;border-bottom:1px solid #e1e4ea}
+.dash .rtab{font:inherit;font-size:10.5px;font-weight:700;color:#737a87;background:none;border:0;border-bottom:2px solid transparent;padding:6px 8px 7px;cursor:pointer}
+.dash .rtab[aria-selected="true"]{color:#1c2029;border-bottom-color:#2f5fd9}
+.dash .rx-x{margin-left:auto;font:inherit;font-size:14px;line-height:1;color:#737a87;background:none;border:0;border-radius:6px;width:26px;height:26px;cursor:pointer}
+.dash .rx-x:hover{background:#f0f2f6;color:#1c2029}
+.dash .rp{padding:10px;display:flex;flex-direction:column;gap:8px}
+.dash .vt{display:flex;align-items:center;gap:5px;font-size:9.5px;color:#737a87}
+.dash .vt .fn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dash .zb{font:inherit;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:6px;border:1px solid #d9dee8;background:#fff;color:#1c2029;cursor:pointer;display:grid;place-items:center;padding:0}
+.dash .zb:hover{border-color:#2f5fd9;color:#2f5fd9}
+.dash .zv{min-width:34px;text-align:center;font-weight:700;color:#1c2029}
+.dash .pstage{background:#eef1f6;border-radius:8px;height:330px;overflow:auto;display:flex;align-items:flex-start;justify-content:center;padding:16px}
+.dash .rxp{flex:none;width:230px;background:#fff;border-radius:4px;box-shadow:0 6px 16px rgba(28,37,65,.12);padding:14px 16px;display:flex;flex-direction:column;gap:7px;transition:transform .25s}
+.dash .rxp .ph1{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:7px;border-bottom:1px solid #e1e4ea}
+.dash .rxp .dn{font-size:10.5px;font-weight:800}
+.dash .rxp .dr{font-size:8.5px;color:#737a87}
+.dash .rxp .rxs{font:italic 700 16px Georgia,serif;color:#c4c9d3}
+.dash .rxp .hw{font-family:"Segoe Print","Bradley Hand","Noteworthy","Comic Sans MS",cursive;font-size:11px;color:#2d3340;line-height:1.5;border-radius:4px;padding:1px 4px;margin:0 -4px;transition:background .2s,box-shadow .2s}
+.dash .rxp .hw.hl{background:rgba(47,95,217,.1);box-shadow:0 0 0 1.5px #2f5fd9}
+.dash .rxp .hw.hl.w{background:rgba(232,176,74,.18);box-shadow:0 0 0 1.5px #e8b04a}
+.dash .rxp .sig{align-self:flex-end;margin-top:10px;width:64px;height:16px;border-bottom:1.5px solid #8d99b3;border-radius:0 0 40% 10%}
+.dash .rxp .stp{align-self:flex-end;font-size:8px;color:#737a87}
+.dash .vn{font-size:9.5px;color:#737a87}
+.dash .bh{background:#e6f6eb;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px}
+.dash .bh .bbig{font-size:16px;font-weight:800}
+.dash .bh .bbig span{font-size:10px;font-weight:500;color:#737a87}
+.dash .mtr{height:6px;border-radius:999px;background:#cde9d6;overflow:hidden}
+.dash .mtr b{display:block;height:100%;width:72%;background:#1f8a48;border-radius:999px}
+.dash .kv2{display:flex;justify-content:space-between;gap:8px;padding:5px 0;border-top:1px solid #eef0f4}
+.dash .kv2 span{color:#737a87}
+.dash .sec2{font-size:9.5px;font-weight:800;color:#737a87;margin-top:2px}
+.dash .ls{margin:0;padding-left:14px;line-height:1.6}
+.dash .ls .x{color:#a3402f;font-weight:700}
+.dash .pdf{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid #e1e4ea;border-radius:8px}
+.dash .pdf .pi{flex:none;width:26px;height:32px;border-radius:4px;background:#fdecea;color:#c9473f;font-size:7.5px;font-weight:800;display:grid;place-items:center}
+.dash .pdf .pt{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.dash .pdf .pt span{color:#737a87;font-size:9.5px}
+.dash .pdf .po{font-weight:700;color:#2f5fd9;white-space:nowrap}
+.dash .cl{border-left:2px solid #d9dee8;padding:2px 0 2px 9px;display:flex;flex-direction:column;gap:2px;line-height:1.45}
+.dash .cl b{font-size:10px}
+.dash .cl.hit{border-left-color:#e8b04a;background:#fff8e6;border-radius:0 6px 6px 0;padding:6px 8px 6px 9px}
+.dash .cl .why{font-size:9px;font-weight:700;color:#a8650a}
+.dash .item.lit{border-color:#2f5fd9;box-shadow:0 0 0 1px #2f5fd9}
+.dash .item.flag.lit{border-color:#e8b04a;box-shadow:0 0 0 1px #e8b04a}
+</style>
 <header class="dt-nav"><div class="dt-nav-in"><a class="dt-home" href="../../#work" aria-label="Back to the portfolio"><span class="dt-arr" aria-hidden="true">←</span><img src="data:image/png;base64,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" alt="" width="32" height="32"><span class="dt-lab">Divyangi's <b>Lab</b></span></a><span class="dt-sep" aria-hidden="true"></span><span class="dt-proj">Prescribed Services</span><nav class="dt-links" aria-label="Sections"><a href="#problem">Problem</a><a href="#people">People</a><a href="#flow">Flow</a><a href="#product">Product</a><a href="#ops">Ops</a><a href="#testing">Testing</a><a href="#results">Results</a></nav><a class="dt-cta" href="prototype/" target="_blank" rel="noopener">Try the prototype ↗</a></div></header>
 
 <header class="wrap hero" id="top">
@@ -919,32 +982,112 @@ body{overflow-x:clip}
   <section class="panel" id="ops">
     <div class="head">
       <div style="display:flex;flex-direction:column;gap:14px"><p class="eyebrow">Operations</p><h2>A human stays in the loop, <em>with less typing</em></h2></div>
-      <p>I also designed the agents' dashboard. AI does the typing and routine checks. The agent decides on the prescription, then each test.</p>
+      <p>I also designed the agents' dashboard. AI does the typing and routine checks. The agent decides on the prescription, then each test. Open the prescription, benefits or policy to see them side by side with the case.</p>
     </div>
     <div class="ops">
-      <div class="dash" aria-label="Ops dashboard: reviewing a case item by item">
+      <div class="dash" id="opsDash" aria-label="Agent dashboard: reviewing a case test by test">
         <div class="sb"><b>Rx Ops</b><span class="on">Queue</span><span>In review</span><span>Completed</span><span>My stats</span></div>
         <div class="mn">
-          <div class="tt"><h5>RX-20931 · Priya Sharma</h5><span class="chip g">● AI confidence: High</span><span class="chip b">Slot held · Sun 8–9 AM</span></div>
-          <div class="card">
-            <div class="row"><span class="nm">Step 1 · Prescription</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕ Not covered</span></div>
-            <div class="row"><span class="chip g">✓ Within 30 days</span><span class="chip g">✓ Doctor reg. verified</span><span class="chip g">✓ Not a duplicate</span></div>
+          <div class="tt"><h5>RX-20931 · Priya Sharma<span class="rel">Self</span></h5><span class="chip g">● AI confidence: High</span></div>
+          <div class="acts" role="group" aria-label="Open beside the case">
+            <button type="button" class="ab" data-v="rx" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.5h9l3.5 3.5v13.5H6z"/><path d="M15 3.5V7h3.5"/><path d="M9 10.5h6M9 13.5h6M9 16.5h3.5"/></svg>View Rx</button>
+            <button type="button" class="ab" data-v="ben" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l7 3v5.2c0 4.4-3 7.6-7 8.8-4-1.2-7-4.4-7-8.8V6.5z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/></svg>Benefits</button>
+            <button type="button" class="ab" data-v="pol" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h9.5L19 9v10.5H5z"/><path d="M14.5 4.5V9H19"/><path d="M8 13h8M8 16h5"/></svg>Policy document</button>
           </div>
-          <div class="card">
-            <div class="row"><span class="nm">Step 2 · Mark each item</span><span style="color:#2f5fd9;font-weight:700;font-size:10px">Accept AI suggestions</span></div>
-            <div class="card item" style="padding:8px 10px"><div class="row"><span class="nm">Complete blood count<small>Lab package · ₹350</small></span><span class="chip g">AI: Covered</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕</span></div></div>
-            <div class="card item" style="padding:8px 10px"><div class="row"><span class="nm">HbA1c<small>Lab package · ₹450</small></span><span class="chip g">AI: Covered</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕</span></div></div>
-            <div class="card item flag" style="padding:8px 10px"><div class="row"><span class="nm">Lipid profile<small>Lab package · ₹600</small></span><span class="chip a">AI: Not covered</span><span class="tg cov o">✓</span><span class="tg nc on">✕ Not covered</span></div><div class="row"><span class="rs">Out of policy coverage · not in company lab package ▾</span></div></div>
+          <div class="bd">
+            <div class="ref" hidden>
+              <div class="rh" role="tablist" aria-label="Sources">
+                <button type="button" class="rtab" role="tab" data-v="rx" aria-selected="false">Prescription</button>
+                <button type="button" class="rtab" role="tab" data-v="ben" aria-selected="false">Benefits</button>
+                <button type="button" class="rtab" role="tab" data-v="pol" aria-selected="false">Policy</button>
+                <button type="button" class="rx-x" aria-label="Close the side view">×</button>
+              </div>
+              <div class="rp" role="tabpanel" data-v="rx" aria-label="Prescription" hidden>
+                <div class="vt"><span class="fn">prescription_priya_12oct.jpg · page 1 of 1</span>
+                  <button type="button" class="zb" data-z="-" aria-label="Zoom out">−</button><span class="zv">100%</span>
+                  <button type="button" class="zb" data-z="+" aria-label="Zoom in">+</button><button type="button" class="zb" data-z="r" aria-label="Rotate">↻</button></div>
+                <div class="pstage"><div class="rxp">
+                  <div class="ph1"><div><div class="dn">Dr. N. Iyer, MBBS</div><div class="dr">Reg. KA-31877 · Indiranagar Clinic</div></div><div style="text-align:right"><div class="dr">12 Oct 2026</div><div class="rxs">Rx</div></div></div>
+                  <div class="hw" data-k="pt">Pt: Priya Sharma · 34 F</div>
+                  <div class="hw" data-k="cbc">1. CBC</div>
+                  <div class="hw" data-k="hba1c">2. HbA1c</div>
+                  <div class="hw w" data-k="lipid">3. Lipid profile (fasting)</div>
+                  <div class="hw" style="color:#737a87">Review with reports</div>
+                  <div class="sig"></div><div class="stp">Signed and stamped</div>
+                </div></div>
+                <div class="vn">Hover a test on the right to find it on the prescription.</div>
+              </div>
+              <div class="rp" role="tabpanel" data-v="ben" aria-label="Benefits" hidden>
+                <div class="bh"><b>Lab package · annual benefit from employer</b>
+                  <div class="bbig">₹3,600 <span>left of ₹5,000</span></div><div class="mtr"><b></b></div>
+                  <div class="vn">Valid till 31 Mar 2027 · self, spouse and 2 children</div></div>
+                <div><div class="kv2"><span>This case, covered tests</span><b>₹800</b></div><div class="kv2"><span>Left after approval</span><b>₹2,800</b></div><div class="kv2"><span>Used this year</span><b>2 orders</b></div></div>
+                <div class="sec2">Covers</div>
+                <ul class="ls"><li>Routine blood tests, including CBC</li><li>HbA1c and blood sugar</li><li>Liver, kidney and thyroid profiles</li><li>Vitamin D and B12</li></ul>
+                <div class="sec2">Doesn't cover</div>
+                <ul class="ls"><li><span class="x">Lipid profile</span></li><li>Scans and imaging</li></ul>
+              </div>
+              <div class="rp" role="tabpanel" data-v="pol" aria-label="Policy document" hidden>
+                <div class="pdf"><span class="pi">PDF</span><span class="pt"><b>Company health policy 2026–27</b><span>14 pages · updated 1 Apr 2026</span></span><span class="po">Open full ↗</span></div>
+                <div class="cl"><b>§2.1 Prescriptions</b>Dated within the last 30 days, signed, with the doctor's registration number.</div>
+                <div class="cl"><b>§4.2 Diagnostics</b>Tests in the lab package are covered up to the annual limit when a registered doctor prescribes them.</div>
+                <div class="cl hit"><b>§4.3 Exclusions</b>Lipid profile and imaging are not part of the lab package. Employees can pay for them separately.<span class="why">Matches the flag on Lipid profile</span></div>
+                <div class="cl"><b>§6.1 Family</b>Spouse and up to 2 children share the employee's annual limit.</div>
+              </div>
+            </div>
+            <div class="case">
+              <div class="card">
+                <div class="row"><span class="nm">Step 1 · Prescription</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕ Not covered</span></div>
+                <div class="row"><span class="chip g">✓ Within 30 days</span><span class="chip g">✓ Doctor reg. verified</span><span class="chip g">✓ Not a duplicate</span></div>
+              </div>
+              <div class="card">
+                <div class="row"><span class="nm">Step 2 · Mark each item</span><span style="color:#2f5fd9;font-weight:700;font-size:10px">Accept AI suggestions</span></div>
+                <div class="card item" data-k="cbc" tabindex="0" style="padding:8px 10px"><div class="row"><span class="nm">Complete blood count<small>Lab package · ₹350</small></span><span class="chip g">AI: Covered</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕</span></div></div>
+                <div class="card item" data-k="hba1c" tabindex="0" style="padding:8px 10px"><div class="row"><span class="nm">HbA1c<small>Lab package · ₹450</small></span><span class="chip g">AI: Covered</span><span class="tg cov">✓ Covered</span><span class="tg nc">✕</span></div></div>
+                <div class="card item flag" data-k="lipid" tabindex="0" style="padding:8px 10px"><div class="row"><span class="nm">Lipid profile<small>Lab package · ₹600</small></span><span class="chip a">AI: Not covered</span><span class="tg cov o">✓</span><span class="tg nc on">✕ Not covered</span></div><div class="row"><span class="rs">Out of policy coverage · not in company lab package ▾</span></div></div>
+              </div>
+              <div class="ft"><span><b>Partially approved</b> · 2 of 3 covered</span><span class="sub">Submit decision</span></div>
+            </div>
           </div>
-          <div class="ft"><span><b>Partially approved</b> · 2 of 3 covered</span><span class="sub">Submit decision</span></div>
         </div>
       </div>
       <div class="points">
         <div><h3>AI suggests, the agent decides</h3><p class="small">The AI's call comes pre-filled. Every rejection needs a reason the patient sees.</p></div>
         <div><h3>Attention goes where it's needed</h3><p class="small">Low confidence, expired prescriptions and duplicates are flagged, so clean cases move fast.</p></div>
+        <div><h3>Sources side by side</h3><p class="small">The prescription, the patient's benefits and the policy open next to the case, so checking takes a glance, not a search.</p></div>
         <div><h3>About 4 minutes per prescription</h3><p class="small">With no typing, each case takes about 4 minutes.</p></div>
       </div>
     </div>
+  <script>
+(()=>{
+  const d=document.getElementById('opsDash'); if(!d) return;
+  const ops=d.closest('.ops'), ref=d.querySelector('.ref');
+  const btns=[...d.querySelectorAll('.ab')], tabs=[...d.querySelectorAll('.rtab')], panes=[...d.querySelectorAll('.rp')];
+  let cur=null;
+  /* one of rx, ben or pol opens beside the case; null closes the split */
+  function open(v){
+    cur=v; ref.hidden=!v; d.classList.toggle('split',!!v); ops.classList.toggle('wide',!!v);
+    btns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.v===v)));
+    tabs.forEach(t=>{const on=t.dataset.v===v;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;});
+    panes.forEach(p=>p.hidden=p.dataset.v!==v);
+  }
+  btns.forEach(b=>b.addEventListener('click',()=>{open(cur===b.dataset.v?null:b.dataset.v);if(cur)d.scrollIntoView({block:'nearest',behavior:'smooth'});}));
+  tabs.forEach((t,i)=>{t.addEventListener('click',()=>open(t.dataset.v));
+    t.addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];open(n.dataset.v);n.focus();});});
+  d.querySelector('.rx-x').addEventListener('click',()=>{const was=cur;open(null);(btns.find(b=>b.dataset.v===was)||btns[0]).focus();});
+  /* zoom and rotate the prescription */
+  const paper=d.querySelector('.rxp'), zv=d.querySelector('.zv'); let z=1, r=0;
+  const fit=()=>{paper.style.zoom=z;paper.style.transform='rotate('+r+'deg)';zv.textContent=Math.round(z*100)+'%';};
+  d.querySelectorAll('.zb').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.z;
+    if(k==='+')z=Math.min(1.6,Math.round((z+.2)*10)/10);else if(k==='-')z=Math.max(.6,Math.round((z-.2)*10)/10);else r=(r+90)%360;fit();}));
+  /* a test on the right lights up its line on the prescription */
+  d.querySelectorAll('.item[data-k]').forEach(it=>{
+    const line=d.querySelector('.hw[data-k="'+it.dataset.k+'"]');
+    const on=()=>{it.classList.add('lit');if(line)line.classList.add('hl');}, off=()=>{it.classList.remove('lit');if(line)line.classList.remove('hl');};
+    it.addEventListener('mouseenter',on);it.addEventListener('mouseleave',off);it.addEventListener('focus',on);it.addEventListener('blur',off);
+  });
+})();
+</script>
   </section>
 
   <!-- COLLABORATION -->
